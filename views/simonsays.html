@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>Simon Says</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/simonsays.css" />
+</head>
+<body>
+  <header>
+    <a href="/">Home</a> 
+  </header>
+  <div id="div-board">   
+    <div id="item-all">
+      <div class= "item-row">
+        <div id = "div-item-green" class="div-item"></div>
+        <div id = "div-item-red" class="div-item"></div>
+      </div>
+      <div class="item-row">
+        <div id = "div-item-yellow" class="div-item"></div>
+        <div id = "div-item-blue" class="div-item"></div>
+      </div> 
+    </div><!-- End of item-all !-->
+
+    <div id="div-center">
+      <h1 id="text-title"> SIMON </h1>
+      <div id="div-options">
+        <div class="option-row">
+          <div class="option">
+            <div id="div-count">- -</div>
+            <h3 class="option-text">COUNT</h3>
+          </div>
+          <div class="option">
+            <div id="div-start" class="option-round"></div>
+            <h3 class="option-text">START</h3>
+          </div>
+          <div class="option">
+            <div id="div-strict-led"></div>
+            <div id="div-strict" class="option-round"></div>
+            <h3 class="option-text">STRICT</h3>
+          </div>
+        </div>
+        <div class="option-row">
+          <h3 class="option option-text">OFF</h3>
+          <div class="option clickable" id="div-on-off">
+            <div id="div-on-off-toggle"></div>
+          </div>
+          <h3 class="option option-text">ON</h3>
+        </div>
+      </div>
+    </div>
+  </div><!-- End of div-board !-->
+  
+  <script
+    src="https://code.jquery.com/jquery-2.2.1.min.js"
+    integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+    crossorigin="anonymous"
+  ></script>
+  
+  <script src="/js/simonsays.js" defer></script>
+  
+</body><!-- End of body !-->
+</html>

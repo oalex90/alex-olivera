@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Message Board</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <div class="container">
+      <a href="/">Home</a>
+      
+      <h1>Message Board</h1>
+      <h2>Instructions:</h2>
+      <ul>
+        <li>
+          Enter a project name to navigate to that project.
+        </li>
+        <li>
+          Once you are on the project page, you can create issues, mark them as closed, and delete them.
+        </li>
+      </ul>
+      
+      
+
+      <form id="messageboardForm">
+          <label for="board_input">Project to Open:</label>
+          <input id="board_input" type="text" name="board" value="test_board">
+          <input type="submit" value="Open Message Board">
+      </form>
+      
+      <hr style="margin: 50px">
+      
+      <h2>API</h2>
+      
+      <h3>/messageboard/api/threads/:board</h3>
+      
+      <h4>GET</h4>
+      <div>Input:
+        <code>/messageboard/api/threads/my_board</code>
+      </div>
+      <div>Output:
+        <code>
+          [{ "_id": "5da0e26809a80e03ea4b8de6,
+             "board": "my_board",
+             "text": "What is your favorite color?",
+             "created_on": "2019-09-09T16:16:27.617Z",
+             "bumped_on": "2019-09-09T16:16:27.617Z",
+             "replycount": 3,
+             "replies": [
+                {
+                "_id": "eexc01umk1nrox2w"
+                "text": "test3",
+                "created_on": "2019-10-11T20:46:59.018Z",
+                "reported": true
+                },
+                {
+                "_id": "eexc01n0k1nrh9x9",
+                "text": "test2",
+                "created_on": "2019-10-11T20:46:52.332Z",
+                "reported": false
+                },
+                {           
+                "_id": "4059ae1p9k1mlqal3",
+                "text": "test",
+                "created_on": "2019-10-11T20:38:01.879Z",
+                "reported": false
+                }
+              ]
+           }
+          ]
+        </code>
+      </div>
+      <h4>
+        POST
+      </h4>
+      <div>Input:
+        <code>
+          "text": "How did you like the movie 'Big'?",
+          "delete_password": "password",
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         [
+          { "_id": "5d802175f605150efe64b88e,
+             "board": "my_board",
+             "text": "How did you like the movie 'Big'?",
+             "created_on": "2019-10-16T23:57:41.830Z",
+             "bumped_on": "2019-10-17T02:54:22.088Z",
+             "replycount": 0,
+             "replies": []
+          },
+          { "_id": "5da0e26809a80e03ea4b8de6,
+             "board": "my_board",
+             "text": "What is your favorite color?",
+             "created_on": "2019-09-09T16:16:27.617Z",
+             "bumped_on": "2019-09-09T16:16:27.617Z",
+             "replycount": 3,
+             "replies": [
+                {
+                "_id": "eexc01umk1nrox2w"
+                "text": "test3",
+                "created_on": "2019-10-11T20:46:59.018Z",
+                "reported": true
+                },
+                {
+                "_id": "eexc01n0k1nrh9x9",
+                "text": "test2",
+                "created_on": "2019-10-11T20:46:52.332Z",
+                "reported": false
+                },
+                {           
+                "_id": "4059ae1p9k1mlqal3",
+                "text": "test",
+                "created_on": "2019-10-11T20:38:01.879Z",
+                "reported": false
+                }
+              ]
+           },
+          ]
+        </code>
+      </div>
+      
+      <h4>
+        PUT
+      </h4>
+      <div>
+        marks a thread as reported
+      </div>
+      <div>Input:
+        <code>
+          "thread_id": "5da0e26809a80e03ea4b8de6"
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         "Thread reported successfully"
+        </code>
+      </div>
+      
+      <h4>
+        DELETE
+      </h4>
+      <div>Input:
+        <code>
+          "thread_id": "5da0e26809a80e03ea4b8de6" 
+          "delete_password": "password"
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         "Delete successful"
+        </code>
+      </div>
+      
+      <h3>/messageboard/api/replies/:thread_id</h3>
+      
+      <h4>GET</h4>
+      <div>Input:
+        <code>/messageboard/api/replies/5da0e26809a80e03ea4b8de6</code>
+      </div>
+      <div>Output:
+        <code>
+          { "_id": "5da0e26809a80e03ea4b8de6,
+             "board": "my_board",
+             "text": "What is your favorite color?",
+             "created_on": "2019-09-09T16:16:27.617Z",
+             "reported": false,
+             "replies": [
+                {
+                "_id": "eexc01umk1nrox2w"
+                "text": "test3",
+                "created_on": "2019-10-11T20:46:59.018Z",
+                "reported": true
+                },
+                {
+                "_id": "eexc01n0k1nrh9x9",
+                "text": "test2",
+                "created_on": "2019-10-11T20:46:52.332Z",
+                "reported": false
+                },
+                {           
+                "_id": "4059ae1p9k1mlqal3",
+                "text": "test",
+                "created_on": "2019-10-11T20:38:01.879Z",
+                "reported": false
+                }
+              ]
+           }
+        </code>
+      </div>
+      <h4>
+        POST
+      </h4>
+      <div>Input:
+        <code>
+          "text": "I absolutely loved it!",
+          "delete_password": "password",
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         [
+          { "_id": "5d802175f605150efe64b88e,
+             "board": "my_board",
+             "text": "How did you like the movie 'Big'?",
+             "created_on": "2019-10-16T23:57:41.830Z",
+             "reported": false,
+             "replies": []
+          },
+          { "_id": "5da0e26809a80e03ea4b8de6,
+             "board": "my_board",
+             "text": "What is your favorite color?",
+             "created_on": "2019-09-09T16:16:27.617Z",
+             "bumped_on": "2019-09-09T16:16:27.617Z",
+             "replies": [
+                {
+                "_id": "eexbx3dk1mkuqlo",
+                "text": "I absolutely loved it!",
+                "created_on": "2019-11-11T20:46:59.018Z",
+                "reported": false
+                },
+                {
+                "_id": "eexc01umk1nrox2w",
+                "text": "test3",
+                "created_on": "2019-10-11T20:46:59.018Z",
+                "reported": true
+                },
+                {
+                "_id": "eexc01n0k1nrh9x9",
+                "text": "test2",
+                "created_on": "2019-10-11T20:46:52.332Z",
+                "reported": false
+                },
+                {
+                "_id": "4059ae1p9k1mlqal3",
+                "text": "test",
+                "created_on": "2019-10-11T20:38:01.879Z",
+                "reported": false
+                }
+              ]
+           },
+          ]
+        </code>
+      </div>
+      
+      <h4>
+        PUT
+      </h4>
+      <div>
+        marks a reply as reported
+      </div>
+      <div>Input:
+        <code>
+          "reply_id": "eexbx3dk1mkuqlo"
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         "Reply reported successfully"
+        </code>
+      </div>
+      
+      <h4>
+        DELETE
+      </h4>
+      <div>Input:
+        <code>
+          "reply_id": "eexbx3dk1mkuqlo"
+          "delete_password": "password"
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         "Delete successful"
+        </code>
+      </div>
+      
+      <div class="footer">
+        <p>
+          by <i>Alex Olivera</i>
+        </p>
+      </div>
+      
+      <script
+        src="https://code.jquery.com/jquery-2.2.1.min.js"
+        integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+        crossorigin="anonymous"
+      ></script>
+
+      <!-- import the webpage's client-side javascript file -->
+      <script src="/js/messageboard-board.js" defer></script>
+    </div>
+  </body>
+</html>

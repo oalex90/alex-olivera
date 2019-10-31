@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Twitch Channel Status</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/twitchstatus.css" />
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Home</a>
+    </header>
+    
+    <h1 style="text-align:center"><i class="fa fa-twitch"></i> Twitch Status</h1>
+
+    <div id="div-main"> <!--Main Box-->
+
+      <!--Status Tabs Section-->
+      <div id="div-status">
+        <div id="div-all" class="status">All</div>
+        <div id="div-online" class="status">Online</div>
+        <div id="div-offline" class="status">Offline</div>
+      </div>
+      <!-- End of Status Tabs Section-->
+
+      <!--Results Section-->
+      <div id="div-results"> </div>
+    </div>
+
+    
+    <div class="footer">
+      <p>
+        by <i>Alex Olivera</i>
+      </p>
+    </div>
+  
+    <script
+      src="https://code.jquery.com/jquery-2.2.1.min.js"
+      integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+      crossorigin="anonymous">
+    </script>
+
+    <script src="/js/twitchstatus.js" defer></script>
+  </body>
+</html>

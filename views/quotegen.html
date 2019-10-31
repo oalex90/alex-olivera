@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Quote Generator</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/quotegen.css" />
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Home</a> 
+    </header>
+    
+    <div class="footer">
+      <p>
+        by <i>Alex Olivera</i>
+      </p>
+    </div>
+    
+    <!--Title-->
+    <div class="text-center">
+    <h1 style="margin-top:100px;">You Can Quote Me On That</h1>
+    </div>
+    <!--Title End-->
+    
+    <!--Quotes-->
+    <div id="quote-box" class="container">
+      
+      <h2 id="text" class="text-center text-quote-author">"Welcome! Generate a quote and tweet it out!" </h2>
+      <h4 id="author" class="text-quote-author" style="text-align:right; margin-top:15px;">-Alex Olivera</h4>
+      
+      <div style="margin-top:33px;">
+        <a id="tweet-quote" target="_blank"
+           href="https://twitter.com/intent/tweet?&text=%22Welcome!%20Generate%20a%20quote%20and%20tweet%20it%20out!%22%20%20-Alex%20Olivera">
+          <button id="btn-tweet-quote" class="btn-lg">
+            <i class="fa fa-twitter fa-lg"></i>
+          </button>
+        </a>
+        <button id="new-quote" style="float: right;" class="btn-lg">New Quote</button>
+      </div>
+    </div>
+    <!--Quotes End-->
+    
+    <!--Created By-->
+    <div class="text-center">
+      <h5>by <strong><a id="link-name" href="https://codepen.io/al90lo/" target="_blank">Alex Olivera</a></strong></h5>
+    <!--Created By End-->
+  </div>
+  
+    <script
+      src="https://code.jquery.com/jquery-2.2.1.min.js"
+      integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+      crossorigin="anonymous">
+    </script>
+
+    <script src="/js/quotegen.js" defer></script>
+  </body>
+</html>

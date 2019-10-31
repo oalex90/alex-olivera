@@ -1,0 +1,182 @@
+body{
+  background-color: grey;
+ /* background-image:
+    url("https://www.parkstreetcafe.co.uk/parkst-images/woodtexture_PSC.jpg");*/
+}
+#div-board{
+  width: 510px;
+  height: 510px;
+  position: relative;
+  top:10vh;
+  background-color: #9fc6c6;
+  border-radius: 100%;
+  text-align: center;
+  margin: auto;
+  box-shadow: 0px 0px 24px black;
+}
+
+.clickable{
+  cursor: hand;
+  cursor: pointer;
+}
+
+#item-all{
+  position: relative;
+  top: 13px;
+}
+
+.item-row{
+  margin-bottom:-4px;
+  display:flex;
+  align-content:center;
+  justify-content:center;
+}
+
+.div-item{
+  width:220px;
+  height:220px;
+  border: 12px solid #9fc6c6;
+}
+
+#div-item-green{
+  background-color: #004d00;
+  border-top-left-radius : 100%;
+}
+
+#div-item-red{
+  background-color : #990000;
+  border-top-right-radius : 100%;
+}
+
+#div-item-yellow{
+  border-bottom-left-radius : 100%;
+  background-color : #999900;
+}
+
+#div-item-blue{
+  border-bottom-right-radius : 100%;
+  background-color : #094a8f;
+}
+
+#div-center{
+  width: 240px;
+  height: 240px;
+  border-radius: 100%;
+  background-color: #333;
+  border: 10.5px solid #9fc6c6;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -127px 0 0 -131px;
+  text-align: center;
+}
+
+#text-title{
+  font-family: florence;
+  color: white;
+  font-size: 52px;
+  margin-top: 40px;
+}
+
+.option-row{
+  margin-top:7px;
+  
+}
+
+.option{
+  display: inline-block;
+  text-align: center;
+}
+
+.option-text{
+  color:white;
+  font-stretch: ultra-condensed;
+  font-size:13px;
+  margin-top:0px;
+  vertical-align: middle;
+}
+
+.option-round{
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  border: 2px solid #9fc6c6;
+  margin:auto;
+  margin-bottom:8px;
+}
+
+#div-strict{
+  background-color: #cccc00;
+}
+
+#div-start{
+  background-color:red;
+}
+
+#div-strict-led{
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  background-color: black;
+  margin: auto;
+  margin-bottom: 5px;
+  margin-top:-7px;
+}
+
+#div-count{
+  background-color:black;
+  color: black;
+  font-size: 20px;
+  width: 50px;
+  padding: 1px 12px;
+  border: 2px solid #9fc6c6;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  margin-top: -10px;
+}
+
+#div-on-off{
+  height: 22px;
+  width: 38px;
+  border-radius: 2px;
+  border: 1px solid black;
+  background-color: #9fc6c6;
+  margin-top:-5px;
+}
+
+#div-on-off-toggle{
+  height: 18px;
+  width: 18px;
+  border-radius: 4px;
+  position:relative;
+  border: 1px solid grey;
+  top:1px;
+  background-color: black;
+}
+
+
+/* Scaling for Mobile  */
+@media screen and (max-width: 500px){
+
+  #div-board {
+    top: 40px;
+    
+    -moz-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    -o-transform: scale(0.6);
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+    
+    -o-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    transform-origin: 0 0;
+    
+    left: 50%;
+    margin-left: -142px;
+  }
+}
+  
+  
+  

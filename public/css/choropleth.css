@@ -1,0 +1,46 @@
+html{
+  background: #c5d8d8;
+}
+
+body{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: lightblue;
+  margin: 30px auto;
+  width: 1100px;
+  box-shadow: 0px 0px 15px 0px #383a3a;
+  padding: 10px 35px;
+  padding-bottom: 20px;
+}
+
+p{
+
+}
+
+h1{
+
+  font-size: 40px;
+  margin-bottom: 15px; 
+}
+
+.states{
+  fill: none;
+  stroke: grey;
+  stroke-linejoin: "round";
+}
+
+.county:hover{
+  fill: yellow;
+  stroke:black;
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  pointer-events: none;
+  background-color: black;
+  color: white;
+}
