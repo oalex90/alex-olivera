@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Chat Room</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/css/chatroom.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <div class="container">
+      <a href="/">Home</a>
+      
+      <h1>Chat Room</h1>
+      <h2 id="welcome">Welcome <%= user.username %></h2>
+      
+      <div class="chat center">
+        <p id="num-users"></p>
+        <div class="chat-box">
+          <ul id="messages"></ul>
+          <form action="">
+            <input id="m" autocomplete="off">
+            <button>Send</button>
+          </form>
+        </div>
+        <a href="/chatroom/logout">Logout</a>
+      </div>
+      
+      
+      
+      
+      <div class="footer">
+        <p>
+          by <i>Alex Olivera</i>
+        </p>
+      </div>
+      
+      <script
+        src="https://code.jquery.com/jquery-2.2.1.min.js"
+        integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+        crossorigin="anonymous">
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
+      <!-- import the webpage's client-side javascript file -->
+      <script src="/js/chatroom.js" defer></script>
+    </div>
+  </body>
+</html>

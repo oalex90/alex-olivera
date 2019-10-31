@@ -1,0 +1,34 @@
+body{
+  background: #c5d8d8;//#f2f2f2;  
+}
+
+#graph{
+  margin: 30px auto; /*auto margin centers horizontally*/
+  background: #f2f2f2;
+  width: 900px;
+  height: 800px;
+  box-shadow: 0px 0px 15px 0px #383a3a;
+}
+
+h2{
+  text-align: center;
+  font-size: 30px;
+}
+
+.tooltip {
+  position: absolute; /*allows positioning by specifying x and y*/
+  text-align: center;
+  padding: 3px;
+  border-radius: 5px; /*rounded edges*/
+  pointer-events: none; /*hover sometimes interrupted without this*/
+  background-color: black;
+  color: white; /*text color*/
+}
+
+.flag {
+	position: absolute;
+}
+
+#flags{
+  position:absolute;
+}

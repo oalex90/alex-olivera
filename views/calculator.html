@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>Calculator</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/calculator.css" />
+  </head>
+
+  <body style="background-color:black">
+    <header>
+      <a href="/">Home</a> 
+      <h1>Calculator</h1>
+    </header>
+    
+      <!--Calculator-->
+  <div id="div-calculator" class="container">
+    
+    <!--Title-->
+    <h4 id="title" class= "text-center"><strong><i>Calculator</i></strong></h4>
+      
+      <!--Output-->
+      <div id="display">
+        <h4 id="text-output">0</h4>
+      </div>
+      <!--Output End-->
+      
+      <!--Buttons-->
+      <div class="my-row">
+        <button id="clear" class="button-input btn-info btn-lg"><strong>AC</strong></button>
+        <button id="clearentry" class="button-input btn-info btn-lg"><strong>CE</strong></button>
+        <button id="modulus" class="button-input btn-info btn-lg"><strong>%</strong></button>
+        <button id="divide" class="button-input button-input-rightmost btn-info btn-lg"><strong>/</strong></button>
+      </div>
+      <div class="my-row">
+        <button id="seven" class="button-input btn-info btn-lg"><strong>7</strong></button>
+        <button id="eight" class="button-input btn-info btn-lg"><strong>8</strong></button>
+        <button id="nine" class="button-input btn-info btn-lg"><strong>9</strong></button>
+        <button id="multiply" class="button-input button-input-rightmost btn-info btn-lg"><strong>*</strong></button>
+      </div>
+      <div class="my-row">
+        <button id="four" class="button-input btn-info btn-lg"><strong>4</strong></button>
+        <button id="five" class="button-input btn-info btn-lg"><strong>5</strong></button>
+        <button id="six" class="button-input btn-info btn-lg"><strong>6</strong></button>
+        <button id="subtract" class="button-input button-input-rightmost btn-info btn-lg"><strong>-</strong></button>
+      </div>
+      <div class="my-row">
+        <button id="one" class="button-input btn-info btn-lg"><strong>1</strong></button>
+        <button id="two" class="button-input btn-info btn-lg"><strong>2</strong></button>
+        <button id="three" class="button-input btn-info btn-lg"><strong>3</strong></button>
+        <button id="add" class="button-input button-input-rightmost btn-info btn-lg"><strong>+</strong></button>
+      </div>
+      <div class="my-row">
+        <button id="decimal" class="button-input btn-info btn-lg"><strong>.</strong></button>
+        <button id="zero" class="button-input btn-info btn-lg"><strong>0</strong></button>
+        <button id="answer" class="button-input btn-info btn-lg"><strong>Ans</strong></button>
+        <button id="equals" class="button-input button-input-rightmost btn-info btn-lg"><strong>=</strong></button>
+      </div>
+      <!--Buttons End-->
+      
+  </div>
+  <!--Calculator End-->
+    
+    <div class="footer">
+      <p>
+        by <i>Alex Olivera</i>
+      </p>
+    </div>
+  
+    <script
+      src="https://code.jquery.com/jquery-2.2.1.min.js"
+      integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+      crossorigin="anonymous">
+    </script>
+
+    <script src="/js/calculator.js" defer></script>
+  </body>
+</html>

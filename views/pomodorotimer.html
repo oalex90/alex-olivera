@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Pomodoro Timer</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
+      type="image/x-icon"
+    />
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/pomodorotimer.css"/>
+  </head>
+
+<body>
+  <header>
+  <a href="/">Home</a>
+  </header>
+
+
+  <h1 class="text-center" id="text-title">Pomodoro Timer</h1>
+
+  <!--Controls-->
+  <div id="div-controls">
+    <div class="control-block">
+    <h4 id="break-label">BREAK LENGTH</h4>
+      <div>
+        <h2 id="break-decrement" class="pointer control" style="padding-left:10px;">-</h2>
+        <h1 id="break-length" class="control">5</h1>
+        <h2 id="break-increment" class="pointer control" style="padding-right:10px">+</h2>
+      </div>
+    </div>      
+    <div class="control-block">
+      <h4 id="session-label">SESSION LENGTH</h4>
+      <div>
+        <h2 id="session-decrement" class="pointer control" style="padding-left:12px;">-</h2>
+        <h1 id="session-length" class="control">25</h1>
+        <h2 id="session-increment" class="pointer control" style="padding-right:12px;">+</h2>
+      </div>
+    </div>
+  </div>
+  <!--Controls End-->
+
+  <!--Timer-->
+  <div id="start_stop" class="container pointer" >
+    <h1 id="timer-label" style="font-size:325%">Session</h1>
+    <h1 id="time-left" style="font-size:400%; margin-top:60px">25:00</h1>
+  </div> 
+    <!--Timer End-->
+  <br>
+  <div align="center">
+    <button id="reset" class="btn btn-warning">Reset</button>
+  </div>
+  <audio id="beep">
+    <source src="http://soundbible.com/grab.php?id=2210&type=mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="footer">
+    <p>by <i>Alex Olivera</i></p>
+  </div>
+
+  <script
+  src="https://code.jquery.com/jquery-2.2.1.min.js"
+  integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+  crossorigin="anonymous">
+  </script>
+
+  <script src="/js/pomodorotimer.js" defer></script>
+</body>
+</html>

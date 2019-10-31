@@ -1,0 +1,161 @@
+body{
+  background-color:grey;
+  padding: 7vh;
+}
+
+#drum-machine{
+  width: 700px;
+  margin: 0 auto;
+  background-color: lightgrey;
+  padding: 5px
+}
+
+.dm-power-on{
+  border: thick solid orange;
+}
+
+.dm-power-off{
+  border: thick solid black;
+}
+
+#logo{
+  
+  font-size: 22px;
+  font-weight: bold;
+  font-style: italic;
+  float:right;
+}
+
+#contents{
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  grid-gap: 20px;
+  justify-items: center;
+  margin: 30px 25px;
+}
+
+#drum-pad-keys{
+  display: grid;
+  grid-template-columns: 110px 110px 110px;
+  grid-gap: 10px;
+  grid-template-rows: 90px 90px 90px
+}
+
+.drum-pad{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: grey;
+  border-radius: 8px;
+  box-shadow: 3px 5px 8px 0px black;
+  cursor: pointer;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+
+
+.key-pressed{
+  box-shadow: none;
+}
+
+.key-pressed-power-on{
+  background-color: orange;
+}
+
+#options{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 53px;
+  height: 30px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.toggle:before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 23px;
+  left: 2px;
+  bottom: 4px;
+  background-color: grey;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+#power:checked + .toggle:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  background-color: orange;
+}
+
+#bank:checked + .toggle:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.option-title{
+  font-size: 19px;
+  font-weight: bold;
+}
+
+#display{
+  background-color: grey;
+  width: 225px;
+  height: 55px;
+  line-height: 54px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.slider {
+  height: 5px;
+  width: 250px;
+  background: black;
+}
+
+.slider::-webkit-slider-thumb {
+  width: 8px;
+  height: 25px;
+  background: grey;
+  cursor: pointer;
+  border: thin solid;
+}
+
+.slider::-moz-range-thumb {
+  width: 8px;
+  height: 25px;
+  background: grey;
+  cursor: pointer;
+  border: thin solid;
+}
