@@ -7,21 +7,23 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
-    "helmet": "^3.21.1",
-    "body-parser": "^1.19.0",
-    "mongodb": "^3.3.2",
-    "url-exists-deep": "^1.1.1",
-    "request-promise": "^4.2.4",
     "bcrypt": "^3.0.6",
-    "uniqid": "^5.0.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "ejs": "^2.7.1",
+    "express": "^4.16.4",
     "express-session": "^1.16.1",
+    "helmet": "^3.21.1",
+    "mongodb": "^3.3.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "cookie-parser": "^1.4.4",
-    "socket.io": "^2.3.0",
     "passport.socketio": "^3.7.0",
-    "ejs": "^2.7.1"
+    "request-promise": "^4.2.4",
+    "socket.io": "^2.3.0",
+    "uniqid": "^5.0.3",
+    "url-exists-deep": "^1.1.1",
+    "dotenv": "^8.2.0"
   },
   "engines": {
     "node": "8.x"
