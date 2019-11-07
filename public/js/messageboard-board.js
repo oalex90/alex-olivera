@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  var base_url = window.location.origin + "/messageboard/";
   console.log("pathname:", window.location.pathname);
   var currentBoard = window.location.pathname.replace("/messageboard/","");
   currentBoard = currentBoard.replace(/\/*$/, "");
@@ -168,8 +169,7 @@ $(document).ready(function() {
     input = input.replace(/\s/g, "_"); // convert spaces to underscores
     input = input.replace(/_+/g, "_"); // remove duplicate underscores
 
-    window.location.href =
-      "https://alex-olivera.glitch.me/messageboard/" + input;
+    window.location.href = base_url + input;
     e.preventDefault();
   });
 });

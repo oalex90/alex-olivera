@@ -1,0 +1,20 @@
+#nav-bar{
+	width: 100%;
+	background-color: lightgrey;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: #FaFaFa;
+}
+h1, #api-title{
+	text-align: center;
+}
+
+a {
+	color: #2574A9;
+}
+
+.footer{
+	text-align: center;
+}

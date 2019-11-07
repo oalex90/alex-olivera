@@ -13,12 +13,19 @@
       rel="stylesheet"
       type="text/css"
     />
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/css/serverapps.css" />
   </head>
 
   <body>
+    <header>
+    <ul id="nav-bar" class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+    </header>
     <div class="container">
-      <a href="/">Home</a>
       <h1>Nasdaq Stock Price Checker</h1>
       <h2>Get single price and total likes</h2>
       <ul>
@@ -83,7 +90,7 @@
 
       <hr style="margin: 50px" />
       
-      <h2>API</h2>
+      <h2 id="api-title">API</h2>
 
       <h3>Example Usage:</h3>
       <code>/stockprices/api?stock=goog</code><br />
@@ -99,9 +106,11 @@
         >{"stockData":[{"stock":"MSFT","price":"62.30","rel_likes":-1},{"stock":"GOOG","price":"786.90","rel_likes":1}]}</code
       >
       
+      <hr>
+
       <div class="footer">
         <p>
-          by <i>Alex Olivera</i>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
         </p>
       </div>
 

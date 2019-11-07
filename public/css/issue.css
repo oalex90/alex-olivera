@@ -1,10 +1,11 @@
-* {
-  margin: 0px;
-  padding: 0px;
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
 }
 
 body {
-  padding: 10px;
+	font-family: 'Roboto', sans-serif;
+	background-color: #FaFaFa;
 }
 
 .issue {
@@ -18,6 +19,6 @@ body {
   background-color: lightgrey;
 }
 
-.id {
-  font-size: 10.5px;
+.footer{
+	text-align: center;
 }

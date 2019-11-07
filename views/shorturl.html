@@ -6,14 +6,22 @@
     <title>URL Shortener</title>
     <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/css/serverapps.css">
   </head>
   
   
 
    <body>
+    <header>
+    <ul id="nav-bar" class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+    </header>
+    
       <div class="container">
-        <a href="/">Home</a>
         <h1>URL Shortener Microservice</h1>
         <h2>Instructions: </h2>
         <ul>
@@ -27,11 +35,11 @@
           <input type="submit" value="Shorten URL">
         </form>
         <div id="resultDisplay"></div>
-      </div>
+      
      
-     <hr style="margin: 50px" />
+     <hr/>
      
-     <h2>API</h2>
+     <h2 id="api-title">API</h2>
 
       <h3>/shorturl</h3>
       
@@ -48,11 +56,14 @@
          }
         </code>
       </div>
-     
+
+      <hr>
+
       <div class="footer">
         <p>
-          by <i>Alex Olivera</i>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
         </p>
+      </div>
       </div>
      
      <script src="https://code.jquery.com/jquery-2.2.1.min.js"

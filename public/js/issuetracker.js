@@ -1,6 +1,7 @@
 $(document).ready(function() {
   
   let query = window.location.href.split('?')[1] || null;
+  var base_url = window.location.origin + "/issuetracker/";
   //console.log("pathname", query);
   console.log("pathname", window.location.pathname);
   var currentProject = window.location.pathname.replace("/issuetracker/", "");
@@ -82,7 +83,7 @@ $(document).ready(function() {
     input = input.replace(/\s/g, '_'); // convert spaces to underscores
     input = input.replace(/_+/g, '_'); // remove duplicate underscores
     
-    window.location.href = "https://alex-olivera.glitch.me/issuetracker/"+input;
+    window.location.href = base_url + input;
     e.preventDefault();
   });
 });

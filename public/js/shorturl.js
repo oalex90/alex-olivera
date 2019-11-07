@@ -1,6 +1,7 @@
 $(document).ready(function() {
+  //console.log("window.location", window.location.origin + "/shorturl/");
   $('#shorturlForm').on('submit', function(e) {
-    var base_url = "https://alex-olivera.glitch.me/shorturl/";
+    var base_url = window.location.origin + "/shorturl/";
     $.ajax({
       type: "POST",
       url: "/shorturl",

@@ -13,14 +13,23 @@
       rel="stylesheet"
       type="text/css"
     />
-    <link rel="stylesheet" href="/css/chatroom.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/chatroom.css" />
   </head>
 
   <body>
-    <div class="container">
-      <a href="/">Home</a>
-      
+    <header>
+      <ul id="nav-bar" class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="/chatroom/logout">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+      </ul>
+    </header>
+
+    <div class="container">     
       <h1>Chat Room</h1>
       <h2 id="welcome">Welcome <%= user.username %></h2>
       
@@ -33,15 +42,13 @@
             <button>Send</button>
           </form>
         </div>
-        <a href="/chatroom/logout">Logout</a>
       </div>
       
-      
-      
-      
+      <hr>
+
       <div class="footer">
         <p>
-          by <i>Alex Olivera</i>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
         </p>
       </div>
       
