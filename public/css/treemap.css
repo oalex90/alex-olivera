@@ -1,9 +1,20 @@
+
+header{
+  width: 100%;
+  background-color: lightgrey;
+}
+
 body{
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 30px auto;
-  width: 1100px;
+  
+  background-color: #FaFaFa;
+}
+
+  #chart{
+  margin: 0 auto;
+  width: 1250px;
 }
 
 #options{

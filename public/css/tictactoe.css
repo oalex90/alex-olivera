@@ -1,6 +1,11 @@
 body{
-  background-color:pink;
-  margin: 3vmin;
+  background-color:#ff99aa;
+}
+
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
+  margin-bottom: 15px;
 }
 
 #div-text{
@@ -22,7 +27,7 @@ body{
   font-size: 30px;
   font-style: italic;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 #div-score{
@@ -31,7 +36,6 @@ body{
   font-size: 25px;
   color: black;
   display: flex;
-  height: 115px;
 }
 
 .score-section{
@@ -45,7 +49,7 @@ body{
 
 #div-result{
   margin-top: 10px;
-  height: 105px;
+  height: 80px;
 }
 
 #text-result{
@@ -57,7 +61,7 @@ body{
 
 #btn-newGame{
   width: 33.5%;
-  height: 80%;
+  height: 70%;
   font-size: 15px;
   border: .4vmin solid black;
   outline:none;
@@ -73,8 +77,7 @@ body{
 }
 
 #div-main{
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
   background-color: black;
   color:pink;
   width: 425px;
@@ -84,8 +87,8 @@ body{
 
 .div-square{
   float:left;
-  width:30%;
-  height:30%;
+  width:33%;
+  height:33%;
   padding:5px;
   font-size:100px;
   text-align:center;

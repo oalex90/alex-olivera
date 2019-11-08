@@ -109,7 +109,7 @@ $.getJSON(option.URL, function(data){ //get data from webpage and perform action
   var legend = d3.select("#chart")
   .append("svg")
   .attr("id", "legend")
-  .attr("height", 75)
+  .attr("height", 30)
   .attr("width", 1250)
   
   legend.selectAll(".rect")

@@ -4,6 +4,11 @@ body{
   color: white;
 }
 
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
+}
+
 #quote-box{
   margin-top: 10px;
   width: 550px;
@@ -43,4 +48,8 @@ button:hover{
 }
 button:focus{
   outline: 0;
+}
+
+.footer{
+  text-align: center;
 }

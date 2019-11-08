@@ -1,6 +1,10 @@
 body{ /*Background*/
   background-color: lightgreen;
-  padding: 10px;
+}
+
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
 }
 
 #div-main{ /*Main box*/
@@ -9,6 +13,10 @@ body{ /*Background*/
   margin: 20px auto;
   border: 2px solid green;
   border-top: none;
+}
+
+.footer{
+  text-align: center;
 }
 
 #div-status{/*top row background (All, Online, Offline options)*/

@@ -183,14 +183,9 @@ $('document').ready(function() {
       .text("Gross Domestic Product, USA")
       .style("font-size", 16);
     
-    d3.select("body") //text below the graph
+    d3.select("#body") //text below the graph
       .append("p")
       .text(output.description)
-      .style("font-style", "italic");
-    
-    d3.select("body") //text below the graph
-      .append("p")
-      .text("By: Alex Olivera")
       .style("font-style", "italic");
   });
 });

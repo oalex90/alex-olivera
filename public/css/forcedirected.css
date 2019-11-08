@@ -1,10 +1,15 @@
 body{
-  background: #c5d8d8;//#f2f2f2;  
+  background-color: #FaFaFa;  
+}
+
+header{
+  width: 100%;
+  background-color: lightgrey;
 }
 
 #graph{
   margin: 30px auto; /*auto margin centers horizontally*/
-  background: #f2f2f2;
+  background: lightblue;
   width: 900px;
   height: 800px;
   box-shadow: 0px 0px 15px 0px #383a3a;
@@ -31,4 +36,8 @@ h2{
 
 #flags{
   position:absolute;
+}
+
+.footer{
+  text-align: center;
 }

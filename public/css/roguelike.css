@@ -2,6 +2,11 @@ span{
   margin-right: 10px;
 }
 
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
+}
+
 body{
   background-color: black;
   text-align: center;

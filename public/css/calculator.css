@@ -1,10 +1,20 @@
 #div-calculator{
   background-color: mediumblue;
-  margin-top: 100px;
+  margin-top: 50px;
   width: 475px;
   border-radius: 13px;
   padding: 30px;
   padding-top: 12px
+}
+
+body{
+  text-align: center;
+  color: white;
+}
+
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
 }
 
 #display{

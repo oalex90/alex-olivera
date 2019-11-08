@@ -1,8 +1,13 @@
-html{
-  background: #c5d8d8;
+header{
+  width: 100%;
+  background-color: lightgrey;
 }
 
 body{
+  background-color: #FaFaFa;
+}
+
+#body{
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -43,4 +48,8 @@ h1{
   pointer-events: none;
   background-color: black;
   color: white;
+}
+
+.footer{
+  text-align: center;
 }
