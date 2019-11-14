@@ -1,4 +1,10 @@
-class MyComponent extends React.Component {
+import '../css/simplereact.scss'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import { SimpleReactComp } from '../js/components/simplereactcomp';
+
+/*class MyComponent extends React.Component {
   render() {
     //return <ReactBootstrap.Alert variant='primary'>This is a test</ReactBootstrap.Alert>;
     return (
@@ -18,6 +24,19 @@ class MyComponent extends React.Component {
       </ReactBootstrap.Modal>
     );
   }
+}*/
+
+class Test extends React.Component {
+  render(){
+    return (
+      <div>
+        <h2>Alex!!</h2>
+        <SimpleReactComp/>
+      </div>
+    );
+  }
 }
 
-ReactDOM.render(<MyComponent></MyComponent>, document.getElementById("root"));
+$(document).ready(function() {
+  ReactDOM.render(<Test/>, document.getElementById("root"));
+});

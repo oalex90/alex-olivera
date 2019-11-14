@@ -7,13 +7,6 @@
       href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico"
       type="image/x-icon"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/board.css" />
   </head>
   <body>
     <header>
@@ -29,17 +22,8 @@
 
     <h1 id="boardTitle"></h1>
     
-    <div id="submitNewThread">
-      <h3>Submit a new thread:</h3>
-      <form id="newThread" method="post" action="/api/">
-        <textarea rows="8" cols="120" type="text" placeholder="Thread text..." name="text" required></textarea><br>
-        <input type="text" placeholder="password to delete" name="delete_password" required><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-    
-    <div id="boardDisplay"></div>
-    
+    <div id="board">Loading...</div>
+
     <hr>
 
     <div class="footer">
@@ -49,9 +33,6 @@
     </div>
     </div>
     
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
-            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
-            crossorigin="anonymous"></script>
-    <script src="/js/messageboard-board.js" defer></script>
+    <script src="../public/js/messageboard-board.js"></script>
   </body>
 </html>

@@ -1,3 +1,8 @@
+import '../css/gameoflife.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+
 const NUM_CELLS_HEIGHT_SMALL = 30;
 const NUM_CELLS_WIDTH_SMALL = 50;
 const NUM_CELLS_HEIGHT_MEDIUM = 50;

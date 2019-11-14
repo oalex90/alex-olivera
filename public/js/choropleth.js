@@ -1,3 +1,8 @@
+import '../css/choropleth.scss';
+import $ from 'jquery';
+import * as topojson from "topojson-client";
+import * as d3 from 'd3';
+
 const URL_DATA = 'https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/for_user_education.json'; //contains state, county, and bachlors or higher data
 const URL_COUNTY = 'https://raw.githubusercontent.com/no-stack-dub-sack/testable-projects-fcc/master/src/data/choropleth_map/counties.json'; //contains info for drawing country and county figures
 
@@ -80,7 +85,7 @@ Promise.all(promises).then(function(values) { //once all json calls are finished
       .attr("class", "states")
       .attr("d", path)
   
-  legend = (g) => { 
+  var legend = (g) => { 
     const x = d3.scaleLinear()
         .domain([2.6, 75.1])
         .rangeRound([0, 240]);

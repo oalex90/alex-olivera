@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>URL Shortener</title>
+    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/stockprices.e427dfe4.css"></head>
+
+  <body>
+    <header>
+    <ul id="nav-bar" class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+    </header>
+    <div class="container">
+      <h1>Nasdaq Stock Price Checker</h1>
+      <h2>Get single price and total likes</h2>
+      <ul>
+        <li>
+          Enter a valid Nasdaq stock symbol to look up the current price and the
+          current number of likes for that stock.
+        </li>
+        <li>
+          Check the "Like?" box to add a like to that stock. (Only 1 like per IP
+          address is allowed)
+        </li>
+      </ul>
+
+      <div style="margin-left: 5%">
+        <form id="testForm2" class="border">
+          <input type="text" name="stock" placeholder="goog" style="width: 100px" required="">
+          <input type="checkbox" name="like" value="true"> Like?
+          <button type="submit">Get Price!</button>
+        </form>
+        <code id="jsonResult1"></code>
+      </div>
+
+      <h3>Compare and get relative likes</h3>
+      <ul>
+        <li>
+          Enter a valid Nasdaq stock symbol into each of the boxes to look up
+          the current price and compare the number of likes for those stocks.
+        </li>
+        <li>
+          Check the "Like both?" box to add a like to each stock. (Only 1 like
+          per IP address is allowed)
+        </li>
+      </ul>
+
+      <div style="margin-left: 5%">
+        <form id="testForm" class="border">
+          <input type="text" name="stock" placeholder="goog" style="width: 100px" required="">
+          <input type="text" name="stock" placeholder="msft" style="width: 100px" required="">
+          <input type="checkbox" name="like" value="true"> Like both?
+          <button type="submit">Get Price!</button>
+        </form>
+        <code id="jsonResult2"></code>
+      </div>
+
+      <hr style="margin: 50px">
+      
+      <h2 id="api-title">API</h2>
+
+      <h3>Example Usage:</h3>
+      <code>/stockprices/api?stock=goog</code><br>
+      <code>/stockprices/api?stock=goog&amp;like=true</code><br>
+      <code>/stockprices/api?stock=goog&amp;stock=msft</code><br>
+      <code>/stockprices/api?stock=goog&amp;stock=msft&amp;like=true</code><br>
+
+      <h3>Example return:</h3>
+      <code>{"stockData":{"stock":"GOOG","price":"786.90","likes":1}}</code><br>
+      <code>{"stockData":[{"stock":"MSFT","price":"62.30","rel_likes":-1},{"stock":"GOOG","price":"786.90","rel_likes":1}]}</code>
+      
+      <hr>
+
+      <div class="footer">
+        <p>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
+        </p>
+      </div>
+
+      <script src="/stockprices.e427dfe4.js"></script>
+    </div>
+  </body>
+</html>

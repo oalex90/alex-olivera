@@ -32,6 +32,13 @@ Rougelike Dungeon Crawler is a game where the player moves through a dungeon, co
     --When the final boss is defeated, the game is over and a new game starts
 */
 
+import '../css/roguelike.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as Redux from 'redux';
+import * as ReactRedux from 'react-redux';
+import $ from 'jquery';
+
 //--Global Variables--//
 const BOARD_HEIGHT = 500; //global board height in pixels
 const BOARD_WIDTH = 1000; //global board width in pixels
@@ -827,9 +834,11 @@ store.subscribe(() => { //log statement to track state changes
   console.log("store:", store.getState());
 });
 
-ReactDOM.render(
-  <ReactRedux.Provider store={store}>
-    <VisibleRoguelikeGame />
-  </ReactRedux.Provider>,
-  document.getElementById("app")
-);
+$(document).ready(function() {
+  ReactDOM.render(
+    <ReactRedux.Provider store={store}>
+      <VisibleRoguelikeGame />
+    </ReactRedux.Provider>,
+    document.getElementById("app")
+  );
+});

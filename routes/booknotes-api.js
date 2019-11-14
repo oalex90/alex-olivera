@@ -7,7 +7,7 @@ module.exports = function (app, db) {
  
   app.route("/booknotes")
   .get(function(request, response) {
-    response.sendFile(process.cwd() + '/views/booknotes.html');
+    response.sendFile(process.cwd() + '/dist/booknotes.html');
   })
   
   app.route('/booknotes/api')

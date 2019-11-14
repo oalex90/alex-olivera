@@ -1,3 +1,6 @@
+import '../css/simonsays.scss';
+import $ from 'jquery';
+
 var audioGreen = new Audio("https://www.soundjay.com/button/beep-01a.mp3");
 var audioYellow = new Audio("https://www.soundjay.com/button/beep-02.mp3");
 var audioBlue = new Audio("https://www.soundjay.com/button/beep-03.mp3");

@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title>Pomodoro Timer</title>
+    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/pomodorotimer.d970f190.css"></head>
+
+<body>
+  <header>
+    <ul id="nav-bar" class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+  </header>
+
+
+  <h1 class="text-center" id="text-title">Pomodoro Timer</h1>
+
+  <!--Controls-->
+  <div id="div-controls">
+    <div class="control-block">
+    <h4 id="break-label">BREAK LENGTH</h4>
+      <div>
+        <h2 id="break-decrement" class="pointer control" style="padding-left:10px;">-</h2>
+        <h1 id="break-length" class="control">5</h1>
+        <h2 id="break-increment" class="pointer control" style="padding-right:10px">+</h2>
+      </div>
+    </div>      
+    <div class="control-block">
+      <h4 id="session-label">SESSION LENGTH</h4>
+      <div>
+        <h2 id="session-decrement" class="pointer control" style="padding-left:12px;">-</h2>
+        <h1 id="session-length" class="control">25</h1>
+        <h2 id="session-increment" class="pointer control" style="padding-right:12px;">+</h2>
+      </div>
+    </div>
+  </div>
+  <!--Controls End-->
+
+  <!--Timer-->
+  <div id="start_stop" class="container pointer">
+    <h1 id="timer-label" style="font-size:325%">Session</h1>
+    <h1 id="time-left" style="font-size:400%; margin-top:60px">25:00</h1>
+  </div> 
+    <!--Timer End-->
+  <br>
+  <div align="center">
+    <button id="reset" class="btn btn-warning">Reset</button>
+  </div>
+  <audio id="beep">
+    <source src="http://soundbible.com/grab.php?id=2210&type=mp3" type="audio/mpeg">
+  </audio>
+
+  <hr>
+
+  <div class="footer">
+    <p>
+      by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
+    </p>
+  </div>
+
+  <script src="/pomodorotimer.d970f190.js"></script>
+</body>
+</html>

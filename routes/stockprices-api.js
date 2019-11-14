@@ -12,7 +12,7 @@ module.exports = function (app, db) {
  
   app.route("/stockprices")
   .get(function(request, response) {
-    response.sendFile(process.cwd() + '/views/stockprices.html');
+    response.sendFile(process.cwd() + '/dist/stockprices.html');
   });
   
   app.route("/stockprices/api")

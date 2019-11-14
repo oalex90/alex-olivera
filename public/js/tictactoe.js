@@ -6,6 +6,10 @@ Board Array Pos
 [6 7 8]
 
 */
+import '../css/serverapps.scss';
+import '../css/tictactoe.scss';
+import $ from 'jquery';
+
 var indexes = {X:[], O:[]}; //indexes of marks (X or O) currently on the board
 var cpuXorO; // "X" or "O" depending on what cpu is
 var playerXorO; // "X" or "O" depending on what player is
@@ -30,7 +34,6 @@ $(document).ready(function() {
   //if clickable space clicked
   $("#div-main").on("click", ".clickable", function(){
     var idPressed = event.target.id; //get id of square pressed
-    var resultPlayer, resultCpu;
     if(game > 0){ //if this isn't the first game, continue as normal.
       var posPressed = getPosFromId(idPressed); //convert id of square pressed to index number
       placeOnBoard(playerXorO, posPressed); // place player move on board  
@@ -201,8 +204,8 @@ function findCheckMate (XorO){ //for given letter (X or O) find and return first
 }
 
 function moveDefault(){ //for cpu, look for win moves. If none found, look for possible block moves. If none found, go in a random empty square.
-  resultCpu = findCheckMate(cpuXorO); //get win move
-  resultPlayer = findCheckMate(playerXorO); // get block move
+  let resultCpu = findCheckMate(cpuXorO); //get win move
+  let resultPlayer = findCheckMate(playerXorO); // get block move
   if(resultCpu.length >0){ //win move found -> CPU Wins
     placeOnBoard(cpuXorO, resultCpu[0]);
     loses++;

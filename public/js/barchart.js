@@ -1,3 +1,8 @@
+import '../css/barchart.scss';
+import $ from 'jquery';
+import * as d3 from 'd3';
+
+
 const PADDING_LEFT = 52; //needed to account for y-axis
 const PADDING_RIGHT = 10; //needed to account for x-axis so last value isn't cut off (2015)
 const PADDING_BOTTOM = 20; //neeeded to account for x-axis

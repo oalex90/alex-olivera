@@ -1,3 +1,6 @@
+import '../css/pomodorotimer.scss';
+import $ from 'jquery';
+
 $(document).ready(function() {
 
   // break '-' button pressed: if timer is off, decrease value by one if value is > 0. Change secondsLeft if type is break

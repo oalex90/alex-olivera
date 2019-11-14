@@ -1,3 +1,7 @@
+import '../css/forcedirected.scss';
+import $ from 'jquery';
+import * as d3 from 'd3';
+
 const GRAPH_HEIGHT =800; //force directed graph height
 const GRAPH_WIDTH = 900; //force directed graph width
 

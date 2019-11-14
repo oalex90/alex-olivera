@@ -15,7 +15,6 @@ const http              = require('http').Server(app);
 const io                = require('socket.io')(http);
 const passportSocketIo  = require('passport.socketio');
 const cookieParser      = require('cookie-parser');
-const ejs               = require('ejs');
 
 const shorturlRoute        = require('./routes/shorturl-api.js');
 const stockpricesRoute     = require('./routes/stockprices-api.js');
@@ -28,11 +27,10 @@ const clientsideRoute        = require('./routes/clientside-routes.js');
 
 app.use(helmet());
 
-app.use(express.static('public'));
+app.use(express.static('dist'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.engine('html', ejs.renderFile);
 
 app.use(session({ //set up express-session to encrypt user login info
   secret: process.env.SESSION_SECRET,

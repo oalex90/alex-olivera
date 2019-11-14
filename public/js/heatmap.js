@@ -1,3 +1,7 @@
+import '../css/heatmap.scss';
+import $ from 'jquery';
+import * as d3 from 'd3';
+
 const PADDING_LEFT = 100; //needed to account for y-axis and label
 const PADDING_RIGHT = 10; //needed to account last tick of y axis
 const PADDING_BOTTOM = 90; //needed to account for x-axis and label and legend

@@ -16,7 +16,7 @@ module.exports = function (app, db) {
   
   app.route('/chatroom/login')
     .get((req, res) => {
-      res.sendFile(process.cwd() + '/views/chatroom-login.html');
+      res.sendFile(process.cwd() + '/dist/chatroom-login.html');
     })
     .post(passport.authenticate('local', { failureRedirect: '/chatroom/login' }),(req, res) => {
       res.redirect('/chatroom'); //redirect to chatroom if successful. Stay at login screen if unsuccessful
@@ -25,7 +25,8 @@ module.exports = function (app, db) {
   app.route('/chatroom')
     .get(ensureAuthenticated, (req,res) => {
       console.log("req.user:", req.user);
-      res.render(process.cwd() + '/views/chatroom.ejs', {user: req.user});
+      res.sendFile(process.cwd() + '/dist/chatroom.html');
+      //res.render(process.cwd() + '/dist/chatroom.html', {user: req.user}); used when was using ejs
   });
 
   app.route('/chatroom/logout')

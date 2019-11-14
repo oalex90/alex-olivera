@@ -1,3 +1,6 @@
+import '../css/serverapps.scss';
+import $ from 'jquery';
+
 $(document).ready(function() {
   //console.log("window.location", window.location.origin + "/shorturl/");
   $('#shorturlForm').on('submit', function(e) {

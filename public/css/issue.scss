@@ -1,0 +1,27 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: #FaFaFa;
+}
+
+.issue {
+  margin: 20px;
+  padding: 5px;
+  width: 60%;
+  border: 2px solid black;
+}
+
+.closed {
+  background-color: lightgrey;
+}
+
+.footer{
+	text-align: center;
+}

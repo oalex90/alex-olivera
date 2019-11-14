@@ -1,3 +1,8 @@
+import '../css/chatroom.scss';
+import $ from 'jquery';
+import io from 'socket.io-client';
+
+
 $( document ).ready(function() {
   
   /*global io*/

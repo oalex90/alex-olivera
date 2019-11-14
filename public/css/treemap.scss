@@ -1,0 +1,48 @@
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+header{
+  width: 100%;
+  background-color: lightgrey;
+}
+
+body{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
+  background-color: #FaFaFa;
+}
+
+  #chart{
+  margin: 0 auto;
+  width: 1250px;
+}
+
+#options{
+  display: flex;
+  align-items: center;
+}
+
+.option{
+  margin: 0px 5px;
+  color: blue;
+  cursor: pointer;
+}
+
+h1{
+  font-size: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px; 
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  pointer-events: none;
+  background-color: black;
+  color: white;
+}

@@ -1,3 +1,6 @@
+import '../css/serverapps.scss';
+import $ from 'jquery';
+
 $(document).ready(function(){
   $('#testForm').submit(function(e) {
     console.log("double price button clicked");

@@ -1,3 +1,6 @@
+import '../css/twitchstatus.scss';
+import $ from 'jquery';
+
 var curStatus = "all"; //current status tab selected
 var results = []; //array of results
 

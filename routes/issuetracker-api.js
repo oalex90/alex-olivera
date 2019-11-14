@@ -7,12 +7,12 @@ module.exports = function (app, db) {
   
   app.route("/issuetracker")
   .get(function(request, response) {
-    response.sendFile(process.cwd() + '/views/issuetracker.html');
+    response.sendFile(process.cwd() + '/dist/issuetracker.html');
   });
   
   app.route('/issuetracker/:project/')
     .get(function (req, res) {
-      res.sendFile(process.cwd() + '/views/issuetracker-project.html');
+      res.sendFile(process.cwd() + '/dist/issuetracker-project.html');
     });
   
   app.route('/issuetracker/api/:project')

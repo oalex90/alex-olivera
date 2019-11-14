@@ -1,3 +1,6 @@
+import '../css/serverapps.scss';
+import $ from 'jquery';
+
 $(document).ready(function() {
   var items = [];
   var itemsRaw = [];

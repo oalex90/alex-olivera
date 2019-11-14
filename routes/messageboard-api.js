@@ -10,14 +10,14 @@ module.exports = function(app, db) {
   const DB_TABLE = db.collection("board");
   
   app.route("/messageboard").get(function(request, response) {
-    response.sendFile(process.cwd() + "/views/messageboard.html");
+    response.sendFile(process.cwd() + "/dist/messageboard.html");
   });
 
   app.route("/messageboard/:board/").get(function(req, res) {
-    res.sendFile(process.cwd() + "/views/messageboard-board.html");
+    res.sendFile(process.cwd() + "/dist/messageboard-board.html");
   });
   app.route("/messageboard/r/:postid").get(function(req, res) {
-    res.sendFile(process.cwd() + "/views/messageboard-post.html");
+    res.sendFile(process.cwd() + "/dist/messageboard-thread.html");
   });
 
   app.route("/messageboard/api/threads/:board")
@@ -90,12 +90,20 @@ module.exports = function(app, db) {
 
       DB_TABLE.insertOne(newThread, (err, document) => {
         if (err) throw err;
-        //console.log("document", document);
-        res.redirect("/messageboard/" + board);
+        console.log("document", document.ops[0]._id);
+        res.json({
+          _id: document.ops[0]._id,
+          board: newThread.board,
+          text: newThread.text,
+          created_on: newThread.created_on,
+          replies: newThread.replies,
+          replycount: 0
+        });
       });
     })
 
     .put(function(req, res) {
+      //console.log("req.body:", req.body);
       var _id = req.body.thread_id;
       //console.log("thread_id", _id);
       let criteria;
@@ -200,7 +208,7 @@ module.exports = function(app, db) {
           reported: result.reported,
           replies: replies.reverse()
         };
-        console.log("replies out:", out);
+        //console.log("replies out:", out);
         res.json(out);
       });
     })
@@ -241,8 +249,13 @@ module.exports = function(app, db) {
             res.send("could not find " + thread_id);
             return;
           }
-          console.log("document", document);
-          res.redirect("/messageboard/r/" + thread_id);
+          //console.log("document", document);
+          res.json({
+            _id: newReply._id,
+            text: newReply.text,
+            created_on: newReply.created_on,
+            reported: newReply.reported
+          });
         }
       );
     })
@@ -261,7 +274,7 @@ module.exports = function(app, db) {
       if (!criteria) return;
 
       let update = { $set: { "replies.$.reported": true } };
-      console.log("criteria:", criteria);
+      //console.log("criteria:", criteria);
 
       DB_TABLE.findOneAndUpdate(
         criteria,

@@ -1,3 +1,6 @@
+import '../css/calculator.scss';
+import $ from 'jquery';
+
 $(document).ready(function() {
   
   //number button pressed action 

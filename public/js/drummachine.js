@@ -1,3 +1,8 @@
+import '../css/drummachine.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+
 const KEYS = {
   'Q': [81, "Heater 1", "Chord 1", 
        'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3',
@@ -223,5 +228,6 @@ class DrumMachine extends React.Component{
       );
   }
 }
-        
-ReactDOM.render(<DrumMachine/>, document.getElementById('body'));
+$(document).ready(function(){
+  ReactDOM.render(<DrumMachine/>, document.getElementById('body'));
+})    

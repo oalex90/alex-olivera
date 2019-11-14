@@ -1,0 +1,72 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+
+body{ /*Background*/
+  background-color: lightgreen;
+}
+
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
+}
+
+#div-main{ /*Main box*/
+  background-color: white;
+  width: 350px;
+  margin: 20px auto;
+  border: 2px solid green;
+  border-top: none;
+}
+
+.footer{
+  text-align: center;
+}
+
+#div-status{/*top row background (All, Online, Offline options)*/
+  height: 51px;
+  line-height: 51px; /*Makes text centered vertically*/
+  background-color:lightgreen
+}
+
+.status{ /*top row individual options (All, Online, Offline)*/
+  background-color:green;
+  color:white;
+  width: 33%; /*allows the three statuses to be evenly sized total doesn't equal 100% to allow for spaces in between options*/
+  text-align: center; /*centers text horizontally*/
+  cursor: hand;
+  cursor: pointer;
+}
+
+.status:hover{
+  opacity: .7;
+}
+
+#div-all{/*all status option*/
+  float:left;/*postion on left-most side*/
+}
+
+#div-online{ /*online status option*/
+  float:left; /*postion just to the right of all option*/
+  margin-left: 0.5%; /*0.5% because (100% - 33%*3) /2 = 0.5%*/
+}
+
+#div-offline{ /*offline status option*/
+  float:right; /*position on right-most side*/
+}
+
+.result{ /*indivual result lines/boxes*/
+  height: 70px;
+  padding: 5px 15px;
+  border-bottom: 1px solid mistyrose;
+  display:flex;
+  justify-content: space-between;
+}
+
+.result:hover{
+  background-color:mistyrose;
+}
+
+.img-circle{
+  border-radius: 50%;
+}

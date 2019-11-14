@@ -1,3 +1,9 @@
+import '../css/messageboard.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import { Thread } from '../js/components/thread';
+
 $(document).ready(function() {
   var base_url = window.location.origin + "/messageboard/";
   console.log("pathname:", window.location.pathname);
@@ -9,167 +15,127 @@ $(document).ready(function() {
   var url2 = "/messageboard/r/";
   $("#boardTitle").text("Welcome to " + window.location.pathname);
   
-  $.ajax({
-    type: "GET",
-    url: url,
-    success: function(data) {
-      var boardThreads = [];
-      //
-      // THIS ARRAY SET UP IS FOR CODE READABILITIES AND TESTING!
-      // THIS IS NOT WHAT IT WOULD LOOK LIKE TO GO LIVE
-      //
-      data.forEach(function(ele) {
-        console.log(ele); //can I use typeScript please?!
-        var thread = ['<div class="thread">'];
-        thread.push('<div class="main">');
-        thread.push(
-          '<p class="id">id: ' + ele._id + " (" + ele.created_on + ")</p>"
-        );
-        thread.push(
-          '<form id="reportThread"><input type="hidden" name="thread_id" value="' +
-            ele._id +
-            '"><input type="submit" value="Report"></form>'
-        );
-        thread.push(
-          '<form id="deleteThread"><input type="hidden" value="' +
-          ele._id +
-            '" name="thread_id" required><input type="text" placeholder="password" name="delete_password" required=""><input type="submit" value="Delete"></form>'
-        );
-        thread.push("<h3>" + ele.text + "</h3>");
-        thread.push('</div><div class="replies">');
-        var hiddenCount = ele.replycount - 3;
-        if (hiddenCount < 1) {
-          hiddenCount = 0;
-        }
-        thread.push(
-          "<h5>" +
-            ele.replycount +
-            " replies total (" +
-            hiddenCount +
-            ' hidden)- <a href="' +
-            url2 +
-            ele._id +
-            '">See the full thread here</a>.</h5>'
-        );
-        ele.replies.forEach(function(rep) {
-          thread.push('<div class="reply">');
-          thread.push(
-            '<p class="id">id: ' + rep._id + " (" + rep.created_on + ")</p>"
-          );
-          thread.push(
-            '<form id="reportReply"><input type="hidden" name="thread_id" value="' +
-              ele._id +
-              '"><input type="hidden" name="reply_id" value="' +
-              rep._id +
-              '"><input type="submit" value="Report"></form>'
-          );
-          thread.push(
-            '<form id="deleteReply"><input type="hidden" value="' +
-              ele._id +
-              '" name="thread_id" required=""><input type="hidden" value="' +
-              rep._id +
-              '" name="reply_id" required=""><input type="text" placeholder="password" name="delete_password" required=""><input type="submit" value="Delete"></form>'
-          );
-          thread.push("<p>" + rep.text + "</p>");
-          thread.push("</div>");
-        });
-        thread.push('<div class="newReply">');
-        thread.push(
-          '<form action="/messageboard/api/replies/' +
-            ele._id +
-            '/" method="post" id="newReply">'
-        );
-        thread.push(
-          '<input type="hidden" name="thread_id" value="' + ele._id + '">'
-        );
-        thread.push(
-          '<textarea rows="5" cols="80" type="text" placeholder="Quick reply..." name="text" required=""></textarea><br>'
-        );
-        thread.push(
-          '<input type="text" placeholder="password to delete" name="delete_password" required=""><input style="margin-left: 5px" type="submit" value="Submit">'
-        );
-        thread.push("</form></div></div></div>");
-        boardThreads.push(thread.join(""));
-      });
-      $("#boardDisplay").html(boardThreads.join(""));
+  class MyComponent extends React.Component{
+    constructor(props){
+      super(props);
+      this.state = {
+        threads: [],
+        error: null
+      };
+      this.newThread = this.newThread.bind(this);
+      this.onNewTextChange = this.onNewTextChange.bind(this);
+      this.onNewDeletePassChange = this.onNewDeletePassChange.bind(this);
+      this.deleteThreadAction = this.deleteThreadAction.bind(this);
     }
-  });
 
-  $("#newThread").submit(function() {
-    $(this).attr("action", "/messageboard/api/threads/" + currentBoard);
-  });
+    componentDidMount() {
+      console.log("mounting");
+      fetch("/messageboard/api/threads/" + currentBoard)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log("fetch result", result);
+            this.setState({
+              threads: result
+            });
+          },
+          (error) => {
+            this.setState({error});
+          }
+        );
+    }
 
-  $("#boardDisplay").on("submit", "#reportThread", function(e) {
-    var url = "/messageboard/api/threads/" + currentBoard;
-    $.ajax({
-      type: "PUT",
-      url: url,
-      data: $(this).serialize(),
-      success: function(data) {
-        alert(data);
-      }
-    });
-    e.preventDefault();
-  });
-  $("#boardDisplay").on("submit", "#reportReply", function(e) {
-    var thread_id = $(this).find('input[name="thread_id"]').val();
-    console.log("thread_id:", thread_id)
-    var url = "/messageboard/api/replies/" + thread_id;
-    $.ajax({
-      type: "PUT",
-      url: url,
-      data: $(this).serialize(),
-      success: function(data) {
-        alert(data);
-      }
-    });
-    e.preventDefault();
-  });
-  $("#boardDisplay").on("submit", "#deleteThread", function(e) {
-    var url = "/messageboard/api/threads/" + currentBoard;
-    $.ajax({
-      type: "DELETE",
-      url: url,
-      data: $(this).serialize(),
-      success: function(data) {
-        alert(data);
-        //console.log("data:", data);
-        if (data == "Delete successful") {
-          console.log("reloading");
-          location.reload();
+    newThread(event){
+      var url = "/messageboard/api/threads/" + currentBoard;
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          text: this.state.newText,
+          delete_password: this.state.newDeletePass},
+        success: data=>{
+          console.log("New thread data:", data);
+          if(data._id){
+            let newThreads = [data, ...this.state.threads];
+            //console.log("newThreads: ", newThreads);
+            this.setState({
+              threads: newThreads,
+              newText: "",
+              newDeletePass: ""
+            });
+            
+          } else{
+            alert(JSON.stringify(data));
+          }
+        }
+      });
+      event.preventDefault();
+    }
+
+    onNewTextChange(event){
+      this.setState({
+        newText: event.target.value
+      });
+    }
+
+    onNewDeletePassChange(event){
+      this.setState({
+        newDeletePass: event.target.value
+      });
+    }
+
+    deleteThreadAction(thread_id) {
+      let index = 0;
+      let threads = this.state.threads;
+      for(index; index<threads.length; index++){
+        if(threads[index]._id == thread_id){
+          break;
         }
       }
-    });
-    e.preventDefault();
-  });
-  $("#boardDisplay").on("submit", "#deleteReply", function(e) {
-    var thread_id = $(this).find('input[name="thread_id"]').val();
-    var url = "/messageboard/api/replies/" + thread_id;
-    $.ajax({
-      type: "DELETE",
-      url: url,
-      data: $(this).serialize(),
-      success: function(data) {
-        alert(data);
-        if (data == "Delete successful") {
-          console.log("reloading");
-          location.reload();
-        }
+      this.setState({
+        threads: [...threads.slice(0,index), ...threads.slice(index+1)]
+      });
+    }
+
+    render(){
+      let threads;
+      if(this.state.threads){
+        threads = this.state.threads.map(t=>{
+          return (<Thread 
+            key={t._id}
+            _id={t._id}
+            board={t.board}
+            text={t.text}
+            created_on={t.created_on}
+            replies={t.replies}
+            replycount={t.replycount}
+            deleteThreadAction={this.deleteThreadAction}
+          />);
+        })
+      } else if(this.state.error){
+        threads = <div>An Error Has Occured</div>;
       }
-    });
-    e.preventDefault();
-  });
 
-  $("#messageboardForm").on("submit", function(e) {
-    let input = $("#board_input")
-      .val()
-      .toLowerCase();
-    input = input.replace(/^\s+/g, ""); // remove spaces from beginning
-    input = input.replace(/\s+$/g, ""); // remove spaces from end
-    input = input.replace(/\s/g, "_"); // convert spaces to underscores
-    input = input.replace(/_+/g, "_"); // remove duplicate underscores
+      return (
+      <div className="board">
+        <div id="submitNewThread" className="newThread">
+          <h3>Create a new thread:</h3>
+          <form id="newThread" onSubmit={this.newThread}>
+            <textarea type="text" rows="8" cols="120" placeholder="Thread text..." 
+                      value={this.state.newText} onChange={this.onNewTextChange} required/>
+            <br/>
+            <input type="text" placeholder="password to delete"
+                    value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
+            <input type="submit" value="Create Thread"/>
+          </form>
+        </div>
+        
+        {threads}
+      </div>);
+      
+    }
+  }
 
-    window.location.href = base_url + input;
-    e.preventDefault();
-  });
+  ReactDOM.render(<MyComponent/>, document.getElementById('board'));
+
 });

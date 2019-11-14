@@ -1,0 +1,62 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body{
+  background-color: black;
+  color: white;
+}
+
+#nav-bar{
+  width: 100%;
+  background-color: lightgrey;
+}
+
+h4{
+  font-size: 25px;
+}
+
+#text-title{
+  font-family: cursive;
+  font-variant: small-caps;
+  font-size: 50px;
+}
+
+#div-controls{
+  margin: 0 auto;
+  width: 350px;
+  margin-top: 50px;
+}
+
+.control{
+  float:left;
+  width: 33%;
+  text-align:center;
+}
+
+.control-block{
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+
+.pointer{
+  cursor: pointer;
+  cursor: hand;
+}
+
+#start_stop{
+  text-align: center;
+  margin-top: 180px;
+  width: 330px;
+  height: 330px;
+  border-style: solid;
+  border-color: limegreen;
+  background-color: green;
+  border-radius: 165px;
+  padding: 50px;
+  font-family:verdana;
+}
+
+.footer{
+  text-align: center;
+}

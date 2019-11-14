@@ -1,3 +1,6 @@
+import '../css/quotegen.scss';
+import $ from 'jquery';
+
 $(document).ready(function() {
   $("#new-quote").click(function(){
     

@@ -1,3 +1,7 @@
+import '../css/treemap.scss';
+import $ from 'jquery';
+import * as d3 from 'd3';
+
 const URL_KICKSTARTER = "https://cdn.rawgit.com/freeCodeCamp/testable-projects-fcc/a80ce8f9/src/data/tree_map/kickstarter-funding-data.json";
 const URL_MOVIES = "https://cdn.rawgit.com/freeCodeCamp/testable-projects-fcc/a80ce8f9/src/data/tree_map/movie-data.json";
 const URL_GAMES = "https://cdn.rawgit.com/freeCodeCamp/testable-projects-fcc/a80ce8f9/src/data/tree_map/video-game-sales-data.json";
@@ -59,7 +63,7 @@ $.getJSON(option.URL, function(data){ //get data from webpage and perform action
   d3.select("#title").text(option.TITLE);
   d3.select("#description").text(option.DESCRIPTION);
   
-  colorScale = d3.scaleOrdinal(COLORS);
+  var colorScale = d3.scaleOrdinal(COLORS);
   
   const root = treemap(data);
   

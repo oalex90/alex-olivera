@@ -8,7 +8,7 @@ module.exports = function (app, db) {
   
   app.route("/shorturl")
   .get(function(request, response) {
-    response.sendFile(process.cwd() + '/views/shorturl.html');
+    response.sendFile(process.cwd() + '/dist/shorturl.html');
   })
   .post(function (req, res) { //when form post button clicked, try to create shortend url
     var url = req.body.url; //use body-parser to get url from html form input

@@ -1,3 +1,7 @@
+import '../css/scatterplot.scss';
+import $ from 'jquery';
+import * as d3 from 'd3';
+
 const PADDING_LEFT = 52; //needed to account for y-axis
 const PADDING_RIGHT = 101; //needed to account for y-axis and so last value isn't cut off
 const PADDING_BOTTOM = 30; //neeeded to account for x-axis
