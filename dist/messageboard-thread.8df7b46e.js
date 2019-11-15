@@ -43159,7 +43159,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         }
 
         return _react.default.createElement("div", null, _react.default.createElement("h1", {
-          id: "threadTitle"
+          id: "thread-title"
         }, window.location.pathname), _react.default.createElement("br", null), thread);
       }
     }]);

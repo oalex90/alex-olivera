@@ -57,7 +57,7 @@ $(document).ready(function() {
 
       return (
         <div>
-          <h1 id="threadTitle">{window.location.pathname}</h1>
+          <h1 id="thread-title">{window.location.pathname}</h1>
           <br></br>
           {thread}
         </div> 
