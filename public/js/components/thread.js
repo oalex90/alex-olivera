@@ -120,42 +120,45 @@ export class Thread extends React.Component {
           if (hiddenCount < 1){
               hiddenCount = 0;
           }
-          hiddenReplies = <h5>
+          hiddenReplies = <h5 className="thread-hidden-replies">
               {this.state.replycount} replies total ({hiddenCount} hidden)
               <a href={"/messageboard/r/" + this.props._id}>See the full thread here</a>.
           </h5>
       }
 
+      let createDate = new Date(this.props.created_on);
+
       return (
         <div className="thread">
-          <div className="main">
-            <p>id: {this.props._id} ({this.props.created_on})</p>
-            <form onSubmit={this.reportThread}>
-              <input type="submit" value="Report Thread"/>
-            </form>
-            <form onSubmit={this.deleteThread}>
-              <input type="text" name="delete_password" placeholder="password" required/>
-              <input type="submit" value="Delete Thread"/>
-            </form>
+            <p className="thread-id">id: {this.props._id} ({createDate.toUTCString()})</p>
+            <div className="thread-actions">
+              <form className="thread-report" onSubmit={this.reportThread}>
+                <input className="btn btn-outline-secondary" type="submit" value="Report Thread"/>
+              </form>
+              <form onSubmit={this.deleteThread}>
+                <input type="text" name="delete_password" placeholder="delete password" required/>
+                <input className="btn btn-outline-secondary" type="submit" value="Delete Thread"/>
+              </form>
+            </div>
 
-            <h3>{this.state.text}</h3>
+            <h3 className="thread-text">{this.state.text}</h3>
 
-            <div className="newReply">
-              <form id="newReply" onSubmit={this.newReply}>
-                <textarea type="text" rows="5" cols="80" placeholder="Quick reply..." 
+            <div className="thread-new-reply">
+              <form onSubmit={this.newReply}>
+                <textarea style={{width: '100%'}} type="text" rows="3" placeholder="Quick reply..." 
                           value={this.state.newText} onChange={this.onNewTextChange} required/>
                 <br/>
-                <input type="text" placeholder="password to delete"
-                       value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
-                <input type="submit" value="Create Reply"/>
+                <div className="new-reply-pass-submit">
+                  <input type="text" placeholder="password to delete"
+                        value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
+                  <input className="btn btn-primary" type="submit" value="Create Reply"/>
+                </div>
               </form>
             </div>
 
             {hiddenReplies}
             
             {replies}
-            
-          </div>
         </div>
       );
     }

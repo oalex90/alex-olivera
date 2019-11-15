@@ -54,18 +54,20 @@ export class Reply extends React.Component{
   render(){
     return (
       <div className="reply">
-        <p className="id">id: {this.props.reply_id} ({this.props.created_on}) </p>
+        <p className="reply-id">id: {this.props.reply_id} ({this.props.created_on}) </p>
         
-        <form onSubmit={this.reportReply}>
-          <input type="submit" value="Report Reply"/>
-        </form>
+        <div className="reply-actions">
+          <form className="reply-report" onSubmit={this.reportReply}>
+            <input className="btn btn-sm btn-outline-secondary" type="submit" value="Report Reply"/>
+          </form>
 
-        <form onSubmit={this.deleteReply}>
-          <input type="text" name="delete_password" placeholder="password" required/>
-          <input type="submit" value="Delete Reply" />
+          <form onSubmit={this.deleteReply}>
+            <input type="text" name="delete_password" placeholder="delete password" required/>
+            <input className="btn btn-sm btn-outline-secondary" type="submit" value="Delete Reply" />
+          </form>
+        </div>
 
-          <p>{this.state.text}</p>
-        </form>
+        <h5 className="reply-text">{this.state.text}</h5>
       </div> 
     );
   }

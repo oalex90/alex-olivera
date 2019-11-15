@@ -42764,10 +42764,14 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: "reply"
       }, _react.default.createElement("p", {
-        className: "id"
-      }, "id: ", this.props.reply_id, " (", this.props.created_on, ") "), _react.default.createElement("form", {
+        className: "reply-id"
+      }, "id: ", this.props.reply_id, " (", this.props.created_on, ") "), _react.default.createElement("div", {
+        className: "reply-actions"
+      }, _react.default.createElement("form", {
+        className: "reply-report",
         onSubmit: this.reportReply
       }, _react.default.createElement("input", {
+        className: "btn btn-sm btn-outline-secondary",
         type: "submit",
         value: "Report Reply"
       })), _react.default.createElement("form", {
@@ -42775,12 +42779,15 @@ function (_React$Component) {
       }, _react.default.createElement("input", {
         type: "text",
         name: "delete_password",
-        placeholder: "password",
+        placeholder: "delete password",
         required: true
       }), _react.default.createElement("input", {
+        className: "btn btn-sm btn-outline-secondary",
         type: "submit",
         value: "Delete Reply"
-      }), _react.default.createElement("p", null, this.state.text)));
+      }))), _react.default.createElement("h5", {
+        className: "reply-text"
+      }, this.state.text));
     }
   }]);
 
@@ -42983,18 +42990,25 @@ function (_React$Component) {
           hiddenCount = 0;
         }
 
-        hiddenReplies = _react.default.createElement("h5", null, this.state.replycount, " replies total (", hiddenCount, " hidden)", _react.default.createElement("a", {
+        hiddenReplies = _react.default.createElement("h5", {
+          className: "thread-hidden-replies"
+        }, this.state.replycount, " replies total (", hiddenCount, " hidden)", _react.default.createElement("a", {
           href: "/messageboard/r/" + this.props._id
         }, "See the full thread here"), ".");
       }
 
+      var createDate = new Date(this.props.created_on);
       return _react.default.createElement("div", {
         className: "thread"
-      }, _react.default.createElement("div", {
-        className: "main"
-      }, _react.default.createElement("p", null, "id: ", this.props._id, " (", this.props.created_on, ")"), _react.default.createElement("form", {
+      }, _react.default.createElement("p", {
+        className: "thread-id"
+      }, "id: ", this.props._id, " (", createDate.toUTCString(), ")"), _react.default.createElement("div", {
+        className: "thread-actions"
+      }, _react.default.createElement("form", {
+        className: "thread-report",
         onSubmit: this.reportThread
       }, _react.default.createElement("input", {
+        className: "btn btn-outline-secondary",
         type: "submit",
         value: "Report Thread"
       })), _react.default.createElement("form", {
@@ -43002,34 +43016,41 @@ function (_React$Component) {
       }, _react.default.createElement("input", {
         type: "text",
         name: "delete_password",
-        placeholder: "password",
+        placeholder: "delete password",
         required: true
       }), _react.default.createElement("input", {
+        className: "btn btn-outline-secondary",
         type: "submit",
         value: "Delete Thread"
-      })), _react.default.createElement("h3", null, this.state.text), _react.default.createElement("div", {
-        className: "newReply"
+      }))), _react.default.createElement("h3", {
+        className: "thread-text"
+      }, this.state.text), _react.default.createElement("div", {
+        className: "thread-new-reply"
       }, _react.default.createElement("form", {
-        id: "newReply",
         onSubmit: this.newReply
       }, _react.default.createElement("textarea", {
+        style: {
+          width: '100%'
+        },
         type: "text",
-        rows: "5",
-        cols: "80",
+        rows: "3",
         placeholder: "Quick reply...",
         value: this.state.newText,
         onChange: this.onNewTextChange,
         required: true
-      }), _react.default.createElement("br", null), _react.default.createElement("input", {
+      }), _react.default.createElement("br", null), _react.default.createElement("div", {
+        className: "new-reply-pass-submit"
+      }, _react.default.createElement("input", {
         type: "text",
         placeholder: "password to delete",
         value: this.state.newDeletePass,
         onChange: this.onNewDeletePassChange,
         required: true
       }), _react.default.createElement("input", {
+        className: "btn btn-primary",
         type: "submit",
         value: "Create Reply"
-      }))), hiddenReplies, replies));
+      })))), hiddenReplies, replies);
     }
   }]);
 
@@ -43079,15 +43100,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 (0, _jquery.default)(document).ready(function () {
-  var base_url = window.location.origin + "/messageboard/";
-  console.log("pathname:", window.location.pathname);
   var currentBoard = window.location.pathname.replace("/messageboard/", "");
   currentBoard = currentBoard.replace(/\/*$/, "");
-  console.log("currentBoard:", currentBoard);
-  var url = "/messageboard/api/threads/" + currentBoard;
-  console.log("url:", url);
-  var url2 = "/messageboard/r/";
-  (0, _jquery.default)("#boardTitle").text("Welcome to " + window.location.pathname);
 
   var MyComponent =
   /*#__PURE__*/
@@ -43220,16 +43234,19 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
         return _react.default.createElement("div", {
           className: "board"
-        }, _react.default.createElement("div", {
-          id: "submitNewThread",
-          className: "newThread"
+        }, _react.default.createElement("h1", {
+          id: "boardTitle"
+        }, currentBoard), _react.default.createElement("div", {
+          id: "submitNewThread"
         }, _react.default.createElement("h3", null, "Create a new thread:"), _react.default.createElement("form", {
           id: "newThread",
           onSubmit: this.newThread
         }, _react.default.createElement("textarea", {
+          style: {
+            width: '100%'
+          },
           type: "text",
-          rows: "8",
-          cols: "120",
+          rows: "4",
           placeholder: "Thread text...",
           value: this.state.newText,
           onChange: this.onNewTextChange,
@@ -43241,6 +43258,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
           onChange: this.onNewDeletePassChange,
           required: true
         }), _react.default.createElement("input", {
+          className: "btn btn-primary",
           type: "submit",
           value: "Create Thread"
         }))), threads);
@@ -43250,7 +43268,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     return MyComponent;
   }(_react.default.Component);
 
-  _reactDom.default.render(_react.default.createElement(MyComponent, null), document.getElementById('board'));
+  _reactDom.default.render(_react.default.createElement(MyComponent, null), document.getElementById('board-display'));
 });
 },{"../css/messageboard.scss":"../public/css/messageboard.scss","react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","jquery":"../node_modules/jquery/dist/jquery.js","../js/components/thread":"../public/js/components/thread.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -43280,7 +43298,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49751" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55344" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

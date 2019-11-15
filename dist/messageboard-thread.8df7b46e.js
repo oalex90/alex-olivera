@@ -42764,10 +42764,14 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: "reply"
       }, _react.default.createElement("p", {
-        className: "id"
-      }, "id: ", this.props.reply_id, " (", this.props.created_on, ") "), _react.default.createElement("form", {
+        className: "reply-id"
+      }, "id: ", this.props.reply_id, " (", this.props.created_on, ") "), _react.default.createElement("div", {
+        className: "reply-actions"
+      }, _react.default.createElement("form", {
+        className: "reply-report",
         onSubmit: this.reportReply
       }, _react.default.createElement("input", {
+        className: "btn btn-sm btn-outline-secondary",
         type: "submit",
         value: "Report Reply"
       })), _react.default.createElement("form", {
@@ -42775,12 +42779,15 @@ function (_React$Component) {
       }, _react.default.createElement("input", {
         type: "text",
         name: "delete_password",
-        placeholder: "password",
+        placeholder: "delete password",
         required: true
       }), _react.default.createElement("input", {
+        className: "btn btn-sm btn-outline-secondary",
         type: "submit",
         value: "Delete Reply"
-      }), _react.default.createElement("p", null, this.state.text)));
+      }))), _react.default.createElement("h5", {
+        className: "reply-text"
+      }, this.state.text));
     }
   }]);
 
@@ -42983,18 +42990,25 @@ function (_React$Component) {
           hiddenCount = 0;
         }
 
-        hiddenReplies = _react.default.createElement("h5", null, this.state.replycount, " replies total (", hiddenCount, " hidden)", _react.default.createElement("a", {
+        hiddenReplies = _react.default.createElement("h5", {
+          className: "thread-hidden-replies"
+        }, this.state.replycount, " replies total (", hiddenCount, " hidden)", _react.default.createElement("a", {
           href: "/messageboard/r/" + this.props._id
         }, "See the full thread here"), ".");
       }
 
+      var createDate = new Date(this.props.created_on);
       return _react.default.createElement("div", {
         className: "thread"
-      }, _react.default.createElement("div", {
-        className: "main"
-      }, _react.default.createElement("p", null, "id: ", this.props._id, " (", this.props.created_on, ")"), _react.default.createElement("form", {
+      }, _react.default.createElement("p", {
+        className: "thread-id"
+      }, "id: ", this.props._id, " (", createDate.toUTCString(), ")"), _react.default.createElement("div", {
+        className: "thread-actions"
+      }, _react.default.createElement("form", {
+        className: "thread-report",
         onSubmit: this.reportThread
       }, _react.default.createElement("input", {
+        className: "btn btn-outline-secondary",
         type: "submit",
         value: "Report Thread"
       })), _react.default.createElement("form", {
@@ -43002,34 +43016,41 @@ function (_React$Component) {
       }, _react.default.createElement("input", {
         type: "text",
         name: "delete_password",
-        placeholder: "password",
+        placeholder: "delete password",
         required: true
       }), _react.default.createElement("input", {
+        className: "btn btn-outline-secondary",
         type: "submit",
         value: "Delete Thread"
-      })), _react.default.createElement("h3", null, this.state.text), _react.default.createElement("div", {
-        className: "newReply"
+      }))), _react.default.createElement("h3", {
+        className: "thread-text"
+      }, this.state.text), _react.default.createElement("div", {
+        className: "thread-new-reply"
       }, _react.default.createElement("form", {
-        id: "newReply",
         onSubmit: this.newReply
       }, _react.default.createElement("textarea", {
+        style: {
+          width: '100%'
+        },
         type: "text",
-        rows: "5",
-        cols: "80",
+        rows: "3",
         placeholder: "Quick reply...",
         value: this.state.newText,
         onChange: this.onNewTextChange,
         required: true
-      }), _react.default.createElement("br", null), _react.default.createElement("input", {
+      }), _react.default.createElement("br", null), _react.default.createElement("div", {
+        className: "new-reply-pass-submit"
+      }, _react.default.createElement("input", {
         type: "text",
         placeholder: "password to delete",
         value: this.state.newDeletePass,
         onChange: this.onNewDeletePassChange,
         required: true
       }), _react.default.createElement("input", {
+        className: "btn btn-primary",
         type: "submit",
         value: "Create Reply"
-      }))), hiddenReplies, replies));
+      })))), hiddenReplies, replies);
     }
   }]);
 
@@ -43122,10 +43143,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     }, {
       key: "render",
       value: function render() {
-        var ret;
+        var thread;
 
         if (this.state.data) {
-          return _react.default.createElement(_thread.Thread, {
+          thread = _react.default.createElement(_thread.Thread, {
             _id: this.state.data._id,
             board: this.state.data.board,
             text: this.state.data.text,
@@ -43134,17 +43155,19 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
             deleteThreadAction: this.deleteThreadAction
           });
         } else if (this.state.error) {
-          return _react.default.createElement("div", null, "Thread not found");
-        } else {
-          return _react.default.createElement("div", null);
+          thread = _react.default.createElement("div", null, "Thread not found");
         }
+
+        return _react.default.createElement("div", null, _react.default.createElement("h1", {
+          id: "threadTitle"
+        }, window.location.pathname), _react.default.createElement("br", null), thread);
       }
     }]);
 
     return MyComponent;
   }(_react.default.Component);
 
-  _reactDom.default.render(_react.default.createElement(MyComponent, null), document.getElementById('thread'));
+  _reactDom.default.render(_react.default.createElement(MyComponent, null), document.getElementById('thread-display'));
 });
 },{"../css/messageboard.scss":"../public/css/messageboard.scss","react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","jquery":"../node_modules/jquery/dist/jquery.js","../js/components/thread":"../public/js/components/thread.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -43174,7 +43197,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49751" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55344" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

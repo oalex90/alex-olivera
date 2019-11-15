@@ -9659,49 +9659,97 @@ h3 {
 #nav-bar {
   width: 100%;
   background-color: lightgrey;
+  margin-bottom: 10px;
 }
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #FaFaFa;
+  background-color: #fafafa;
 }
 
-h1 {
-  font-size: 30px;
-}
-
-.replies {
-  margin-left: 50px;
-}
-
-.reply {
-  border: 1px dotted black;
-  margin: 5px;
-  padding: 5px;
-}
-
-.newReply {
-  margin: 10px 5px 10px 5px;
+#submitNewThread {
+  margin: 40px;
 }
 
 .thread {
   border: 2px solid black;
-  padding: 5px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
+  padding: 5px 25px;
+  margin-bottom: 35px;
+  background-color: #ffffff;
 }
 
-.id {
-  font-size: 10.5px;
+.thread-actions, .reply-actions {
+  display: flex;
 }
 
-#submitNewThread {
-  margin: 50px;
+.thread-report, .reply-report {
+  margin-right: 15px;
+}
+
+.thread-text {
+  margin: 20px 35px;
+}
+
+.thread-new-reply {
+  margin-bottom: 25px;
+}
+
+.new-reply-pass-submit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.reply {
+  border: 1px dotted black;
+  margin: 10px;
+  padding: 5px 20px;
+  background-color: #fafafa;
+}
+
+.reply-id {
+  font-size: 12px;
+}
+
+.reply-text {
+  margin: 15px 25px;
 }
 
 .footer {
   text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .thread-text {
+    font-size: 20px;
+  }
+
+  .reply-text {
+    font-size: 15px;
+  }
+
+  input {
+    font-size: 15px;
+  }
+
+  .btn {
+    font-size: 15px;
+  }
+
+  .thread-id {
+    font-size: 12px;
+  }
+
+  .thread-hidden-replies {
+    font-size: 15px;
+  }
+
+  .reply-id {
+    font-size: 10px;
+  }
+
+  .thread-actions, .reply-actions {
+    flex-direction: column;
+  }
 }
 
 /*# sourceMappingURL=/messageboard-board.86f1957d.css.map */

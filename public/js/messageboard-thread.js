@@ -42,9 +42,9 @@ $(document).ready(function() {
     }
 
     render(){
-      let ret;
+      let thread;
       if(this.state.data){
-        return (<Thread _id={this.state.data._id}
+        thread = (<Thread _id={this.state.data._id}
                         board={this.state.data.board}
                         text={this.state.data.text}
                         created_on={this.state.data.created_on}
@@ -52,14 +52,19 @@ $(document).ready(function() {
                         deleteThreadAction={this.deleteThreadAction}
                 />);
       } else if(this.state.error){
-        return <div>Thread not found</div>;
-      } else{
-        return <div></div>
+        thread = <div>Thread not found</div>;
       }
-      
+
+      return (
+        <div>
+          <h1 id="threadTitle">{window.location.pathname}</h1>
+          <br></br>
+          {thread}
+        </div> 
+      );
     }
   }
 
-  ReactDOM.render(<MyComponent/>, document.getElementById('thread'));
+  ReactDOM.render(<MyComponent/>, document.getElementById('thread-display'));
 
 });

@@ -5,15 +5,8 @@ import $ from 'jquery';
 import { Thread } from '../js/components/thread';
 
 $(document).ready(function() {
-  var base_url = window.location.origin + "/messageboard/";
-  console.log("pathname:", window.location.pathname);
   var currentBoard = window.location.pathname.replace("/messageboard/","");
   currentBoard = currentBoard.replace(/\/*$/, "");
-  console.log("currentBoard:", currentBoard);
-  var url = "/messageboard/api/threads/" + currentBoard;
-  console.log("url:", url);
-  var url2 = "/messageboard/r/";
-  $("#boardTitle").text("Welcome to " + window.location.pathname);
   
   class MyComponent extends React.Component{
     constructor(props){
@@ -118,15 +111,16 @@ $(document).ready(function() {
 
       return (
       <div className="board">
-        <div id="submitNewThread" className="newThread">
+        <h1 id="boardTitle">{currentBoard}</h1>
+        <div id="submitNewThread">
           <h3>Create a new thread:</h3>
           <form id="newThread" onSubmit={this.newThread}>
-            <textarea type="text" rows="8" cols="120" placeholder="Thread text..." 
+            <textarea style={{width: '100%'}} type="text" rows="4" placeholder="Thread text..." 
                       value={this.state.newText} onChange={this.onNewTextChange} required/>
             <br/>
             <input type="text" placeholder="password to delete"
                     value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
-            <input type="submit" value="Create Thread"/>
+            <input className="btn btn-primary" type="submit" value="Create Thread"/>
           </form>
         </div>
         
@@ -136,6 +130,6 @@ $(document).ready(function() {
     }
   }
 
-  ReactDOM.render(<MyComponent/>, document.getElementById('board'));
+  ReactDOM.render(<MyComponent/>, document.getElementById('board-display'));
 
 });
