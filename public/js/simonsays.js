@@ -6,6 +6,11 @@ var audioYellow = new Audio("https://www.soundjay.com/button/beep-02.mp3");
 var audioBlue = new Audio("https://www.soundjay.com/button/beep-03.mp3");
 var audioRed = new Audio("https://www.soundjay.com/button/beep-04.mp3");
 
+audioGreen.setAttribute("SameSite", "None");
+audioYellow.setAttribute("SameSite", "None");
+audioBlue.setAttribute("SameSite", "None");
+audioRed.setAttribute("SameSite", "None");
+
 var isOn = false; //is device switched on
 var isStrict = false; //is strict mode activated
 var count = 0; //turn count

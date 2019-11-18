@@ -42920,6 +42920,7 @@ function (_React$Component) {
 
       var keyDivs = keys.map(function (key) {
         return _react.default.createElement("div", {
+          key: "drum-pad-" + key,
           id: "drum-pad-" + key,
           className: keysClass(_this3.state.keyPressed == key, _this3.state.isPowerOn)
         }, key, _react.default.createElement("audio", {
@@ -42933,10 +42934,6 @@ function (_React$Component) {
         id: "drum-machine",
         className: this.state.isPowerOn ? "dm-power-on" : "dm-power-off"
       }, _react.default.createElement("div", {
-        id: "logo"
-      }, "FCC ", _react.default.createElement("i", {
-        className: "fab fa-free-code-camp"
-      })), _react.default.createElement("div", {
         id: "contents"
       }, _react.default.createElement("div", {
         id: "drum-pad-keys"
@@ -43019,7 +43016,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55344" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56764" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

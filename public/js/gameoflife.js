@@ -7,8 +7,8 @@ const NUM_CELLS_HEIGHT_SMALL = 30;
 const NUM_CELLS_WIDTH_SMALL = 50;
 const NUM_CELLS_HEIGHT_MEDIUM = 50;
 const NUM_CELLS_WIDTH_MEDIUM = 70;
-const NUM_CELLS_HEIGHT_LARGE = 80;
-const NUM_CELLS_WIDTH_LARGE = 100;
+const NUM_CELLS_HEIGHT_LARGE = 60;
+const NUM_CELLS_WIDTH_LARGE = 75;
 
 var secondAppColor = "#373538";
 
@@ -24,7 +24,6 @@ class Cell extends React.Component { //react object for each individual cell on 
     return (
       <div 
         id = {this.props.id}
-        //key = {this.props.id}
         className = {"cell " + "cell-" + this.props.size}
         style = {{backgroundColor: cellColors[this.props.state]}}
         onClick = {this.props.onClick}>
@@ -69,6 +68,7 @@ class CellBoard extends React.Component{ //react object for board of cells
           }
           cells.push(//create Cell object and push into array
             <Cell
+              key = {"cell-" + curCol + "-" + curRow}
               id = {"cell-" + curCol + "-" + curRow}
               state = {curCellState}
               size = {size}
@@ -132,7 +132,7 @@ const boardSize = { //maps board size to related props
 };
   
 const speedType = { //maps spead to milliseconds per interval
-  slow: 500, medium: 175, fast: 60
+  slow: 400, medium: 200, fast: 100
 };
   
 class GameApp extends React.Component{ //react object for each individual row in list/table  
@@ -459,12 +459,13 @@ class GameApp extends React.Component{ //react object for each individual row in
           </div>
         </div>
         <div id="div-disclaimer">
-          Feel free to add cells while it's running. The cells in light green are younger, green are older. Enjoy!
+          Feel free to add cells while it's running. The cells in light green are younger, green are older.
         </div>
       </div>
     );
   }
 }
-
-ReactDOM.render(<GameApp/>, document.getElementById('app'));
+$('document').ready(function() {
+  ReactDOM.render(<GameApp/>, document.getElementById('app'));
+});
 

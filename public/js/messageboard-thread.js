@@ -26,7 +26,7 @@ $(document).ready(function() {
         .then(res => res.json())
         .then(
           (result) => {
-            console.log("fetch result", result);
+            //console.log("fetch result", result);
             this.setState({
               data: result
             });

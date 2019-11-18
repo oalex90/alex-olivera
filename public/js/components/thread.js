@@ -62,7 +62,7 @@ export class Thread extends React.Component {
           text: this.state.newText,
           delete_password: this.state.newDeletePass},
         success: data=>{
-          console.log("New reply Data:", data);
+          //console.log("New reply Data:", data);
           if(data._id){
             let newReplies;
             if(this.state.replycount != undefined && this.state.replycount > 2){

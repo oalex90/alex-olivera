@@ -42714,8 +42714,8 @@ function (_React$Component) {
   _createClass(Reply, [{
     key: "reportReply",
     value: function reportReply(event) {
-      console.log("thread_id", this.props.thread_id);
-      console.log("reply_id", this.props.reply_id);
+      //console.log("thread_id", this.props.thread_id);
+      //console.log("reply_id", this.props.reply_id);
       var url = "/messageboard/api/replies/" + this.props.thread_id;
 
       _jquery.default.ajax({
@@ -42921,8 +42921,7 @@ function (_React$Component) {
           delete_password: this.state.newDeletePass
         },
         success: function success(data) {
-          console.log("New reply Data:", data);
-
+          //console.log("New reply Data:", data);
           if (data._id) {
             var newReplies;
 
@@ -43124,8 +43123,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
         fetch("/messageboard/api/replies/" + thread_id).then(function (res) {
           return res.json();
         }).then(function (result) {
-          console.log("fetch result", result);
-
+          //console.log("fetch result", result);
           _this2.setState({
             data: result
           });
@@ -43197,7 +43195,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55344" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56764" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

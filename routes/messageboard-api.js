@@ -90,7 +90,7 @@ module.exports = function(app, db) {
 
       DB_TABLE.insertOne(newThread, (err, document) => {
         if (err) throw err;
-        console.log("document", document.ops[0]._id);
+        //console.log("document", document.ops[0]._id);
         res.json({
           _id: document.ops[0]._id,
           board: newThread.board,

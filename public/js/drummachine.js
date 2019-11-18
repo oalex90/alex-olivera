@@ -184,7 +184,7 @@ class DrumMachine extends React.Component{
     }
     let keyDivs = keys.map((key)=>{
       return (
-        <div id={"drum-pad-"+key} 
+        <div key={"drum-pad-"+key} id={"drum-pad-"+key} 
           className={keysClass(this.state.keyPressed == key, this.state.isPowerOn)}
           >
           {key}
@@ -196,7 +196,6 @@ class DrumMachine extends React.Component{
     return ( 
       <div id="drum-machine" 
         className={this.state.isPowerOn ? "dm-power-on" : "dm-power-off"}>
-        <div id="logo">FCC <i className="fab fa-free-code-camp"></i></div>
         <div id="contents">
           <div id="drum-pad-keys">
             {keyDivs}

@@ -504,54 +504,54 @@ class Board extends React.Component {
         if(this.props.isDark &&  //if isDark is set and distance of square from player is more than 5 horizontally or vertically, color square black
           (Math.abs(playerPos.row-row) > 5 || Math.abs(playerPos.col-col) > 5)){
           squares.push(
-            <div style={{ ...squareStyle, backgroundColor: "black" /*//darkness*/}} />
+            <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "black" /*//darkness*/}} />
           );
         }
         else{ //else color square based on value
           switch (curSqrVal) {
             case 0://free square
               squares.push(
-                <div style={{ ...squareStyle, backgroundColor: "pink"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "pink"}} />
               );
               break;
             case 1: //wall square
               squares.push(
-                <div style={{ ...squareStyle, backgroundColor: "#68635d"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "#68635d"}} />
               );
               break;
             case 2: //enemy square
               squares.push(
-                <div style={{ ...squareStyle, backgroundColor: "red"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "red"}} />
               );
               break;
             case 3: //health square
               squares.push(
-                <div style={{ ...squareStyle, backgroundColor: "green"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "green"}} />
               );
               break;
             case 4: //player square
               squares.push(
-                <div style={{ ...squareStyle, backgroundColor: "blue"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "blue"}} />
               );
               break;
             case 5: //door square
               squares.push(//dark purple
-                <div style={{ ...squareStyle, backgroundColor: "#8e0e59"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "#8e0e59"}} />
               );
               break;
             case 6: //weapon square
               squares.push(
-                <div style={{ ...squareStyle, backgroundColor: "darkorange"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "darkorange"}} />
               );
               break;
             case 7: //boss square
               squares.push(//dark red, circular shaped
-                <div style={{ ...squareStyle, backgroundColor: "#912e21", borderRadius: "5px"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "#912e21", borderRadius: "5px"}} />
               );
               break;
             default: //default is a free square
               squares.push(
-                <div style={{ ...squareStyle, backgroundColor: "pink"}} />
+                <div key={col + "-" + row} style={{ ...squareStyle, backgroundColor: "pink"}} />
               );
           }
         }
@@ -595,6 +595,7 @@ const VisibleBoard = ReactRedux.connect(
 
 //parent React component
 class RoguelikeGame extends React.Component{
+  
   
   onKeyDownHandler(keyCode){//using keyCode and the target square value, call correct action/dispatch
     let state = this.props.state;

@@ -22,12 +22,12 @@ $(document).ready(function() {
     }
 
     componentDidMount() {
-      console.log("mounting");
+      //console.log("mounting");
       fetch("/messageboard/api/threads/" + currentBoard)
         .then(res => res.json())
         .then(
           (result) => {
-            console.log("fetch result", result);
+            //console.log("fetch result", result);
             this.setState({
               threads: result
             });
@@ -47,7 +47,7 @@ $(document).ready(function() {
           text: this.state.newText,
           delete_password: this.state.newDeletePass},
         success: data=>{
-          console.log("New thread data:", data);
+          //console.log("New thread data:", data);
           if(data._id){
             let newThreads = [data, ...this.state.threads];
             //console.log("newThreads: ", newThreads);

@@ -42714,8 +42714,8 @@ function (_React$Component) {
   _createClass(Reply, [{
     key: "reportReply",
     value: function reportReply(event) {
-      console.log("thread_id", this.props.thread_id);
-      console.log("reply_id", this.props.reply_id);
+      //console.log("thread_id", this.props.thread_id);
+      //console.log("reply_id", this.props.reply_id);
       var url = "/messageboard/api/replies/" + this.props.thread_id;
 
       _jquery.default.ajax({
@@ -42921,8 +42921,7 @@ function (_React$Component) {
           delete_password: this.state.newDeletePass
         },
         success: function success(data) {
-          console.log("New reply Data:", data);
-
+          //console.log("New reply Data:", data);
           if (data._id) {
             var newReplies;
 
@@ -43130,12 +43129,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
       value: function componentDidMount() {
         var _this2 = this;
 
-        console.log("mounting");
+        //console.log("mounting");
         fetch("/messageboard/api/threads/" + currentBoard).then(function (res) {
           return res.json();
         }).then(function (result) {
-          console.log("fetch result", result);
-
+          //console.log("fetch result", result);
           _this2.setState({
             threads: result
           });
@@ -43160,8 +43158,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
             delete_password: this.state.newDeletePass
           },
           success: function success(data) {
-            console.log("New thread data:", data);
-
+            //console.log("New thread data:", data);
             if (data._id) {
               var newThreads = [data].concat(_toConsumableArray(_this3.state.threads)); //console.log("newThreads: ", newThreads);
 
@@ -43298,7 +43295,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55344" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56764" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

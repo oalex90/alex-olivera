@@ -42695,8 +42695,8 @@ var NUM_CELLS_HEIGHT_SMALL = 30;
 var NUM_CELLS_WIDTH_SMALL = 50;
 var NUM_CELLS_HEIGHT_MEDIUM = 50;
 var NUM_CELLS_WIDTH_MEDIUM = 70;
-var NUM_CELLS_HEIGHT_LARGE = 80;
-var NUM_CELLS_WIDTH_LARGE = 100;
+var NUM_CELLS_HEIGHT_LARGE = 60;
+var NUM_CELLS_WIDTH_LARGE = 75;
 var secondAppColor = "#373538";
 var cellColors = {
   //mappings for status to color
@@ -42721,8 +42721,7 @@ function (_React$Component) {
     //react object for each individual cell on the board
     value: function render() {
       return _react.default.createElement("div", {
-        id: this.props.id //key = {this.props.id}
-        ,
+        id: this.props.id,
         className: "cell " + "cell-" + this.props.size,
         style: {
           backgroundColor: cellColors[this.props.state]
@@ -42797,6 +42796,7 @@ function (_React$Component2) {
 
           cells.push( //create Cell object and push into array
           _react.default.createElement(Cell, {
+            key: "cell-" + curCol + "-" + curRow,
             id: "cell-" + curCol + "-" + curRow,
             state: curCellState,
             size: size,
@@ -42886,9 +42886,9 @@ var boardSize = {
 };
 var speedType = {
   //maps spead to milliseconds per interval
-  slow: 500,
-  medium: 175,
-  fast: 60
+  slow: 400,
+  medium: 200,
+  fast: 100
 };
 
 var GameApp =
@@ -43421,14 +43421,16 @@ function (_React$Component4) {
         onClick: this.btnFastOnClick
       }, "Fast")))), _react.default.createElement("div", {
         id: "div-disclaimer"
-      }, "Feel free to add cells while it's running. The cells in light green are younger, green are older. Enjoy!"));
+      }, "Feel free to add cells while it's running. The cells in light green are younger, green are older."));
     }
   }]);
 
   return GameApp;
 }(_react.default.Component);
 
-_reactDom.default.render(_react.default.createElement(GameApp, null), document.getElementById('app'));
+(0, _jquery.default)('document').ready(function () {
+  _reactDom.default.render(_react.default.createElement(GameApp, null), document.getElementById('app'));
+});
 },{"../css/gameoflife.scss":"../public/css/gameoflife.scss","react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","jquery":"../node_modules/jquery/dist/jquery.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -43457,7 +43459,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55344" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56764" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

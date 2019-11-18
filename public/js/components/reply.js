@@ -12,8 +12,8 @@ export class Reply extends React.Component{
   }
 
   reportReply(event){
-    console.log("thread_id", this.props.thread_id);
-    console.log("reply_id", this.props.reply_id);
+    //console.log("thread_id", this.props.thread_id);
+    //console.log("reply_id", this.props.reply_id);
     var url = "/messageboard/api/replies/" + this.props.thread_id;
     $.ajax({
       type: "PUT",
