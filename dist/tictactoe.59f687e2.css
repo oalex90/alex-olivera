@@ -19364,15 +19364,17 @@ body {
   font-size: 30px;
   font-style: italic;
   margin-top: 10px;
+  height: 30px;
   margin-bottom: 40px;
 }
 
 #div-score {
-  margin-top: 0px;
+  margin-top: 10px;
   margin-bottom: 0px;
   font-size: 25px;
   color: black;
   display: flex;
+  height: 70px;
 }
 
 .score-section {
@@ -19386,7 +19388,7 @@ body {
 
 #div-result {
   margin-top: 10px;
-  height: 80px;
+  height: 70px;
 }
 
 #text-result {
@@ -19414,18 +19416,21 @@ body {
 }
 
 #div-main {
-  padding: 10px;
-  background-color: black;
+  background-color: pink;
   color: pink;
   width: 425px;
   height: 425px;
-  margin: auto auto;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 138.3533333333px);
+  grid-template-rows: repeat(3, 138.3333333333px);
+  grid-gap: 5px;
 }
 
 .div-square {
-  float: left;
-  width: 33%;
-  height: 33%;
+  background-color: black;
+  width: 100%;
+  height: 100%;
   font-size: 100px;
   text-align: center;
 }
@@ -19443,30 +19448,6 @@ body {
   background-color: #262626;
   cursor: hand;
   cursor: pointer;
-}
-
-#div-mid-center-sqr {
-  border: 5px solid pink;
-}
-
-#div-mid-left-sqr {
-  border-top: 5px solid pink;
-  border-bottom: 5px solid pink;
-}
-
-#div-mid-right-sqr {
-  border-top: 5px solid pink;
-  border-bottom: 5px solid pink;
-}
-
-#div-top-center-sqr {
-  border-left: 5px solid pink;
-  border-right: 5px solid pink;
-}
-
-#div-bot-center-sqr {
-  border-left: 5px solid pink;
-  border-right: 5px solid pink;
 }
 
 /*# sourceMappingURL=/tictactoe.59f687e2.css.map */
