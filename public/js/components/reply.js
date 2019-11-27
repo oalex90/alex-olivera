@@ -5,10 +5,12 @@ export class Reply extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      text: this.props.text
+      text: this.props.text,
+      hideText: this.props.reported
     }
     this.reportReply = this.reportReply.bind(this);
     this.deleteReply = this.deleteReply.bind(this);
+    this.revealReplyText = this.revealReplyText.bind(this);
   }
 
   reportReply(event){
@@ -22,7 +24,9 @@ export class Reply extends React.Component{
         reply_id: this.props.reply_id,
       },
       success: data => {
-        alert(data);
+        this.setState({
+          hideText: true
+        });
       }
     });
     event.preventDefault();
@@ -51,23 +55,36 @@ export class Reply extends React.Component{
     event.preventDefault();
   }
 
+  revealReplyText(){
+    this.setState({hideText: false});
+  }
+
   render(){
+
+    let isDeleted = this.state.text =="[deleted]";
+
+    let replyText = <h5 className="reply-text">{this.state.text}</h5>;
+    if(this.state.hideText && !isDeleted){
+      replyText = <div className="reply-reported-text"><h5 className="reply-text">reported</h5><p className="reply-reveal-text" onClick={this.revealReplyText}>[reveal text]</p></div>;
+    }
+
     return (
       <div className="reply">
         <p className="reply-id">id: {this.props.reply_id} ({this.props.created_on}) </p>
         
         <div className="reply-actions">
-          <form className="reply-report" onSubmit={this.reportReply}>
+
+          <form className="reply-report" onSubmit={this.reportReply} hidden={isDeleted}>
             <input className="btn btn-sm btn-outline-secondary" type="submit" value="Report Reply"/>
           </form>
 
-          <form onSubmit={this.deleteReply}>
+          <form onSubmit={this.deleteReply} hidden={isDeleted}>
             <input type="text" name="delete_password" placeholder="delete password" required/>
             <input className="btn btn-sm btn-outline-secondary" type="submit" value="Delete Reply" />
           </form>
         </div>
 
-        <h5 className="reply-text">{this.state.text}</h5>
+        {replyText}
       </div> 
     );
   }

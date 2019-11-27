@@ -102,6 +102,7 @@ $(document).ready(function() {
             created_on={t.created_on}
             replies={t.replies}
             replycount={t.replycount}
+            reported={t.reported}
             deleteThreadAction={this.deleteThreadAction}
           />);
         })

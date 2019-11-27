@@ -42704,16 +42704,20 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Reply).call(this, props));
     _this.state = {
-      text: _this.props.text
+      text: _this.props.text,
+      hideText: _this.props.reported
     };
     _this.reportReply = _this.reportReply.bind(_assertThisInitialized(_this));
     _this.deleteReply = _this.deleteReply.bind(_assertThisInitialized(_this));
+    _this.revealReplyText = _this.revealReplyText.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Reply, [{
     key: "reportReply",
     value: function reportReply(event) {
+      var _this2 = this;
+
       //console.log("thread_id", this.props.thread_id);
       //console.log("reply_id", this.props.reply_id);
       var url = "/messageboard/api/replies/" + this.props.thread_id;
@@ -42725,7 +42729,9 @@ function (_React$Component) {
           reply_id: this.props.reply_id
         },
         success: function success(data) {
-          alert(data);
+          _this2.setState({
+            hideText: true
+          });
         }
       });
 
@@ -42734,7 +42740,7 @@ function (_React$Component) {
   }, {
     key: "deleteReply",
     value: function deleteReply(event) {
-      var _this2 = this;
+      var _this3 = this;
 
       var url = "/messageboard/api/replies/" + this.props.thread_id;
 
@@ -42747,7 +42753,7 @@ function (_React$Component) {
         },
         success: function success(data) {
           if (data == "Delete successful") {
-            _this2.setState({
+            _this3.setState({
               text: "[deleted]"
             });
           } else {
@@ -42759,8 +42765,32 @@ function (_React$Component) {
       event.preventDefault();
     }
   }, {
+    key: "revealReplyText",
+    value: function revealReplyText() {
+      this.setState({
+        hideText: false
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var isDeleted = this.state.text == "[deleted]";
+
+      var replyText = _react.default.createElement("h5", {
+        className: "reply-text"
+      }, this.state.text);
+
+      if (this.state.hideText && !isDeleted) {
+        replyText = _react.default.createElement("div", {
+          className: "reply-reported-text"
+        }, _react.default.createElement("h5", {
+          className: "reply-text"
+        }, "reported"), _react.default.createElement("p", {
+          className: "reply-reveal-text",
+          onClick: this.revealReplyText
+        }, "[reveal text]"));
+      }
+
       return _react.default.createElement("div", {
         className: "reply"
       }, _react.default.createElement("p", {
@@ -42769,13 +42799,15 @@ function (_React$Component) {
         className: "reply-actions"
       }, _react.default.createElement("form", {
         className: "reply-report",
-        onSubmit: this.reportReply
+        onSubmit: this.reportReply,
+        hidden: isDeleted
       }, _react.default.createElement("input", {
         className: "btn btn-sm btn-outline-secondary",
         type: "submit",
         value: "Report Reply"
       })), _react.default.createElement("form", {
-        onSubmit: this.deleteReply
+        onSubmit: this.deleteReply,
+        hidden: isDeleted
       }, _react.default.createElement("input", {
         type: "text",
         name: "delete_password",
@@ -42785,9 +42817,7 @@ function (_React$Component) {
         className: "btn btn-sm btn-outline-secondary",
         type: "submit",
         value: "Delete Reply"
-      }))), _react.default.createElement("h5", {
-        className: "reply-text"
-      }, this.state.text));
+      }))), replyText);
     }
   }]);
 
@@ -42853,19 +42883,23 @@ function (_React$Component) {
       text: _this.props.text,
       newText: "",
       newDeletePass: "",
-      replycount: _this.props.replycount
+      replycount: _this.props.replycount,
+      hideThread: _this.props.reported
     };
     _this.reportThread = _this.reportThread.bind(_assertThisInitialized(_this));
     _this.deleteThread = _this.deleteThread.bind(_assertThisInitialized(_this));
     _this.newReply = _this.newReply.bind(_assertThisInitialized(_this));
     _this.onNewTextChange = _this.onNewTextChange.bind(_assertThisInitialized(_this));
     _this.onNewDeletePassChange = _this.onNewDeletePassChange.bind(_assertThisInitialized(_this));
+    _this.revealThread = _this.revealThread.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Thread, [{
     key: "reportThread",
     value: function reportThread(event) {
+      var _this2 = this;
+
       var url = "/messageboard/api/threads/" + this.props.board;
 
       _jquery.default.ajax({
@@ -42875,7 +42909,9 @@ function (_React$Component) {
           thread_id: this.props._id
         },
         success: function success(data) {
-          alert(data);
+          _this2.setState({
+            hideThread: true
+          });
         }
       });
 
@@ -42884,7 +42920,7 @@ function (_React$Component) {
   }, {
     key: "deleteThread",
     value: function deleteThread(event) {
-      var _this2 = this;
+      var _this3 = this;
 
       var url = "/messageboard/api/threads/" + this.props.board;
 
@@ -42897,7 +42933,7 @@ function (_React$Component) {
         },
         success: function success(data) {
           if (data == "Delete successful") {
-            _this2.props.deleteThreadAction(_this2.props._id);
+            _this3.props.deleteThreadAction(_this3.props._id);
           } else {
             alert(data);
           }
@@ -42909,7 +42945,7 @@ function (_React$Component) {
   }, {
     key: "newReply",
     value: function newReply(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       var url = "/messageboard/api/replies/" + this.props._id;
 
@@ -42925,22 +42961,22 @@ function (_React$Component) {
           if (data._id) {
             var newReplies;
 
-            if (_this3.state.replycount != undefined && _this3.state.replycount > 2) {
-              newReplies = [data].concat(_toConsumableArray(_this3.state.replies.slice(0, 2)));
+            if (_this4.state.replycount != undefined && _this4.state.replycount > 2) {
+              newReplies = [data].concat(_toConsumableArray(_this4.state.replies.slice(0, 2)));
             } else {
-              newReplies = [data].concat(_toConsumableArray(_this3.state.replies));
+              newReplies = [data].concat(_toConsumableArray(_this4.state.replies));
             } //console.log("newReplies: ", newReplies);
 
 
-            _this3.setState({
+            _this4.setState({
               replies: newReplies,
               newText: "",
               newDeletePass: ""
             });
 
-            if (_this3.state.replycount != undefined) {
-              _this3.setState({
-                replycount: _this3.state.replycount + 1
+            if (_this4.state.replycount != undefined) {
+              _this4.setState({
+                replycount: _this4.state.replycount + 1
               });
             }
           } else {
@@ -42966,17 +43002,25 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "revealThread",
+    value: function revealThread() {
+      this.setState({
+        hideThread: false
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       //console.log("state.replies:", this.state.replies);
       var replies = this.state.replies.map(function (r) {
         return _react.default.createElement(_reply.Reply, {
           key: r._id,
           reply_id: r._id,
-          thread_id: _this4.props._id,
+          thread_id: _this5.props._id,
           created_on: r.created_on,
+          reported: r.reported,
           text: r.text
         });
       });
@@ -42997,31 +43041,8 @@ function (_React$Component) {
       }
 
       var createDate = new Date(this.props.created_on);
-      return _react.default.createElement("div", {
-        className: "thread"
-      }, _react.default.createElement("p", {
-        className: "thread-id"
-      }, "id: ", this.props._id, " (", createDate.toUTCString(), ")"), _react.default.createElement("div", {
-        className: "thread-actions"
-      }, _react.default.createElement("form", {
-        className: "thread-report",
-        onSubmit: this.reportThread
-      }, _react.default.createElement("input", {
-        className: "btn btn-outline-secondary",
-        type: "submit",
-        value: "Report Thread"
-      })), _react.default.createElement("form", {
-        onSubmit: this.deleteThread
-      }, _react.default.createElement("input", {
-        type: "text",
-        name: "delete_password",
-        placeholder: "delete password",
-        required: true
-      }), _react.default.createElement("input", {
-        className: "btn btn-outline-secondary",
-        type: "submit",
-        value: "Delete Thread"
-      }))), _react.default.createElement("h3", {
+
+      var threadContents = _react.default.createElement("div", null, _react.default.createElement("h3", {
         className: "thread-text"
       }, this.state.text), _react.default.createElement("div", {
         className: "thread-new-reply"
@@ -43050,6 +43071,43 @@ function (_React$Component) {
         type: "submit",
         value: "Create Reply"
       })))), hiddenReplies, replies);
+
+      if (this.state.hideThread) {
+        threadContents = _react.default.createElement("div", {
+          className: "thread-reported-text"
+        }, _react.default.createElement("h3", {
+          className: "thread-text"
+        }, "reported"), _react.default.createElement("p", {
+          className: "thread-reveal-text",
+          onClick: this.revealThread
+        }, "[reveal thread]"));
+      }
+
+      return _react.default.createElement("div", {
+        className: "thread"
+      }, _react.default.createElement("p", {
+        className: "thread-id"
+      }, "id: ", this.props._id, " (", createDate.toUTCString(), ")"), _react.default.createElement("div", {
+        className: "thread-actions"
+      }, _react.default.createElement("form", {
+        className: "thread-report",
+        onSubmit: this.reportThread
+      }, _react.default.createElement("input", {
+        className: "btn btn-outline-secondary",
+        type: "submit",
+        value: "Report Thread"
+      })), _react.default.createElement("form", {
+        onSubmit: this.deleteThread
+      }, _react.default.createElement("input", {
+        type: "text",
+        name: "delete_password",
+        placeholder: "delete password",
+        required: true
+      }), _react.default.createElement("input", {
+        className: "btn btn-outline-secondary",
+        type: "submit",
+        value: "Delete Thread"
+      }))), threadContents);
     }
   }]);
 
@@ -43222,6 +43280,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
               created_on: t.created_on,
               replies: t.replies,
               replycount: t.replycount,
+              reported: t.reported,
               deleteThreadAction: _this4.deleteThreadAction
             });
           });
@@ -43295,7 +43354,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56764" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62186" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

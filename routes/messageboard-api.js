@@ -64,7 +64,8 @@ module.exports = function(app, db) {
               created_on: d.created_on,
               bumped_on: d.bumped_on,
               replycount: replycount,
-              replies: replies
+              replies: replies,
+              reported: d.reported
             };
           });
           res.json(out);
@@ -97,6 +98,7 @@ module.exports = function(app, db) {
           text: newThread.text,
           created_on: newThread.created_on,
           replies: newThread.replies,
+          reported: newThread.reported,
           replycount: 0
         });
       });

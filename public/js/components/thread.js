@@ -10,7 +10,8 @@ export class Thread extends React.Component {
         text: this.props.text,
         newText: "",
         newDeletePass: "",
-        replycount: this.props.replycount
+        replycount: this.props.replycount,
+        hideThread: this.props.reported
       };
 
       this.reportThread = this.reportThread.bind(this);
@@ -18,6 +19,7 @@ export class Thread extends React.Component {
       this.newReply = this.newReply.bind(this);
       this.onNewTextChange = this.onNewTextChange.bind(this);
       this.onNewDeletePassChange = this.onNewDeletePassChange.bind(this);
+      this.revealThread = this.revealThread.bind(this);
     }
 
     reportThread(event){
@@ -26,8 +28,8 @@ export class Thread extends React.Component {
         type: "PUT",
         url: url,
         data: {thread_id: this.props._id},
-        success: function(data) {
-          alert(data);
+        success: (data)=>{
+          this.setState({hideThread: true})
         }
       });
       event.preventDefault();
@@ -102,6 +104,10 @@ export class Thread extends React.Component {
       });
     }
 
+    revealThread(){
+      this.setState({hideThread: false});
+    }
+
     render() {
       //console.log("state.replies:", this.state.replies);
       let replies = this.state.replies.map(r=>{
@@ -109,6 +115,7 @@ export class Thread extends React.Component {
                       reply_id={r._id}
                       thread_id={this.props._id}
                       created_on={r.created_on}
+                      reported={r.reported}
                       text={r.text}/>
         );
       });
@@ -128,6 +135,31 @@ export class Thread extends React.Component {
 
       let createDate = new Date(this.props.created_on);
 
+      let threadContents = <div>
+        <h3 className="thread-text">{this.state.text}</h3>
+
+        <div className="thread-new-reply">
+          <form onSubmit={this.newReply}>
+            <textarea style={{width: '100%'}} type="text" rows="3" placeholder="Quick reply..." 
+                      value={this.state.newText} onChange={this.onNewTextChange} required/>
+            <br/>
+            <div className="new-reply-pass-submit">
+              <input type="text" placeholder="password to delete"
+                    value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
+              <input className="btn btn-primary" type="submit" value="Create Reply"/>
+            </div>
+          </form>
+        </div>
+
+        {hiddenReplies}
+
+        {replies}
+      </div>;
+
+      if(this.state.hideThread){
+        threadContents = <div className="thread-reported-text"><h3 className="thread-text">reported</h3><p className="thread-reveal-text" onClick={this.revealThread}>[reveal thread]</p></div>;
+      }
+
       return (
         <div className="thread">
             <p className="thread-id">id: {this.props._id} ({createDate.toUTCString()})</p>
@@ -141,24 +173,7 @@ export class Thread extends React.Component {
               </form>
             </div>
 
-            <h3 className="thread-text">{this.state.text}</h3>
-
-            <div className="thread-new-reply">
-              <form onSubmit={this.newReply}>
-                <textarea style={{width: '100%'}} type="text" rows="3" placeholder="Quick reply..." 
-                          value={this.state.newText} onChange={this.onNewTextChange} required/>
-                <br/>
-                <div className="new-reply-pass-submit">
-                  <input type="text" placeholder="password to delete"
-                        value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
-                  <input className="btn btn-primary" type="submit" value="Create Reply"/>
-                </div>
-              </form>
-            </div>
-
-            {hiddenReplies}
-            
-            {replies}
+            {threadContents}
         </div>
       );
     }

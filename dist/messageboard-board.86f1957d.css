@@ -9690,6 +9690,20 @@ body {
   margin: 20px 35px;
 }
 
+.thread-reported-text {
+  display: flex;
+  align-items: baseline;
+}
+
+.thread-reveal-text {
+  color: blue;
+  font-size: 15px;
+}
+
+.thread-reveal-text:hover {
+  cursor: pointer;
+}
+
 .thread-new-reply {
   margin-bottom: 25px;
 }
@@ -9712,6 +9726,20 @@ body {
 
 .reply-text {
   margin: 15px 25px;
+}
+
+.reply-reported-text {
+  display: flex;
+  align-items: baseline;
+}
+
+.reply-reveal-text {
+  color: blue;
+  font-size: 13px;
+}
+
+.reply-reveal-text:hover {
+  cursor: pointer;
 }
 
 .footer {

@@ -49,6 +49,7 @@ $(document).ready(function() {
                         text={this.state.data.text}
                         created_on={this.state.data.created_on}
                         replies={this.state.data.replies}
+                        reported={this.state.data.reported}
                         deleteThreadAction={this.deleteThreadAction}
                 />);
       } else if(this.state.error){
