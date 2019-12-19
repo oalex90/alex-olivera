@@ -2,6 +2,17 @@ import React from 'react';
 import $ from 'jquery';
 import { Reply } from './reply';
 
+/* Displays thread values
+  Props:
+    _id - thread id
+    board  - board name
+    text
+    created_on
+    replies - array of replies
+    replycount - (optional field) number of total replies
+    reported
+    deleteThreadAction - function : action to be taken after thread has been deleted from db
+*/
 export class Thread extends React.Component {
     constructor(props) {
       super(props);
@@ -35,6 +46,7 @@ export class Thread extends React.Component {
       event.preventDefault();
     }
 
+    //delete thread from db and call state.deleteThreadAction
     deleteThread(event){
       var url = "/messageboard/api/threads/" + this.props.board;
       $.ajax({
@@ -55,6 +67,7 @@ export class Thread extends React.Component {
       event.preventDefault();
     }
 
+    //add reply to replies array in db and
     newReply(event){
       var url = "/messageboard/api/replies/" + this.props._id;
       $.ajax({

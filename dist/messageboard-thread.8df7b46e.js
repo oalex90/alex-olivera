@@ -42692,6 +42692,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/* Displays reply values for a given reply in replies array in a thread
+  Props:
+    reply_id
+    thread_id
+    created_on
+    reported
+    text
+*/
 var Reply =
 /*#__PURE__*/
 function (_React$Component) {
@@ -42718,6 +42726,7 @@ function (_React$Component) {
     value: function reportReply(event) {
       var _this2 = this;
 
+      //update reply in db as reported and set state.hideText
       //console.log("thread_id", this.props.thread_id);
       //console.log("reply_id", this.props.reply_id);
       var url = "/messageboard/api/replies/" + this.props.thread_id;
@@ -42729,19 +42738,21 @@ function (_React$Component) {
           reply_id: this.props.reply_id
         },
         success: function success(data) {
+          //if successful, hide reply text
           _this2.setState({
             hideText: true
           });
         }
       });
 
-      event.preventDefault();
+      event.preventDefault(); //prevent page from reloading
     }
   }, {
     key: "deleteReply",
     value: function deleteReply(event) {
       var _this3 = this;
 
+      //update reply text to "[deleted]" in db and set state.text
       var url = "/messageboard/api/replies/" + this.props.thread_id;
 
       _jquery.default.ajax({
@@ -42749,7 +42760,8 @@ function (_React$Component) {
         url: url,
         data: {
           reply_id: this.props.reply_id,
-          delete_password: event.target.delete_password.value
+          delete_password: event.target.delete_password.value //delete_password retrieved from form
+
         },
         success: function success(data) {
           if (data == "Delete successful") {
@@ -42767,6 +42779,7 @@ function (_React$Component) {
   }, {
     key: "revealReplyText",
     value: function revealReplyText() {
+      //set state.hideText to false
       this.setState({
         hideText: false
       });
@@ -42774,13 +42787,15 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var isDeleted = this.state.text == "[deleted]";
+      var isDeleted = this.state.text == "[deleted]"; //true if reply is deleted
 
       var replyText = _react.default.createElement("h5", {
         className: "reply-text"
-      }, this.state.text);
+      }, this.state.text); //assume reply is not deleted or reported, show reply text
+
 
       if (this.state.hideText && !isDeleted) {
+        //if reply is deleted or reported, don't show reply text
         replyText = _react.default.createElement("div", {
           className: "reply-reported-text"
         }, _react.default.createElement("h5", {
@@ -42867,6 +42882,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/* Displays thread values
+  Props:
+    _id - thread id
+    board  - board name
+    text
+    created_on
+    replies - array of replies
+    replycount - (optional field) number of total replies
+    reported
+    deleteThreadAction - function : action to be taken after thread has been deleted from db
+*/
 var Thread =
 /*#__PURE__*/
 function (_React$Component) {
@@ -42916,7 +42942,8 @@ function (_React$Component) {
       });
 
       event.preventDefault();
-    }
+    } //delete thread from db and call state.deleteThreadAction
+
   }, {
     key: "deleteThread",
     value: function deleteThread(event) {
@@ -42941,7 +42968,8 @@ function (_React$Component) {
       });
 
       event.preventDefault();
-    }
+    } //add reply to replies array in db and
+
   }, {
     key: "newReply",
     value: function newReply(event) {
@@ -43254,7 +43282,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62186" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53944" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

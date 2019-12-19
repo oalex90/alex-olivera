@@ -5,23 +5,23 @@ import $ from 'jquery';
 import { Thread } from '../js/components/thread';
 
 $(document).ready(function() {
-  var currentBoard = window.location.pathname.replace("/messageboard/","");
-  currentBoard = currentBoard.replace(/\/*$/, "");
+  var currentBoard = window.location.pathname.replace("/messageboard/",""); //get board name from url
+  currentBoard = currentBoard.replace(/\/*$/, ""); //remove '/' chars
   
   class MyComponent extends React.Component{
     constructor(props){
       super(props);
-      this.state = {
+      this.state = { //initialize state variables
         threads: [],
         error: null
       };
-      this.newThread = this.newThread.bind(this);
+      this.newThread = this.newThread.bind(this); //allows newThread function to use this.state to refer to state object
       this.onNewTextChange = this.onNewTextChange.bind(this);
       this.onNewDeletePassChange = this.onNewDeletePassChange.bind(this);
       this.deleteThreadAction = this.deleteThreadAction.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount() { //called after react object is rendered successfully for first time
       //console.log("mounting");
       fetch("/messageboard/api/threads/" + currentBoard)
         .then(res => res.json())
