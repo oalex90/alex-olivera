@@ -42721,6 +42721,7 @@ function (_React$Component) {
     //react object for each individual cell on the board
     value: function render() {
       return _react.default.createElement("div", {
+        key: this.props.id,
         id: this.props.id,
         className: "cell " + "cell-" + this.props.size,
         style: {

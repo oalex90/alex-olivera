@@ -22,7 +22,8 @@ class Cell extends React.Component { //react object for each individual cell on 
  
   render() { 
     return (
-      <div 
+      <div
+        key = {this.props.id} 
         id = {this.props.id}
         className = {"cell " + "cell-" + this.props.size}
         style = {{backgroundColor: cellColors[this.props.state]}}
