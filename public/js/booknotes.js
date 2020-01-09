@@ -1,7 +1,7 @@
 import '../css/booknotes.scss';
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-//import $ from 'jquery';
+import $ from 'jquery';
 
 const dbHelper = {
   createBook: (title, respAction) =>{
