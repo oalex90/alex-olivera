@@ -15,15 +15,15 @@ module.exports = function (app, db) {
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
       DB_TABLE.find().toArray((err, results)=>{
-        let output = results.map(book=>{
-          return {
-            _id: book._id,
-            title: book.title,
-            commentcount: book.comments.length
-          }
-        })
+        // let output = results.map(book=>{
+        //   return {
+        //     _id: book._id,
+        //     title: book.title,
+        //     commentcount: book.comments.length
+        //   }
+        // })
         //console.log("results", results);
-        res.json(output);
+        res.json(results);
       });
     })
     
@@ -42,7 +42,7 @@ module.exports = function (app, db) {
       DB_TABLE.insertOne(newBook, (err, document)=>{
         if (err) throw err;
         //console.log("document", document);
-        res.json({title: document.ops[0].title, _id: document.ops[0]._id});
+        res.json({title: document.ops[0].title, _id: document.ops[0]._id, comments:[]});
       })
       
     })
