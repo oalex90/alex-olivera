@@ -84,7 +84,7 @@ function BookItem(props){
 
   let numNotes = props.book.notes.length;
   return (
-    <li onClick={onClickHandler}>
+    <li className="book-item" onClick={onClickHandler}>
       {props.book.title + " - " + numNotes + (numNotes == 1 ? " note" : " notes")}
     </li>
   )
@@ -99,7 +99,7 @@ function BookItemList(props){
   });
 
   return (
-    <ul>
+    <ul id="book-item-list">
       {bookItems}
     </ul>
   )

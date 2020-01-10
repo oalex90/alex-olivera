@@ -9710,4 +9710,13 @@ a {
   visibility: visible;
 }
 
+.book-item {
+  cursor: pointer;
+}
+
+#book-item-list {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
 /*# sourceMappingURL=/booknotes.1db1bd09.css.map */

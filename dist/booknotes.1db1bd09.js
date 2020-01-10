@@ -42782,6 +42782,7 @@ function BookItem(props) {
   ;
   var numNotes = props.book.notes.length;
   return _react.default.createElement("li", {
+    className: "book-item",
     onClick: onClickHandler
   }, props.book.title + " - " + numNotes + (numNotes == 1 ? " note" : " notes"));
 }
@@ -42797,7 +42798,9 @@ function BookItemList(props) {
       onClick: props.bookSelected
     });
   });
-  return _react.default.createElement("ul", null, bookItems);
+  return _react.default.createElement("ul", {
+    id: "book-item-list"
+  }, bookItems);
 }
 
 function Note(props) {

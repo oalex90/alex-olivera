@@ -57,3 +57,12 @@ a {
 #instruct-text:hover + #tooltip{
 	visibility: visible;
 }
+
+.book-item{
+	cursor: pointer;
+}
+
+#book-item-list{
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
