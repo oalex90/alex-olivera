@@ -18,16 +18,8 @@ module.exports = function (app, db) {
   app.route('/booknotes/api')
     .get(function (req, res){
       //response will be array of book objects
-      //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+      //json res format: [{"_id": String, "title": String, "notes": array of Strings},]
       DB_TABLE.find().toArray((err, results)=>{
-        // let output = results.map(book=>{
-        //   return {
-        //     _id: book._id,
-        //     title: book.title,
-        //     commentcount: book.comments.length
-        //   }
-        // })
-        //console.log("results", results);
         res.json(results);
       });
     })
@@ -42,12 +34,12 @@ module.exports = function (app, db) {
       }
       var newBook = {
         title: title,
-        comments: []
+        notes: []
       }
       DB_TABLE.insertOne(newBook, (err, document)=>{
         if (err) throw err;
         //console.log("document", document);
-        res.json({title: document.ops[0].title, _id: document.ops[0]._id, comments:[]});
+        res.json({title: document.ops[0].title, _id: document.ops[0]._id, notes:[]});
       })
       
     })
@@ -69,7 +61,7 @@ module.exports = function (app, db) {
 
   app.route('/booknotes/api/:id')
   .get(function (req, res){
-    //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
+    //json res format: {"_id": bookid, "title": book_title, "notes": [note,note,...]}
     var bookid = req.params.id;
     let criteria;
 
@@ -100,10 +92,10 @@ module.exports = function (app, db) {
   .post(function(req, res){
   //json res format same as .get
     var bookid = req.params.id;
-    var comment = req.body.comment;
+    var note = req.body.note;
 
-    if(comment == null || comment == ""){
-      res.send("No comment provided");
+    if(note == null || note == ""){
+      res.send("No note provided");
       return;
     }
 
@@ -116,7 +108,7 @@ module.exports = function (app, db) {
         return;
     }
     if(!criteria) return;
-    let update = {$push: {comments: comment}};
+    let update = {$push: {notes: note}};
 
     DB_TABLE.findOneAndUpdate(criteria, update, (err,result)=>{
       if(err){
@@ -128,8 +120,8 @@ module.exports = function (app, db) {
         return;
       }
       let book = result.value;
-      book.comments.push(comment);
-      //console.log("comment result", result.value);
+      book.notes.push(note);
+      //console.log("note result", result.value);
       res.json(book);
     })
 

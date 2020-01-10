@@ -42727,7 +42727,7 @@ var dbHelper = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        comment: text
+        note: text
       })
     }).then(function (res) {
       return res.json();
@@ -42780,10 +42780,10 @@ function BookItem(props) {
   }
 
   ;
-  var numComments = props.book.comments.length;
+  var numNotes = props.book.notes.length;
   return _react.default.createElement("li", {
     onClick: onClickHandler
-  }, props.book.title + " - " + numComments + (numComments == 1 ? " note" : " notes"));
+  }, props.book.title + " - " + numNotes + (numNotes == 1 ? " note" : " notes"));
 }
 
 function BookItemList(props) {
@@ -42850,11 +42850,11 @@ function BookDetails(props) {
     dbHelper.deleteBook(props.book._id, props.deleteBookResp);
   }
 
-  return _react.default.createElement("div", null, props.book == null ? _react.default.createElement("p", null, "Select a book to see it's details and comments") : _react.default.createElement("div", {
+  return _react.default.createElement("div", null, props.book == null ? _react.default.createElement("p", null, "Select a book to see it's details and notes") : _react.default.createElement("div", {
     id: "bookDetail",
     className: "border"
   }, _react.default.createElement("p", null, _react.default.createElement("b", null, props.book.title), " ", "(id: " + props.book._id + ")"), _react.default.createElement(Notes, {
-    notes: props.book.comments,
+    notes: props.book.notes,
     bookId: props.book._id,
     addNoteResp: props.addNoteResp
   }), _react.default.createElement("button", {

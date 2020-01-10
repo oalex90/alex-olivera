@@ -43,7 +43,7 @@ const dbHelper = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          comment: text
+          note: text
         })
       }
     )
@@ -82,10 +82,10 @@ function BookItem(props){
     props.onClick(props.book);
   };
 
-  let numComments = props.book.comments.length;
+  let numNotes = props.book.notes.length;
   return (
     <li onClick={onClickHandler}>
-      {props.book.title + " - " + numComments + (numComments == 1 ? " note" : " notes")}
+      {props.book.title + " - " + numNotes + (numNotes == 1 ? " note" : " notes")}
     </li>
   )
 }
@@ -147,11 +147,11 @@ function BookDetails(props){
 
   return (
     <div>
-      {props.book == null ? <p>Select a book to see it's details and comments</p> 
+      {props.book == null ? <p>Select a book to see it's details and notes</p> 
       : 
       <div id="bookDetail" className="border">
       <p><b>{props.book.title}</b> {"(id: " + props.book._id + ")"}</p>
-      <Notes notes={props.book.comments} bookId={props.book._id} addNoteResp={props.addNoteResp}/>
+      <Notes notes={props.book.notes} bookId={props.book._id} addNoteResp={props.addNoteResp}/>
       <button className="btn btn-danger deleteBook" onClick={deleteBookHandler}>Delete Book</button>
       </div>
       }
