@@ -21,3 +21,39 @@ a {
 .footer{
 	text-align: center;
 }
+
+#instructions{
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+#instruct-text{
+	display:inline-block;
+	color: #2574A9;
+	font-style: italic;
+}
+
+#tooltip{
+	visibility: hidden;
+	//width: 800px;
+	background-color: black;
+	color: #fff;
+	border-radius: 6px;
+	padding: 5px;
+	text-align: left;
+	font-style: normal;
+	opacity: .8;
+
+	position: absolute;
+	  z-index: 1;
+	  //top: 200px;
+	  //left: 100px;
+}
+
+#instruct-text:hover{
+	color:darkblue;
+}
+
+#instruct-text:hover + #tooltip{
+	visibility: visible;
+}

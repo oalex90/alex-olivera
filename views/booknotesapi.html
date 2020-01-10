@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Book Notes API</title>
+    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"/>
+  </head>
+
+  <body>
+    <header>
+    <ul id="nav-bar" class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/booknotes">Back</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+    </header>
+
+    <div class="container">
+      <h1>Book Notes API</h1>
+      
+      <h3>/booknotes/api</h3>
+      
+      <h4>GET</h4>
+      <div>Input:
+        <code>/booknotes/api</code>
+      </div>
+      <div>Output:
+        <code>
+          [{ "_id": "5d9cb3b8bf347911bd771a54",
+             "title": "Matilda",
+             "commentcount": 6
+           },
+           { "_id": "5d9cb47bbf347911bd771a55",
+             "title": "Lord of the Rings",
+             "commentcount": 0
+           }
+          ]
+        </code>
+      </div>
+      <h4>
+        POST
+      </h4>
+      <div>Input:
+        <code>"title": "Lord of the Rings"</code>
+      </div>
+      <div>Output:
+        <code>
+         { "_id": "5d9cb47bbf347911bd771a55",
+           "title": "Lord of the Rings",
+         }
+        </code>
+      </div>
+      
+      <h4>
+        DELETE
+      </h4>
+      <div>Input:
+        <code>None</code>
+      </div>
+      <div>Output:
+        <code>
+         { "success": "complete delete successful"}
+        </code>
+      </div>
+
+      <br>
+      <h3>/booknotes/api/:id</h3>
+      
+      <h4>GET</h4>
+      <div>Input:
+        <code>/booknotes/api/5d9cb3b8bf347911bd771a54</code>
+      </div>
+      <div>Output:
+        <code>
+          { "_id": "5d9cb3b8bf347911bd771a54",
+             "title": "Matilda",
+             "comments": [
+               "comment one",
+               "comment two",
+               "comment three"
+              ]
+           }
+        </code>
+      </div>
+      <h4>
+        POST
+      </h4>
+      <div>Input:
+        <code>"comment": "The middle section was incredibly structured."</code>
+      </div>
+      <div>Output:
+        <code>
+         { "_id": "5d9cb3b8bf347911bd771a54",
+             "title": "Matilda",
+             "comments": [
+               "comment one",
+               "comment two",
+               "comment three",
+               "The middle section was incredibly structured."
+              ]
+           }
+        </code>
+      </div>
+      
+      <h4>
+        DELETE
+      </h4>
+      <div>Input:
+        <code>None</code>
+      </div>
+      <div>Output:
+        <code>
+         { "success": "delete successful"}
+        </code>
+      </div>
+      
+      <hr>
+
+      <div class="footer">
+        <p>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
+        </p>
+      </div>
+      </div>
+
+      <!-- import the webpage's client-side javascript file -->
+      <script src="../public/js/booknotesapi.js"></script>
+    </div>
+  </body>
+</html>

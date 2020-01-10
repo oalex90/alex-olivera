@@ -9,6 +9,11 @@ module.exports = function (app, db) {
   .get(function(request, response) {
     response.sendFile(process.cwd() + '/dist/booknotes.html');
   })
+
+  app.route("/booknotes/api/tutorial")
+  .get(function(request, response) {
+    response.sendFile(process.cwd() + '/dist/booknotesapi.html');
+  })
   
   app.route('/booknotes/api')
     .get(function (req, res){
