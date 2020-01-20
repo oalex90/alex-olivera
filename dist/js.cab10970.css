@@ -79,11 +79,14 @@ header {
 .featured-projects h4 {
   font-size: 1.4em;
   font-weight: 400;
+}
+
+.featured-projects a {
   color: #4E3804;
 }
 
 .featured-projects li {
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .featured-projects li:nth-child(3) {
