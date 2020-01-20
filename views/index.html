@@ -1,131 +1,212 @@
 <!DOCTYPE html>
-
-<html>
-
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../public/img/favicon.ico" type="image/x-icon">
     <title>Alex Olivera</title>
-    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"/>
-  </head>
-  
-   <body>
-    <header>
-      <ul id="nav-bar" class="nav justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link" href="#server-tools">Server Tools</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#games">Games</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#client-tools">Client Tools</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#data-representation">Date Representation</a>
-        </li>
-      </ul>
-    </header>
+</head>
+<body>
+    <div id="hero-container">
+        <div class="container">
+            <header>
+                <a href="/"><img id="logo" src="../public/img/Logo1.svg" alt="logo"></a>
 
-
-    <div class="container">
-      <h1 id="home">Alex Olivera</h1>
-      <p>
-        This site consists of web developement projects I have worked on recently. These projects make use of the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS). <a href="https://github.com/oalex90/alex-olivera" target="_blank">[Source code]</a>
-      </p>
-
-      <hr>
-
-      <h2>Projects:</h2>
-
-      <h3 id="server-tools">Server Tools</h3>
-      <p class="proj-type">Tools that primarily use server-side operations (NodeJS, ExpressJS, MongoDB)</p>
-
-      <h4><a href="/messageboard">Anonymous Message Board</a></h4>
-      <p class="proj-descript">Create threads and post messages on them. Delete or report unwanted threads and messages.</p>
-
-      <h4><a href="/issuetracker">Issue Tracker</a></h4>
-      <p class="proj-descript">Create and track issues, and then close them when they are finished.</p>
-
-      <h4><a href="/booknotes">Book Notes</a></h4>
-      <p class="proj-descript">Add notes to your favorite books.</p>
-
-      <h4><a href="/chatroom">Chat Room</a></h4>
-      <p class="proj-descript">Login or create a username and send messages to others in the chat room.</p>
-
-      <h4><a href="/shorturl">URL Shortener Microservice</a></h4>
-      <p class="proj-descript">Convert a long URL into a shorter one.</p>
-
-      <h4><a href="/stockprices">Nasdaq Stock Price Checker</a></h4>
-      <p class="proj-descript">Lookup stock prices and like stocks.</p>
-
-      <hr>
-      
-      <h3 id="games">Games</h3>
-      <p class="proj-type">Client-based games that focus on visuals and logic (CSS, Javascript, ReactJS, ReduxJS)</p>
-
-      <h4><a href="/roguelike">Roguelike Game</a></h4>
-      <p class="proj-descript">Navigate through dungeons, fight enemies, find weapons, and level up your character.</p>
-
-      <h4><a href="/gameoflife">Game of Life</a></h4>
-      <p class="proj-descript">How long can you survive the game of life?.</p>
-
-      <h4><a href="/simonsays">Simon Says</a></h4>
-      <p class="proj-descript">The classic Simon Says game.</p>
-
-      <h4><a href="/tictactoe">Tic Tac Toe</a></h4>
-      <p class="proj-descript">Play tic tac toe against a well-skilled AI.</p>
-      
-      <hr>
-
-      <h3 id="client-tools">Client Tools</h3>
-      <p class="proj-type">Tools that primarily use client-side operations (HTML, CSS, Javascript, ReactJS)</p>
-
-      <h4><a href="/drummachine">Drum Machine</a></h4>
-      <p class="proj-descript">Create tunes using the sound effect keyboard.</p>
-
-      <h4><a href="/pomodorotimer">Pomodoro Timer</a></h4>
-      <p class="proj-descript">A work/study timer with built-in breaks.</p>
-
-      <h4><a href="/quotegen">Quote Generator</a></h4>
-      <p class="proj-descript">Generate a quote and tweet it out.</p>
-
-      <h4><a href="/calculator">Calculator</a></h4>
-      <p class="proj-descript">A calcultor that performs basic operations.</p>
-      
-      <hr>
-
-      <h3 id="data-representation">Data Representation</h3>
-      <p class="proj-type">Apps that use visuals to represent large quantities of external data (CSS, D3js, AJAX, jQuery)</p>
-
-      <h4><a href="/twitchstatus">Twitch Channel Status</a></h4>
-      <p class="proj-descript">See the statuses of a variety of twitch.tv channels.</p>
-      <h4><a href="/treemap">Tree Map</a></h4>
-      <p class="proj-descript">A tree map of the 100 highest grossing movies of all time grouped by genre.</p>
-
-      <h4><a href="/choropleth">Choropleth</a></h4>
-      <p class="proj-descript">A choropleth of the precentage of US adults with a Bachelor's degree or higher.</p>
-
-      <h4><a href="/heatmap">Heat Map</a></h4>
-      <p class="proj-descript">A heat map of the monthly global land-surface temperatures between the year 1753 and 2015.</p>
-
-      <h4><a href="/forcedirected">Force Directed Graph</a></h4>
-      <p class="proj-descript">A force directed graph of countries that border each other.</p>
-      <h4><a href="/barchart">Barchart</a></h4>
-      <p class="proj-descript">A barchart of the US gross domestic product between the year 1947 and 2015.</p>
-
-      <h4><a href="/scatterplot">Scatterplot Graph</a></h4>
-      <p class="proj-descript">A scaterplot graph of the doping in professional bicycle racing.</p>
-
+                <nav>
+                    <a href="#" class="hide-desktop">
+                        <img id="menu" src="../public/img/ham.svg" alt="hamburger">
+                    </a>
+                    <ul id="nav" class="show-desktop hide-mobile">
+                        <li id="exit" class="exit-btn" hide-desktop><img src="../public/img/exit.svg" alt="exit menu"></li>
+                        <li><a href="#featured-container">Featured</a></li>
+                        <li><a href="#projects-container">Projects</a></li>
+                        <li><a href="#contact-container">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <section id="hero-section">
+                <h1>Alex Olivera</h1>
+                <h2>Project Portfolio</h2>
+            </section>
+        </div>
     </div>
 
-    <hr>
-
-    <div class="footer">
-      <p>
-        by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
-      </p>
+    <div id="featured-container">
+        <div class="container">
+            <h3>Featured</h3>
+            <ul class="featured-projects">
+              <!-- featured-project images are 7:5 ratio -->
+                <li>
+                    <a href="/booknotes">
+                        <img src="../public/img/featured-project-1.png" alt="Featured Project One">
+                    <h4>Book Notes</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="/messageboard">
+                        <img src="../public/img/featured-project-2.png" alt="Featured Project Two">
+                    <h4>Anonymous Message Board</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="/roguelike">
+                        <img src="../public/img/featured-project-3.png" alt="Featured Project Three">
+                    <h4>Roguelike Game</h4>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+
+    <div id="projects-container">
+        <div class="container">
+            <h3>Projects</h3>
+            <ul class="project-types">
+                <li>
+                    <h4>RESTful Applications</h4>
+                    <ul class="project-names">
+                        <li>
+                            <a href="/messageboard">Anonymous Message Board</a>
+                            <p>Create threads and post messages on them. Delete or report unwanted threads and messages.</p>
+                        </li>
+                        <li>
+                            <a href="/issuetracker">Issue Tracker</a>
+                            <p>Create and track issues, and then close them when they are finished.</p>
+                        </li>
+                        <li>
+                            <a href="/booknotes">Book Notes</a>
+                            <p>Add notes to your favorite books.</p>
+                        </li>
+                        <li>
+                            <a href="/chatroom">Chat Room</a>
+                            <p>Login or create a username and send messages to others in the chat room.</p>
+                        </li>
+                        <li>
+                            <a href="/shorturl">URL Shortener Microservice</a>
+                            <p>Convert a long URL into a shorter one.</p>
+                        </li>
+                        <li>
+                            <a href="/stockprices">Nasdaq Stock Price Checker</a>
+                            <p>Lookup stock prices and like stocks.</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Games</h4>
+                    <ul class="project-names">
+                        <li>
+                            <a href="/roguelike">Roguelike Game</a>
+                            <p>Navigate through dungeons, fight enemies, find weapons, and level up your character.</p>
+                        </li>
+                        <li>
+                            <a href="/gameoflife">Game of Life</a>
+                            <p>How long can you survice the game of life?</p>
+                        </li>
+                        <li>
+                            <a href="/simonsays">Simon Says</a>
+                            <p>The classic Simon Says game.</p>
+                        </li>
+                        <li>
+                            <a href="/tictactoe">Tic Tac Toe</a>
+                            <p>Play tic tac toe agains a well-skilled AI.</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Client Tools</h4>
+                    <ul class="project-names">
+                        <li>
+                            <a href="/drummachine">Drum Machine</a>
+                            <p>Create tunes using the sound effect keyboard.</p>
+                        </li>
+                        <li>
+                            <a href="/pomodorotimer">Pomodoro Timer</a>
+                            <p>A work/study timer with built-in breaks.</p>
+                        </li>
+                        <li>
+                            <a href="/quotegen">Quote Generator</a>
+                            <p>Generate a quote and tweet it out.</p>
+                        </li>
+                        <li>
+                            <a href="/calculator">Calculator</a>
+                            <p>A calculator that performs basic operations.</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Data Representation</h4>
+                    <ul class="project-names">
+                        <li>
+                            <a href="/twitchstatus">Twitch Channel Status</a>
+                            <p>See the stases of a variety of twitch.tv channels.</p>
+                        </li>
+                        <li>
+                            <a href="/treemap">Tree Map</a>
+                            <p>A tree map of the 100 highest grossing movies of all time grouped by genre.</p>
+                        </li>
+                        <li>
+                            <a href="/choropleth">Choropleth</a>
+                            <p>A choropleth of the precentage of US adults with a Bachelor's degree or higher.</p>
+                        </li>
+                        <li>
+                            <a href="/heatmap">Heat Map</a>
+                            <p>A heat map of the monthly global land-surface temperatures between the year 1753 and 2015.</p>
+                        </li>
+                        <li>
+                            <a href="/forcedirected">Force Directed Graph</a>
+                            <p>A force directed graph of coutnries that border each other.</p>
+                        </li>
+                        <li>
+                            <a href="/barchart">Barchart</a>
+                            <p>A barchart of the US gross domestic product between the year 1947 and 2015.</p>
+                        </li>
+                        <li>
+                            <a href="/scatterplot">Scatterplot Graph</a>
+                            <p>A scatterplot graph of the doping in professional bicycle racing.</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="contact-container">
+        <div class="container">
+            <h3>Contact Me</h3>
+            <section id="contact-section">
+                <img id="headshot" src="../public/img/profile-image.jpg" alt="Headshot Image">
+                <ul class="contact-links">
+                    <li>
+                        <img src="../public/img/Icon material-email.svg" alt="Email Icon">
+                        <a target="_blank" href="mailto:oalex90@gmail.com">oalex90@gmail.com</a>
+                    </li>
+                    <li>
+                        <img src="../public/img/Icon awesome-linkedin.svg" alt="LinkedIn Icon">
+                        <a target="_blank" href="https://www.linkedin.com/in/alex-olivera-ab235027/">LinkedIn</a>
+                    </li>
+                    <li>
+                        <img src="../public/img/Icon awesome-github.svg" alt="Github Icon">
+                        <a target="_blank" href="https://github.com/oalex90">Github</a>
+                    </li>
+                    <li>
+                        <img src="../public/img/Icon ionic-ios-paper.svg" alt="Resume Icon">
+                        <a id="cta" target="_blank" href="../public/img/Resume.pdf">Resume</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="container">
+                <p>Created by Alex Olivera</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="../public/js/index.js" defer></script>
-     
-   </body>
+
+</body>
 </html>

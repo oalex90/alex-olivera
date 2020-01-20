@@ -1,0 +1,406 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap');
+
+body{
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+h1{
+    font-size: 3em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+h3{
+    font-size: 2em;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+#hero-section h2{
+    font-size: 1.6em;
+    font-weight: 500;
+}
+
+#hero-container{
+    background: linear-gradient(rgba(91, 87, 187, 0.8), rgba(91, 87, 187, 0.8)), url("../img/spotlight-image.jpg");
+    background-size: 100% 100%;
+    color: white;
+}
+
+.container{
+    text-align: center;
+    padding: .8em 1.2em;
+    margin: 0 auto;
+}
+
+#logo {
+    width: 80px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hide-mobile {
+    display: none;
+}
+
+#menu{
+    width: 27px;
+    margin-top: 45%;
+}
+
+#hero-section {
+    margin: 170px 0;
+}
+
+#featured-container{
+    padding: 40px 0;
+    background: #B7B4E0;
+}
+
+.featured-projects img {
+    width: 70%;
+    margin-bottom: 10px;
+}
+
+.featured-projects h4 {
+    font-size: 1.4em;
+    font-weight: 400;
+    color: #4E3804;
+}
+
+.featured-projects li {
+    margin-bottom: 35px;
+}
+
+.featured-projects li:nth-child(3) {
+    margin-bottom: 0;
+} 
+
+#projects-container{
+    padding: 35px 0;
+    background: #817CCA;
+    color: white;
+}
+
+.project-types h4 {
+    font-size: 1.15em;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.project-types a {
+    font-size: .95em;
+    color: #FFEA61;
+    font-weight: 400;
+}
+
+.project-types p {
+    margin-top: 7px;
+    margin-bottom: 20px;
+    font-size: .85em;
+    font-weight: 400;
+}
+
+.project-types>li {
+    margin-bottom: 40px;
+}
+
+.project-types>li:nth-child(4){
+    margin-bottom: 0;
+}
+
+#contact-container{
+    padding: 35px 0;
+    background: #EDECF7;
+}
+
+#headshot{
+    width: 60%;
+    margin-bottom: 40px;
+}
+
+.contact-links li{
+    display: flex;
+    margin-left: 20%;
+    margin-bottom: 25px;
+}
+
+.contact-links li:nth-child(4) {
+    margin-bottom: 0;
+}
+
+.contact-links img{
+    width: 35px;
+    margin-right: 15%;
+}
+
+.contact-links a {
+    color: #6A4D0A;
+    line-height: 35px;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+#cta {
+    color: white;
+    background:  #6A4D0A;
+    width: 150px;
+    text-decoration: none;
+    border-radius: 20px;
+}
+
+#cta:hover{
+    background: rgb(80, 58, 7);
+}
+
+.footer-container{
+    background: #4F499D;
+    color: white;
+}
+
+.footer-container p{
+    font-size: .75em;
+    font-weight: 400;
+}
+
+nav ul {
+    position: fixed;
+    width: 40%;
+    top: 0;
+    right: 0;
+    text-align: left;
+    background: rgb(36,41,44);
+    height: 100%;
+    z-index: 7;
+    padding-top: 3em;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 1em 2em;
+    background-color: rgb(49,55,59);
+    border-bottom: 1px solid rgb(36,41,44);
+}
+
+nav ul li a:hover {
+    background-color: rgb(65, 73, 78);
+}
+
+.exit-btn {
+    margin-bottom: 1em;
+    margin-top: -1.3em;
+    text-align: right;
+    padding: 0 1.4em;
+}
+
+.exit-btn img {
+    width: 15px;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 525px) {
+    .container{
+        width: 80%
+    }
+
+    h1{
+        font-size: 3.7em;
+    }
+
+    #hero-section h2{
+        font-size: 2em;
+    }
+
+    h3{
+        font-size: 2.4em;
+        margin-bottom: 70px;
+    }
+
+    #hero-section {
+        margin-top: 200px;
+        margin-bottom: 250px;
+    }
+
+    #featured-container{
+        padding: 70px 0;
+    }
+
+    .featured-projects img {
+        width: 60%;
+    }
+
+    .featured-projects h4 {
+        font-size: 1.6em;
+    }
+
+    .featured-projects li {
+        margin-bottom: 50px;
+    }
+
+    #projects-container{
+        padding: 65px 0;
+    }
+
+    .project-types h4 {
+        font-size: 1.5em;
+        margin-bottom: 28px;
+    }
+
+    .project-types a {
+        font-size: 1.3em;
+    }
+
+    .project-types p {
+        margin-top: 17px;
+        margin-bottom: 30px;
+        font-size: 1.2em;
+    }
+
+    .project-types>li {
+        margin-bottom: 65px;
+    }
+
+    #contact-container{
+        padding: 65px 0;
+        background: #EDECF7;
+    }
+
+    #headshot{
+        width: 300px;
+        margin-bottom: 65px;
+    }
+
+    .contact-links li{
+        margin-bottom: 55px;
+        width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .contact-links img{
+        width: 40px;
+        margin-right: 4em;
+    }
+
+    .contact-links a {
+        font-size: 1.4em;
+    }
+
+    #cta {
+        width: 210px;
+        padding: 3px;
+    }
+
+    .footer-container p{
+        font-size: 1em;
+    }
+}
+
+@media only screen and (min-width: 950px) {
+    .show-desktop {
+        display: block;
+        margin: 0 auto 13% auto;
+    }
+
+    .hide-desktop {
+        display: none;
+    }
+
+    #logo{
+        width: 120px;
+    }
+
+    nav ul {
+        position: inherit;
+        width: auto;
+        background: none;
+        height: auto;
+        display: flex;
+        padding-top: 0;
+    }
+
+    nav ul li { 
+        float: left;
+    }
+
+    nav ul li a {
+        color: white;
+        background-color: inherit;
+        text-align: right;
+        padding: 1.2em 2em;
+        font-size: 1.2em;
+        border-bottom: none;
+    }
+
+    nav ul li a:hover {
+        background-color: inherit;
+    }
+
+    #exit {
+        display: none;
+    }
+
+    .featured-projects {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .featured-projects li {
+        padding: 0 3%;
+        flex: 1;
+    }
+
+    .featured-projects img {
+        width: 100%;
+    }
+
+    .project-types {
+        text-align: left;
+    }
+
+    .project-names {
+        margin-left: 8%;
+    }
+
+    .project-names p {
+        margin-left: 8%;
+    }
+    
+    #contact-section{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 0 3%;
+    }
+
+    #headshot{
+        margin-bottom: 0;
+    }
+
+    .contact-links img{
+        margin-right: 4em;
+    }
+
+    .contact-links li{
+        margin-left: 0%;
+    }
+}
