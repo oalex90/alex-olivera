@@ -336,19 +336,16 @@ nav ul li a:hover {
         width: auto;
         background: none;
         height: auto;
-        display: flex;
-        padding-top: 0;
-    }
-
-    nav ul li { 
-        float: left;
+        display: flex !important;
+        padding-top: 1em;
     }
 
     nav ul li a {
         color: white;
+        display: inline;
         background-color: inherit;
-        text-align: right;
-        padding: 1.2em 2em;
+        text-align: left;
+        padding: 1.2em 1.8em;
         font-size: 1.2em;
         border-bottom: none;
     }
