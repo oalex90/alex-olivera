@@ -26,12 +26,12 @@ module.exports = function(app, db) {
 
   //starting page for messageboard app
   app.route("/messageboard").get(function(request, response) {
-    response.sendFile(process.cwd() + "/dist/messageboard.html");
+    response.redirect("/messageboard/test_board");
   });
 
   //page for individual board
   app.route("/messageboard/:board/").get(function(req, res) {
-    res.sendFile(process.cwd() + "/dist/messageboard-board.html");
+    res.sendFile(process.cwd() + "/dist/messageboard.html");
   });
 
   //page for individual thread

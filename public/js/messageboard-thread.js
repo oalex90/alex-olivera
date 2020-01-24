@@ -27,6 +27,7 @@ $(document).ready(function() {
         .then(
           (result) => {
             //console.log("fetch result", result);
+            document.getElementById("link-back").href="/messageboard/" + result.board;
             this.setState({
               data: result
             });
@@ -57,10 +58,13 @@ $(document).ready(function() {
       }
 
       return (
-        <div>
-          <h1 id="thread-title">{window.location.pathname}</h1>
-          <br></br>
+        <div className="container">
+          <div id="board-container">
+            <h2 id="thread-title">{window.location.pathname}</h2>
+          </div>
+
           {thread}
+
         </div> 
       );
     }

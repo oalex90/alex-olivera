@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import iconReport from '../../img/icon-report.svg';
 
 /* Displays reply values for a given reply in replies array in a thread
   Props:
@@ -21,7 +22,7 @@ export class Reply extends React.Component{
     this.revealReplyText = this.revealReplyText.bind(this);
   }
 
-  reportReply(event){ //update reply in db as reported and set state.hideText
+  reportReply(){ //update reply in db as reported and set state.hideText
     //console.log("thread_id", this.props.thread_id);
     //console.log("reply_id", this.props.reply_id);
     var url = "/messageboard/api/replies/" + this.props.thread_id;
@@ -37,7 +38,6 @@ export class Reply extends React.Component{
         });
       }
     });
-    event.preventDefault(); //prevent page from reloading
   }
 
   deleteReply(event){ //update reply text to "[deleted]" in db and set state.text
@@ -70,29 +70,37 @@ export class Reply extends React.Component{
 
     let isDeleted = this.state.text =="[deleted]"; //true if reply is deleted
 
-    let replyText = <h5 className="reply-text">{this.state.text}</h5>; //assume reply is not deleted or reported, show reply text
+    let replyText =  <section className="reply-text">
+              <h4>{this.state.text}</h4>
+          </section>;
+    
     if(this.state.hideText && !isDeleted){ //if reply is deleted or reported, don't show reply text
-      replyText = <div className="reply-reported-text"><h5 className="reply-text">reported</h5><p className="reply-reveal-text" onClick={this.revealReplyText}>[reveal text]</p></div>;
+      replyText = <section className="reply-text">
+        <h4>reported</h4>
+        <a className="link-reported clickable" onClick={this.revealReplyText}>[reveal text]</a>
+      </section>;
     }
 
     return (
-      <div className="reply">
-        <p className="reply-id">id: {this.props.reply_id} ({this.props.created_on}) </p>
-        
-        <div className="reply-actions">
-
-          <form className="reply-report" onSubmit={this.reportReply} hidden={isDeleted}>
-            <input className="btn btn-sm btn-outline-secondary" type="submit" value="Report Reply"/>
-          </form>
-
-          <form onSubmit={this.deleteReply} hidden={isDeleted}>
-            <input type="text" name="delete_password" placeholder="delete password" required/>
-            <input className="btn btn-sm btn-outline-secondary" type="submit" value="Delete Reply" />
-          </form>
-        </div>
-
-        {replyText}
-      </div> 
+      <div className="reply-container">
+          <div className="reply-id-date">
+              <p>id: {this.props.reply_id}</p> 
+              <p>({this.props.created_on})</p>
+          </div>
+          {replyText}
+          <div className="reply-delete-report">
+              <form className="delete-reply" onSubmit={this.deleteReply} hidden={isDeleted}>
+                  <input type="password" name="delete_password" placeholder="Delete password" required/>
+                  <input className="button-delete" type="submit" value="Delete Reply"/>
+              </form>
+              <div hidden={isDeleted}>
+              <a className="report clickable" onClick={this.reportReply}>
+                  <img src={iconReport} alt="report icon"/>
+                  <p>Report Reply</p>
+              </a>
+              </div>
+          </div>
+      </div>
     );
   }
 }

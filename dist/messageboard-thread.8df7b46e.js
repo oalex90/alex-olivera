@@ -42660,7 +42660,9 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{"process":"../node_modules/process/browser.js"}],"../public/js/components/reply.js":[function(require,module,exports) {
+},{"process":"../node_modules/process/browser.js"}],"../public/img/icon-report.svg":[function(require,module,exports) {
+module.exports = "/icon-report.6bb5a0df.svg";
+},{}],"../public/js/components/reply.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42671,6 +42673,8 @@ exports.Reply = void 0;
 var _react = _interopRequireDefault(require("react"));
 
 var _jquery = _interopRequireDefault(require("jquery"));
+
+var _iconReport = _interopRequireDefault(require("../../img/icon-report.svg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42723,7 +42727,7 @@ function (_React$Component) {
 
   _createClass(Reply, [{
     key: "reportReply",
-    value: function reportReply(event) {
+    value: function reportReply() {
       var _this2 = this;
 
       //update reply in db as reported and set state.hideText
@@ -42744,8 +42748,6 @@ function (_React$Component) {
           });
         }
       });
-
-      event.preventDefault(); //prevent page from reloading
     }
   }, {
     key: "deleteReply",
@@ -42789,50 +42791,48 @@ function (_React$Component) {
     value: function render() {
       var isDeleted = this.state.text == "[deleted]"; //true if reply is deleted
 
-      var replyText = _react.default.createElement("h5", {
+      var replyText = _react.default.createElement("section", {
         className: "reply-text"
-      }, this.state.text); //assume reply is not deleted or reported, show reply text
-
+      }, _react.default.createElement("h4", null, this.state.text));
 
       if (this.state.hideText && !isDeleted) {
         //if reply is deleted or reported, don't show reply text
-        replyText = _react.default.createElement("div", {
-          className: "reply-reported-text"
-        }, _react.default.createElement("h5", {
+        replyText = _react.default.createElement("section", {
           className: "reply-text"
-        }, "reported"), _react.default.createElement("p", {
-          className: "reply-reveal-text",
+        }, _react.default.createElement("h4", null, "reported"), _react.default.createElement("a", {
+          className: "link-reported clickable",
           onClick: this.revealReplyText
         }, "[reveal text]"));
       }
 
       return _react.default.createElement("div", {
-        className: "reply"
-      }, _react.default.createElement("p", {
-        className: "reply-id"
-      }, "id: ", this.props.reply_id, " (", this.props.created_on, ") "), _react.default.createElement("div", {
-        className: "reply-actions"
+        className: "reply-container"
+      }, _react.default.createElement("div", {
+        className: "reply-id-date"
+      }, _react.default.createElement("p", null, "id: ", this.props.reply_id), _react.default.createElement("p", null, "(", this.props.created_on, ")")), replyText, _react.default.createElement("div", {
+        className: "reply-delete-report"
       }, _react.default.createElement("form", {
-        className: "reply-report",
-        onSubmit: this.reportReply,
-        hidden: isDeleted
-      }, _react.default.createElement("input", {
-        className: "btn btn-sm btn-outline-secondary",
-        type: "submit",
-        value: "Report Reply"
-      })), _react.default.createElement("form", {
+        className: "delete-reply",
         onSubmit: this.deleteReply,
         hidden: isDeleted
       }, _react.default.createElement("input", {
-        type: "text",
+        type: "password",
         name: "delete_password",
-        placeholder: "delete password",
+        placeholder: "Delete password",
         required: true
       }), _react.default.createElement("input", {
-        className: "btn btn-sm btn-outline-secondary",
+        className: "button-delete",
         type: "submit",
         value: "Delete Reply"
-      }))), replyText);
+      })), _react.default.createElement("div", {
+        hidden: isDeleted
+      }, _react.default.createElement("a", {
+        className: "report clickable",
+        onClick: this.reportReply
+      }, _react.default.createElement("img", {
+        src: _iconReport.default,
+        alt: "report icon"
+      }), _react.default.createElement("p", null, "Report Reply")))));
     }
   }]);
 
@@ -42840,7 +42840,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.Reply = Reply;
-},{"react":"../node_modules/react/index.js","jquery":"../node_modules/jquery/dist/jquery.js"}],"../public/js/components/thread.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","jquery":"../node_modules/jquery/dist/jquery.js","../../img/icon-report.svg":"../public/img/icon-report.svg"}],"../public/js/components/thread.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42853,6 +42853,8 @@ var _react = _interopRequireDefault(require("react"));
 var _jquery = _interopRequireDefault(require("jquery"));
 
 var _reply = require("./reply");
+
+var _iconReport = _interopRequireDefault(require("../../img/icon-report.svg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42923,7 +42925,7 @@ function (_React$Component) {
 
   _createClass(Thread, [{
     key: "reportThread",
-    value: function reportThread(event) {
+    value: function reportThread() {
       var _this2 = this;
 
       var url = "/messageboard/api/threads/" + this.props.board;
@@ -42940,8 +42942,6 @@ function (_React$Component) {
           });
         }
       });
-
-      event.preventDefault();
     } //delete thread from db and call state.deleteThreadAction
 
   }, {
@@ -43061,81 +43061,79 @@ function (_React$Component) {
           hiddenCount = 0;
         }
 
-        hiddenReplies = _react.default.createElement("h5", {
-          className: "thread-hidden-replies"
-        }, this.state.replycount, " replies total (", hiddenCount, " hidden)", _react.default.createElement("a", {
+        hiddenReplies = _react.default.createElement("section", {
+          className: "total-replies"
+        }, _react.default.createElement("h4", null, this.state.replycount, " Replies total (", hiddenCount, " hidden)"), _react.default.createElement("a", {
           href: "/messageboard/r/" + this.props._id
-        }, "See the full thread here"), ".");
+        }, "See the full thread here"));
       }
 
       var createDate = new Date(this.props.created_on);
 
-      var threadContents = _react.default.createElement("div", null, _react.default.createElement("h3", {
+      var threadContents = _react.default.createElement("div", null, _react.default.createElement("div", {
+        className: "container-two"
+      }, _react.default.createElement("section", {
         className: "thread-text"
-      }, this.state.text), _react.default.createElement("div", {
-        className: "thread-new-reply"
-      }, _react.default.createElement("form", {
+      }, _react.default.createElement("h3", null, this.state.text)), _react.default.createElement("form", {
+        className: "create-reply",
         onSubmit: this.newReply
       }, _react.default.createElement("textarea", {
-        style: {
-          width: '100%'
-        },
-        type: "text",
+        name: "reply-text",
         rows: "3",
         placeholder: "Quick reply...",
         value: this.state.newText,
         onChange: this.onNewTextChange,
         required: true
-      }), _react.default.createElement("br", null), _react.default.createElement("div", {
-        className: "new-reply-pass-submit"
-      }, _react.default.createElement("input", {
-        type: "text",
-        placeholder: "password to delete",
+      }), _react.default.createElement("input", {
+        type: "password",
+        placeholder: "Delete password",
         value: this.state.newDeletePass,
         onChange: this.onNewDeletePassChange,
         required: true
       }), _react.default.createElement("input", {
-        className: "btn btn-primary",
+        className: "button-create",
         type: "submit",
         value: "Create Reply"
-      })))), hiddenReplies, replies);
+      }))), _react.default.createElement("div", {
+        className: "replies-container"
+      }, hiddenReplies, replies));
 
       if (this.state.hideThread) {
-        threadContents = _react.default.createElement("div", {
-          className: "thread-reported-text"
-        }, _react.default.createElement("h3", {
+        threadContents = _react.default.createElement("section", {
           className: "thread-text"
-        }, "reported"), _react.default.createElement("p", {
-          className: "thread-reveal-text",
+        }, _react.default.createElement("h3", null, "Reported"), _react.default.createElement("a", {
+          className: "link-reported clickable",
           onClick: this.revealThread
         }, "[reveal thread]"));
       }
 
       return _react.default.createElement("div", {
-        className: "thread"
-      }, _react.default.createElement("p", {
-        className: "thread-id"
-      }, "id: ", this.props._id, " (", createDate.toUTCString(), ")"), _react.default.createElement("div", {
-        className: "thread-actions"
+        className: "thread-container"
+      }, _react.default.createElement("div", {
+        className: "thread-header"
+      }, _react.default.createElement("div", {
+        className: "thread-id-date"
+      }, _react.default.createElement("p", null, "id: ", this.props._id), _react.default.createElement("p", null, "(", createDate.toUTCString(), ")")), _react.default.createElement("div", {
+        className: "thread-delete-report"
       }, _react.default.createElement("form", {
-        className: "thread-report",
-        onSubmit: this.reportThread
-      }, _react.default.createElement("input", {
-        className: "btn btn-outline-secondary",
-        type: "submit",
-        value: "Report Thread"
-      })), _react.default.createElement("form", {
+        className: "delete-thread",
         onSubmit: this.deleteThread
       }, _react.default.createElement("input", {
-        type: "text",
+        type: "password",
         name: "delete_password",
-        placeholder: "delete password",
+        placeholder: "Delete password",
         required: true
       }), _react.default.createElement("input", {
-        className: "btn btn-outline-secondary",
+        className: "button-delete",
         type: "submit",
         value: "Delete Thread"
-      }))), threadContents);
+      })), _react.default.createElement("a", {
+        className: "report clickable",
+        onClick: this.reportThread
+      }, _react.default.createElement("img", {
+        src: _iconReport.default,
+        alt: "report icon"
+      }), _react.default.createElement("p", null, "Report Thread")))), threadContents);
     }
   }]);
 
@@ -43143,7 +43141,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.Thread = Thread;
-},{"react":"../node_modules/react/index.js","jquery":"../node_modules/jquery/dist/jquery.js","./reply":"../public/js/components/reply.js"}],"../public/js/messageboard-thread.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","jquery":"../node_modules/jquery/dist/jquery.js","./reply":"../public/js/components/reply.js","../../img/icon-report.svg":"../public/img/icon-report.svg"}],"../public/js/messageboard-thread.js":[function(require,module,exports) {
 "use strict";
 
 require("../css/messageboard.scss");
@@ -43210,6 +43208,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
           return res.json();
         }).then(function (result) {
           //console.log("fetch result", result);
+          document.getElementById("link-back").href = "/messageboard/" + result.board;
+
           _this2.setState({
             data: result
           });
@@ -43243,9 +43243,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
           thread = _react.default.createElement("div", null, "Thread not found");
         }
 
-        return _react.default.createElement("div", null, _react.default.createElement("h1", {
+        return _react.default.createElement("div", {
+          className: "container"
+        }, _react.default.createElement("div", {
+          id: "board-container"
+        }, _react.default.createElement("h2", {
           id: "thread-title"
-        }, window.location.pathname), _react.default.createElement("br", null), thread);
+        }, window.location.pathname)), thread);
       }
     }]);
 
@@ -43282,7 +43286,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50633" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65011" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

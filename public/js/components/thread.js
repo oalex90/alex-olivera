@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import { Reply } from './reply';
+import iconReport from '../../img/icon-report.svg';
 
 /* Displays thread values
   Props:
@@ -33,7 +34,7 @@ export class Thread extends React.Component {
       this.revealThread = this.revealThread.bind(this);
     }
 
-    reportThread(event){
+    reportThread(){
       var url = "/messageboard/api/threads/" + this.props.board;
       $.ajax({
         type: "PUT",
@@ -43,7 +44,6 @@ export class Thread extends React.Component {
           this.setState({hideThread: true})
         }
       });
-      event.preventDefault();
     }
 
     //delete thread from db and call state.deleteThreadAction
@@ -140,53 +140,65 @@ export class Thread extends React.Component {
           if (hiddenCount < 1){
               hiddenCount = 0;
           }
-          hiddenReplies = <h5 className="thread-hidden-replies">
-              {this.state.replycount} replies total ({hiddenCount} hidden)
-              <a href={"/messageboard/r/" + this.props._id}>See the full thread here</a>.
-          </h5>
+          hiddenReplies = <section className="total-replies">
+                  <h4>{this.state.replycount} Replies total ({hiddenCount} hidden)</h4>
+                  <a href={"/messageboard/r/" + this.props._id}>See the full thread here</a>
+              </section>
       }
+
+      
 
       let createDate = new Date(this.props.created_on);
 
       let threadContents = <div>
-        <h3 className="thread-text">{this.state.text}</h3>
+        <div className="container-two">
+          <section className="thread-text">
+              <h3>{this.state.text}</h3>
+          </section>
 
-        <div className="thread-new-reply">
-          <form onSubmit={this.newReply}>
-            <textarea style={{width: '100%'}} type="text" rows="3" placeholder="Quick reply..." 
-                      value={this.state.newText} onChange={this.onNewTextChange} required/>
-            <br/>
-            <div className="new-reply-pass-submit">
-              <input type="text" placeholder="password to delete"
-                    value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
-              <input className="btn btn-primary" type="submit" value="Create Reply"/>
-            </div>
+          <form className="create-reply" onSubmit={this.newReply}>
+              <textarea name="reply-text" rows="3" placeholder="Quick reply..."
+                value={this.state.newText} onChange={this.onNewTextChange} required/>
+              <input type="password" placeholder="Delete password"
+                value={this.state.newDeletePass} onChange={this.onNewDeletePassChange} required/>
+              <input className="button-create" type="submit" value="Create Reply"/>
           </form>
         </div>
+        <div className="replies-container">
+          {hiddenReplies}
 
-        {hiddenReplies}
-
-        {replies}
+          {replies}
+        </div>
       </div>;
 
       if(this.state.hideThread){
-        threadContents = <div className="thread-reported-text"><h3 className="thread-text">reported</h3><p className="thread-reveal-text" onClick={this.revealThread}>[reveal thread]</p></div>;
+        threadContents = <section className="thread-text">
+          <h3>Reported</h3>
+          <a className="link-reported clickable" onClick={this.revealThread}>[reveal thread]</a>
+        </section>
       }
 
       return (
-        <div className="thread">
-            <p className="thread-id">id: {this.props._id} ({createDate.toUTCString()})</p>
-            <div className="thread-actions">
-              <form className="thread-report" onSubmit={this.reportThread}>
-                <input className="btn btn-outline-secondary" type="submit" value="Report Thread"/>
-              </form>
-              <form onSubmit={this.deleteThread}>
-                <input type="text" name="delete_password" placeholder="delete password" required/>
-                <input className="btn btn-outline-secondary" type="submit" value="Delete Thread"/>
-              </form>
-            </div>
+        <div className="thread-container">
+          <div className="thread-header">
+              <div className="thread-id-date">
+                  <p>id: {this.props._id}</p> 
+                  <p>({createDate.toUTCString()})</p>
+              </div>
+              <div className="thread-delete-report">
+                  <form className="delete-thread" onSubmit={this.deleteThread}>
+                      <input type="password" name="delete_password" placeholder="Delete password" required/>
+                      <input className="button-delete" type="submit" value="Delete Thread"/>
+                  </form>
+                  <a className="report clickable" onClick={this.reportThread}>
+                      <img src={iconReport} alt="report icon"/>
+                      <p>Report Thread</p>
+                  </a>
+              </div>
+          </div>
 
-            {threadContents}
+          {threadContents}
+
         </div>
       );
     }
