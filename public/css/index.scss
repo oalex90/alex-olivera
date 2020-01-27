@@ -1,52 +1,29 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap');
+@import 'base';
 
-body{
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-h1, h2, h3, h4 {
-    margin: 0;
-}
+$vert-spacing: 40px;
 
 h1{
     font-size: 3em;
-    font-weight: 500;
+    font-weight: $font-medium;
     margin-bottom: 10px;
 }
 
 h3{
     font-size: 2em;
-    font-weight: 500;
-    margin-bottom: 40px;
+    font-weight: $font-medium;
+    margin-bottom: $vert-spacing;
 }
 
 #hero-section h2{
     font-size: 1.6em;
-    font-weight: 500;
+    font-weight: $font-medium;
 }
 
 #hero-container{
     background: linear-gradient(rgba(91, 87, 187, 0.8), rgba(91, 87, 187, 0.8)), url("../img/spotlight-image.jpg");
     background-size: 100% 100%;
     color: white;
-}
-
-.container{
-    text-align: center;
-    padding: .8em 1.2em;
-    margin: 0 auto;
-}
-
-#logo {
-    width: 80px;
 }
 
 header {
@@ -68,95 +45,102 @@ header {
 }
 
 #featured-container{
-    padding: 40px 0;
+    padding: $vert-spacing 0;
     background: #B7B4E0;
 }
 
-.featured-projects img {
-    width: 70%;
-    margin-bottom: 10px;
-}
+.featured-projects {
+    img {
+        width: 70%;
+        margin-bottom: 10px;
+    }
 
-.featured-projects h4 {
-    font-size: 1.4em;
-    font-weight: 400;
-}
+    h4 {
+        font-size: 1.4em;
+        font-weight: $font-regular;
+    }
 
-.featured-projects a {
-    color: #4E3804;
-}
+    a {
+        color: #4E3804;
+    }
 
-.featured-projects li {
-    margin-bottom: 40px;
-}
+    li {
+        margin-bottom: $vert-spacing;
 
-.featured-projects li:nth-child(3) {
-    margin-bottom: 0;
-} 
+        &:nth-child(3) {
+            margin-bottom: 0;
+        } 
+    }
+}
 
 #projects-container{
-    padding: 35px 0;
+    padding: $vert-spacing 0;
     background: #817CCA;
     color: white;
 }
 
-.project-types h4 {
-    font-size: 1.15em;
-    font-weight: 500;
-    margin-bottom: 18px;
-}
+.project-types {
+    h4 {
+        font-size: 1.15em;
+        font-weight: $font-medium;
+        margin-bottom: 18px;
+    }
 
-.project-types a {
-    font-size: .95em;
-    color: #FFEA61;
-    font-weight: 400;
-}
+    a {
+        font-size: .95em;
+        color: #FFEA61;
+        font-weight: $font-regular;
+    }
 
-.project-types p {
-    margin-top: 7px;
-    margin-bottom: 20px;
-    font-size: .85em;
-    font-weight: 400;
-}
+    p {
+        margin-top: 7px;
+        margin-bottom: 20px;
+        font-size: .85em;
+        font-weight: $font-regular;
+    }
 
-.project-types>li {
-    margin-bottom: 40px;
-}
+    >li {
+        margin-bottom: 40px;
 
-.project-types>li:nth-child(4){
-    margin-bottom: 0;
+        &:nth-child(4) {
+            margin-bottom: 0;
+        }
+    }
 }
 
 #contact-container{
-    padding: 35px 0;
+    padding: $vert-spacing 0;
     background: #EDECF7;
 }
 
 #headshot{
     width: 60%;
-    margin-bottom: 40px;
+    margin-bottom: $vert-spacing;
 }
 
-.contact-links li{
-    display: flex;
-    margin-left: 20%;
-    margin-bottom: 25px;
-}
+.contact-links {
 
-.contact-links li:nth-child(4) {
-    margin-bottom: 0;
-}
+    li{
+        display: flex;
+        margin-left: 20%;
+        margin-bottom: 25px;
 
-.contact-links img{
-    width: 35px;
-    margin-right: 15%;
-}
+        &:nth-child(4) {
+            margin-bottom: 0;
+        }
+    }
 
-.contact-links a {
-    color: #6A4D0A;
-    line-height: 35px;
-    font-weight: 400;
-    font-size: 1em;
+    img {
+        width: 35px;
+        margin-right: 15%;
+    }
+
+    a {
+        color: #6A4D0A;
+        line-height: 35px;
+        font-weight: $font-regular;
+        font-size: 1em;
+    }
 }
 
 #cta {
@@ -165,46 +149,48 @@ header {
     width: 150px;
     text-decoration: none;
     border-radius: 20px;
-}
 
-#cta:hover{
-    background: rgb(80, 58, 7);
+    &:hover{
+        background: rgb(80, 58, 7);
+    }
 }
 
 .footer-container{
     background: #4F499D;
     color: white;
+
+    p {
+        font-size: $footer-small;
+        font-weight: $font-regular;
+    }
 }
 
-.footer-container p{
-    font-size: .75em;
-    font-weight: 400;
-}
+nav {
+    ul {
+        position: fixed;
+        width: 40%;
+        top: 0;
+        right: 0;
+        text-align: left;
+        background: rgb(36,41,44);
+        height: 100%;
+        z-index: 7;
+        padding-top: 3em;
+    }
 
-nav ul {
-    position: fixed;
-    width: 40%;
-    top: 0;
-    right: 0;
-    text-align: left;
-    background: rgb(36,41,44);
-    height: 100%;
-    z-index: 7;
-    padding-top: 3em;
-}
+    li a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        padding: 1em 2em;
+        background-color: rgb(49,55,59);
+        border-bottom: 1px solid rgb(36,41,44);
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    padding: 1em 2em;
-    background-color: rgb(49,55,59);
-    border-bottom: 1px solid rgb(36,41,44);
-}
-
-nav ul li a:hover {
-    background-color: rgb(65, 73, 78);
+        &:hover {
+            background-color: #41494e;
+        }
+    }
 }
 
 .exit-btn {
@@ -212,77 +198,83 @@ nav ul li a:hover {
     margin-top: -1.3em;
     text-align: right;
     padding: 0 1.4em;
-}
 
-.exit-btn img {
-    width: 15px;
-    cursor: pointer;
+    img {
+        width: 15px;
+        cursor: pointer;
+    }
 }
 
 @media only screen and (min-width: 525px) {
+    $vert-spacing: 70px;
+    
     .container{
-        width: 80%
+        width: 80%;
     }
 
     h1{
         font-size: 3.7em;
     }
 
-    #hero-section h2{
-        font-size: 2em;
+    #hero-section {
+        margin-top: 200px;
+        margin-bottom: 250px;
+
+        h2{
+            font-size: 2em;
+        }
     }
 
     h3{
         font-size: 2.4em;
-        margin-bottom: 70px;
-    }
-
-    #hero-section {
-        margin-top: 200px;
-        margin-bottom: 250px;
+        margin-bottom: $vert-spacing;
     }
 
     #featured-container{
-        padding: 70px 0;
+        padding: $vert-spacing 0;
     }
 
-    .featured-projects img {
-        width: 60%;
-    }
+    .featured-projects {
+        img {
+            width: 60%;
+        }
 
-    .featured-projects h4 {
-        font-size: 1.6em;
-    }
+        h4 {
+            font-size: 1.6em;
+        }
 
-    .featured-projects li {
-        margin-bottom: 50px;
+        li {
+            margin-bottom: 50px;
+        }
     }
 
     #projects-container{
-        padding: 65px 0;
+        padding: $vert-spacing 0;
     }
 
-    .project-types h4 {
-        font-size: 1.5em;
-        margin-bottom: 28px;
-    }
+    .project-types {
+        h4 {
+            font-size: 1.5em;
+            margin-bottom: 28px;
+        }
 
-    .project-types a {
-        font-size: 1.3em;
-    }
+        a {
+            font-size: 1.3em;
+        }
 
-    .project-types p {
-        margin-top: 17px;
-        margin-bottom: 30px;
-        font-size: 1.2em;
-    }
+        p {
+            margin-top: 17px;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
 
-    .project-types>li {
-        margin-bottom: 65px;
+        >li {
+            margin-bottom: $vert-spacing;
+        }
     }
 
     #contact-container{
-        padding: 65px 0;
+        padding: $vert-spacing 0;
         background: #EDECF7;
     }
 
@@ -291,20 +283,22 @@ nav ul li a:hover {
         margin-bottom: 65px;
     }
 
-    .contact-links li{
-        margin-bottom: 55px;
-        width: 350px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+    .contact-links {
+        li{
+            margin-bottom: 55px;
+            width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .contact-links img{
-        width: 40px;
-        margin-right: 4em;
-    }
+        img{
+            width: 40px;
+            margin-right: 4em;
+        }
 
-    .contact-links a {
-        font-size: 1.4em;
+        a {
+            font-size: 1.4em;
+        }
     }
 
     #cta {
@@ -313,7 +307,7 @@ nav ul li a:hover {
     }
 
     .footer-container p{
-        font-size: 1em;
+        font-size: $footer-large;
     }
 }
 
@@ -328,7 +322,7 @@ nav ul li a:hover {
     }
 
     #logo{
-        width: 120px;
+        width: $logo-large;
     }
 
     nav ul {
@@ -338,20 +332,20 @@ nav ul li a:hover {
         height: auto;
         display: flex !important;
         padding-top: 1em;
-    }
 
-    nav ul li a {
-        color: white;
-        display: inline;
-        background-color: inherit;
-        text-align: left;
-        padding: 1.2em 1.8em;
-        font-size: 1.2em;
-        border-bottom: none;
-    }
+        li a {
+            color: white;
+            display: inline;
+            background-color: inherit;
+            text-align: left;
+            padding: 1.2em 1.8em;
+            font-size: 1.2em;
+            border-bottom: none;
 
-    nav ul li a:hover {
-        background-color: inherit;
+            &:hover {
+                background-color: inherit;
+            }
+        }
     }
 
     #exit {
@@ -361,15 +355,15 @@ nav ul li a:hover {
     .featured-projects {
         display: flex;
         justify-content: space-evenly;
-    }
 
-    .featured-projects li {
-        padding: 0 3%;
-        flex: 1;
-    }
+        li {
+            padding: 0 3%;
+            flex: 1;
+        }
 
-    .featured-projects img {
-        width: 100%;
+        img {
+            width: 100%;
+        }
     }
 
     .project-types {
@@ -378,10 +372,10 @@ nav ul li a:hover {
 
     .project-names {
         margin-left: 8%;
-    }
 
-    .project-names p {
-        margin-left: 8%;
+        p {
+            margin-left: 8%;
+        }
     }
     
     #contact-section{
@@ -396,11 +390,13 @@ nav ul li a:hover {
         margin-bottom: 0;
     }
 
-    .contact-links img{
-        margin-right: 4em;
-    }
+    .contact-links {
+        img{
+            margin-right: 4em;
+        }
 
-    .contact-links li{
-        margin-left: 0%;
+        li{
+            margin-left: 0%;
+        }
     }
 }

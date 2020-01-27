@@ -1,0 +1,44 @@
+$logo-small: 80px;
+$logo-large: 120px;
+
+$footer-small: .8em;
+$footer-large: 1em;
+
+$font-regular: 400;
+$font-medium: 500;
+
+body{
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, p {
+    margin: 0;
+    font-weight: 400;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.clickable {
+    cursor: pointer;
+    color: blue;
+  }
+
+  .container{
+    text-align: center;
+    padding: .8em 1.2em;
+    margin: 0 auto;
+}
+
+#logo {
+    width: $logo-small;
+}

@@ -11,8 +11,28 @@ ul {
   padding: 0;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, p {
   margin: 0;
+  font-weight: 400;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.clickable {
+  cursor: pointer;
+  color: blue;
+}
+
+.container {
+  text-align: center;
+  padding: 0.8em 1.2em;
+  margin: 0 auto;
+}
+
+#logo {
+  width: 80px;
 }
 
 h1 {
@@ -36,16 +56,6 @@ h3 {
   background: linear-gradient(rgba(91, 87, 187, 0.8), rgba(91, 87, 187, 0.8)), url("/spotlight-image.67dda797.jpg");
   background-size: 100% 100%;
   color: white;
-}
-
-.container {
-  text-align: center;
-  padding: 0.8em 1.2em;
-  margin: 0 auto;
-}
-
-#logo {
-  width: 80px;
 }
 
 header {
@@ -75,26 +85,22 @@ header {
   width: 70%;
   margin-bottom: 10px;
 }
-
 .featured-projects h4 {
   font-size: 1.4em;
   font-weight: 400;
 }
-
 .featured-projects a {
   color: #4E3804;
 }
-
 .featured-projects li {
   margin-bottom: 40px;
 }
-
 .featured-projects li:nth-child(3) {
   margin-bottom: 0;
 }
 
 #projects-container {
-  padding: 35px 0;
+  padding: 40px 0;
   background: #817CCA;
   color: white;
 }
@@ -104,30 +110,26 @@ header {
   font-weight: 500;
   margin-bottom: 18px;
 }
-
 .project-types a {
   font-size: 0.95em;
   color: #FFEA61;
   font-weight: 400;
 }
-
 .project-types p {
   margin-top: 7px;
   margin-bottom: 20px;
   font-size: 0.85em;
   font-weight: 400;
 }
-
 .project-types > li {
   margin-bottom: 40px;
 }
-
 .project-types > li:nth-child(4) {
   margin-bottom: 0;
 }
 
 #contact-container {
-  padding: 35px 0;
+  padding: 40px 0;
   background: #EDECF7;
 }
 
@@ -141,16 +143,13 @@ header {
   margin-left: 20%;
   margin-bottom: 25px;
 }
-
 .contact-links li:nth-child(4) {
   margin-bottom: 0;
 }
-
 .contact-links img {
   width: 35px;
   margin-right: 15%;
 }
-
 .contact-links a {
   color: #6A4D0A;
   line-height: 35px;
@@ -165,7 +164,6 @@ header {
   text-decoration: none;
   border-radius: 20px;
 }
-
 #cta:hover {
   background: #503a07;
 }
@@ -174,9 +172,8 @@ header {
   background: #4F499D;
   color: white;
 }
-
 .footer-container p {
-  font-size: 0.75em;
+  font-size: 0.8em;
   font-weight: 400;
 }
 
@@ -191,8 +188,7 @@ nav ul {
   z-index: 7;
   padding-top: 3em;
 }
-
-nav ul li a {
+nav li a {
   color: white;
   text-decoration: none;
   display: block;
@@ -201,8 +197,7 @@ nav ul li a {
   background-color: #31373b;
   border-bottom: 1px solid #24292c;
 }
-
-nav ul li a:hover {
+nav li a:hover {
   background-color: #41494e;
 }
 
@@ -212,7 +207,6 @@ nav ul li a:hover {
   text-align: right;
   padding: 0 1.4em;
 }
-
 .exit-btn img {
   width: 15px;
   cursor: pointer;
@@ -227,6 +221,10 @@ nav ul li a:hover {
     font-size: 3.7em;
   }
 
+  #hero-section {
+    margin-top: 200px;
+    margin-bottom: 250px;
+  }
   #hero-section h2 {
     font-size: 2em;
   }
@@ -236,11 +234,6 @@ nav ul li a:hover {
     margin-bottom: 70px;
   }
 
-  #hero-section {
-    margin-top: 200px;
-    margin-bottom: 250px;
-  }
-
   #featured-container {
     padding: 70px 0;
   }
@@ -248,40 +241,35 @@ nav ul li a:hover {
   .featured-projects img {
     width: 60%;
   }
-
   .featured-projects h4 {
     font-size: 1.6em;
   }
-
   .featured-projects li {
     margin-bottom: 50px;
   }
 
   #projects-container {
-    padding: 65px 0;
+    padding: 70px 0;
   }
 
   .project-types h4 {
     font-size: 1.5em;
     margin-bottom: 28px;
   }
-
   .project-types a {
     font-size: 1.3em;
   }
-
   .project-types p {
     margin-top: 17px;
     margin-bottom: 30px;
     font-size: 1.2em;
   }
-
   .project-types > li {
-    margin-bottom: 65px;
+    margin-bottom: 70px;
   }
 
   #contact-container {
-    padding: 65px 0;
+    padding: 70px 0;
     background: #EDECF7;
   }
 
@@ -296,12 +284,10 @@ nav ul li a:hover {
     margin-left: auto;
     margin-right: auto;
   }
-
   .contact-links img {
     width: 40px;
     margin-right: 4em;
   }
-
   .contact-links a {
     font-size: 1.4em;
   }
@@ -337,7 +323,6 @@ nav ul li a:hover {
     display: flex !important;
     padding-top: 1em;
   }
-
   nav ul li a {
     color: white;
     display: inline;
@@ -347,7 +332,6 @@ nav ul li a:hover {
     font-size: 1.2em;
     border-bottom: none;
   }
-
   nav ul li a:hover {
     background-color: inherit;
   }
@@ -360,12 +344,10 @@ nav ul li a:hover {
     display: flex;
     justify-content: space-evenly;
   }
-
   .featured-projects li {
     padding: 0 3%;
     flex: 1;
   }
-
   .featured-projects img {
     width: 100%;
   }
@@ -377,7 +359,6 @@ nav ul li a:hover {
   .project-names {
     margin-left: 8%;
   }
-
   .project-names p {
     margin-left: 8%;
   }
@@ -397,7 +378,6 @@ nav ul li a:hover {
   .contact-links img {
     margin-right: 4em;
   }
-
   .contact-links li {
     margin-left: 0%;
   }
