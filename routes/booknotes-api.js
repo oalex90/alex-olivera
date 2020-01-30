@@ -1,9 +1,21 @@
 'use strict';
 
 var ObjectId = require('mongodb').ObjectId;
+var uniqid = require("uniqid"); //used to generate unique _id field for notes
 
 module.exports = function (app, db) {
   const DB_TABLE = db.collection("bookNotes");
+  /*DB "bookNotes" collection structure:
+      _id : book id (auto generated)
+      user: String - username of user the book belongs to
+      title: String - thread text
+      created_on - String(Date)
+      notes - Array:
+                  _id - String - note id generated using uniqid
+                  text - String - note text
+                  created_on - String(Date)
+                  is_favorited - boolean
+  */
  
   app.route("/booknotes")
   .get(function(request, response) {
@@ -18,7 +30,8 @@ module.exports = function (app, db) {
   app.route('/booknotes/api')
     .get(function (req, res){
       //response will be array of book objects
-      //json res format: [{"_id": String, "title": String, "notes": array of Strings},]
+      //json res format: [{"_id": String, "user": String, "title": String, "created_on": String(Date), 
+      //  "notes": [{"_id": String, "text": String, "created_on": String(Date), "is_favorited" boolean},...]},...]
       DB_TABLE.find().toArray((err, results)=>{
         res.json(results);
       });
@@ -27,15 +40,20 @@ module.exports = function (app, db) {
     .post(function (req, res){
     //response will contain new book object including atleast _id and title
       var title = req.body.title;
+      var user = req.body.user;
       //console.log("req.body.title", req.body.title);
       if(title == null || title == ""){
         res.send("No title provided");
         return;
       }
+
       var newBook = {
+        user: user,
         title: title,
+        created_on: new Date(),
         notes: []
-      }
+      };
+
       DB_TABLE.insertOne(newBook, (err, document)=>{
         if (err) throw err;
         //console.log("document", document);
@@ -61,7 +79,9 @@ module.exports = function (app, db) {
 
   app.route('/booknotes/api/:id')
   .get(function (req, res){
-    //json res format: {"_id": bookid, "title": book_title, "notes": [note,note,...]}
+    //response will be individual book object
+    //json res format: {"_id": String, "user": String, "title": String, "created_on": String(Date), 
+      //  "notes": [{"_id": String, "text": String, "created_on": String(Date), "is_favorited" boolean},...]}
     var bookid = req.params.id;
     let criteria;
 
@@ -90,40 +110,83 @@ module.exports = function (app, db) {
   })
 
   .post(function(req, res){
-  //json res format same as .get
-    var bookid = req.params.id;
-    var note = req.body.note;
+  //add a new note. Response is the newly created note object
+  //json res format: {"_id": String, "text": String, "created_on": String(Date), "is_favorited" boolean}
+    var book_id = req.params.id;
+    var text = req.body.text;
 
-    if(note == null || note == ""){
-      res.send("No note provided");
-      return;
+    var newNote = {
+      _id: uniqid(), //create a unique id value for each note
+      text: text,
+      created_on: new Date(),
+      is_favorited: false
     }
+    // if(note == null || note == ""){
+    //   res.send("No note provided");
+    //   return;
+    // }
 
     let criteria;
 
     try{
-        criteria = {_id: new ObjectId(bookid)};
+        criteria = {_id: new ObjectId(book_id)};
     } catch (e){
         res.send("_id error");
         return;
     }
     if(!criteria) return;
-    let update = {$push: {notes: note}};
 
-    DB_TABLE.findOneAndUpdate(criteria, update, (err,result)=>{
-      if(err){
-        res.send("_id error");
-        return;
+    let modify = {
+      $push: { notes: newNote }, //add new note to end of notes array
+    };
+
+    DB_TABLE.findOneAndUpdate(
+      criteria,
+      modify,
+      (err, document) => {
+        if (err || document.lastErrorObject.n == 0) {
+          res.send("could not find " + book_id);
+          return;
+        }
+        //console.log("document", document.value);
+        let modifiedBook = document.value;
+        modifiedBook.notes.push(newNote);
+        //console.log("modifiedBook",modifiedBook);
+        res.json(modifiedBook);
       }
-      if(result.value == null){
-        res.send("book does not exist");
-        return;
+    );
+  })
+
+  .put(function(req, res){
+    var book_id = req.params.id;
+    var note_id = req.body.note_id;
+    var currentValue = req.body.is_favorited;
+
+    let criteria;
+    try {
+      criteria = { _id: new ObjectId(book_id), "notes._id": note_id }; //search by book _id field and note_id field in notes array
+    } catch (e) {
+      res.send("_id error");
+      return;
+    }
+    if (!criteria) return;
+
+    let update = { $set: { "notes.$.is_favorited": !currentValue } }; //toggle is_favorited field in matched note in notes array
+    //console.log("criteria:", criteria);
+
+    DB_TABLE.findOneAndUpdate(
+      criteria,
+      update,
+      {returnOriginal: false},
+      (err, result) => {
+        //console.log("result:", result);
+        if (err || result.lastErrorObject.n == 0) {
+          res.send("could not report");
+          return;
+        }
+        res.json(result.value); //return modifiedBook
       }
-      let book = result.value;
-      book.notes.push(note);
-      //console.log("note result", result.value);
-      res.json(book);
-    })
+    );
 
   })
 

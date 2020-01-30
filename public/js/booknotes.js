@@ -3,7 +3,30 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
+import iconExit from '../img/exit.svg';
+import iconFavSelected from '../img/icon-fav-selected.svg';
+import iconFavUnselected from '../img/icon-fav-unselected.svg';
+import iconEditBlack from '../img/icon-edit-black.svg';
+import iconEditWhite from '../img/icon-edit-white.svg';
+import iconDelete from '../img/icon-delete.svg';
+import iconSort from '../img/icon-sort.svg';
+import iconHam from '../img/ham.svg';
+
+import imageBook from '../img/img-book.png';
+
 const dbHelper = {
+  getBooks: (respAction) => {
+    fetch(
+      '/booknotes/api',
+      {
+        method: "GET"
+      }
+    )
+      .then(res => res.json())
+      .then(respAction)
+      .catch(error => console.log(error));
+  },
+
   createBook: (title, respAction) =>{
     fetch(
       '/booknotes/api',
@@ -11,7 +34,8 @@ const dbHelper = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: title
+          title: title,
+          user: "guest"
         })
       }
     )
@@ -43,7 +67,26 @@ const dbHelper = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          note: text
+          text: text
+        })
+      }
+    )
+      .then(res => res.json())
+      .then(respAction)
+      .catch(error => {
+        console.log(error)
+      });
+  },
+
+  toggleIsFavorited: (bookId, noteId, isFavorited, respAction) => {
+    fetch(
+      '/booknotes/api/' + bookId,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          note_id: noteId,
+          is_favorited: isFavorited
         })
       }
     )
@@ -53,8 +96,7 @@ const dbHelper = {
         console.log(error)
       });
   }
-}
-
+};
 
 function SubmitNewBookForm(props){
 
@@ -71,9 +113,9 @@ function SubmitNewBookForm(props){
   }
 
   return (
-  <form id="newBookForm" className="border" onSubmit={onNewBookSubmit}>
-    <input type="text" id="bookTitleToAdd" name="title" placeholder="New Book Title" style={{width: "295px"}} value={newBookName} onChange={handleNewBookNameChange}/>
-    <button type="submit" value="Submit" id="newBook">Submit New Book!</button>
+  <form className="form-new-book" onSubmit={onNewBookSubmit}>
+    <input type="text" name="title" placeholder="Book title..." value={newBookName} onChange={handleNewBookNameChange} required/>
+    <input className="button" type="submit" value="Add Book"/>
   </form>);
 }
 
@@ -84,8 +126,9 @@ function BookItem(props){
 
   let numNotes = props.book.notes.length;
   return (
-    <li className="book-item" onClick={onClickHandler}>
-      {props.book.title + " - " + numNotes + (numNotes == 1 ? " note" : " notes")}
+    <li onClick={onClickHandler}>
+      <h4>{props.book.title}</h4>
+      <p>{"(" + numNotes + (numNotes == 1 ? " note" : " notes")+ ")"}</p>
     </li>
   )
 }
@@ -99,23 +142,75 @@ function BookItemList(props){
   });
 
   return (
-    <ul id="book-item-list">
-      {bookItems}
-    </ul>
+    <div id="title-list" className="list-container hide-mobile">
+      <div>
+        <a className="hidden" id="logout" href="#">Log out</a>
+        <a id="exit" href="#" className="exit-btn hide-desktop">
+            <img src={iconExit} alt="exit menu" onClick={toggleMenu}/>
+        </a> 
+      </div>
+      <h3>Book List</h3>
+      <ul id="book-list">
+        {bookItems}
+      </ul>
+    </div>
   )
 }
 
 function Note(props){
-  return <li>{props.text}</li>
+  function favOnClickHandler(e){
+    dbHelper.toggleIsFavorited(props.bookId, props.note._id, props.note.is_favorited, props.respAction);
+  }
+
+  return (
+    <li className="note">
+      <a className="clickable">
+        <img className="note-fav note-icon" src={props.note.is_favorited ? iconFavSelected : iconFavUnselected} 
+            alt="Favorite Icon" onClick={favOnClickHandler}/>
+      </a>
+      <p className="note-date">{props.note.created_on}</p>
+      <a className="hidden" href="#"><img className="note-edit note-icon" src={iconEditBlack} alt="Edit Icon"/></a>
+      <a className="hidden" href="#"><img className="note-delete note-icon" src={iconDelete} alt="Delete Icon"/></a>
+      <p className="note-text">{props.note.text}</p>
+    </li>
+  );
 }
 
 function Notes(props){
 
+  let notes;
+  if(props.notes != null) notes = props.notes.map((note, i)=>{
+    return <Note key={i} note={note} bookId={props.bookId} respAction={props.respAction}/>
+  })
+  return (
+    <div className="notes">
+      <h4>Notes</h4>
+      <div className="notes-container">
+      <div className="notes-header">
+        <a className="sort-fav sort" href="#">
+          <p>Fav</p>
+          <img src={iconSort} alt="Sort Icon"/>
+        </a>
+        <a className="sort-date sort" href="#">
+          <p>Date</p>
+          <img src={iconSort} alt="Sort Icon"/>
+        </a>
+      </div>
+      <ul>
+        {notes}
+      </ul>
+    </div>
+  </div>
+  );
+}
+
+function BookDetails(props){
+  //console.log("BookDetails props", props);
   const [noteText, setNoteText] = useState("");
 
   function addNoteHandler(event){
     event.preventDefault();
-    dbHelper.addNote(props.bookId, noteText, props.addNoteResp);
+    dbHelper.addNote(props.book._id, noteText, props.addNoteResp);
     setNoteText("");
   }
 
@@ -123,40 +218,39 @@ function Notes(props){
     setNoteText(event.target.value);
   }
 
-  let notes;
-  if(props.notes != null) notes = props.notes.map((note, i)=>{
-    return <Note key={i} text={note}/>
-  })
-  return <div>
-    <ul>
-      {notes}
-    </ul>
-    <form onSubmit={addNoteHandler}>
-      <input style={{width: "300px"}} className="form-control" name="noteText" placeholder="New Note" value={noteText} onChange={handleNoteTextChange}></input>
-      <input type="submit" value="Add Note"></input>
-    </form>
-  </div>;
-}
-
-function BookDetails(props){
-  //console.log("BookDetails props", props);
-
-  function deleteBookHandler(){
+  function deleteBookHandler(event){
+    event.preventDefault();
     dbHelper.deleteBook(props.book._id, props.deleteBookResp);
   }
 
   return (
-    <div>
-      {props.book == null ? <p>Select a book to see it's details and notes</p> 
-      : 
-      <div id="bookDetail" className="border">
-      <p><b>{props.book.title}</b> {"(id: " + props.book._id + ")"}</p>
-      <Notes notes={props.book.notes} bookId={props.book._id} addNoteResp={props.addNoteResp}/>
-      <button className="btn btn-danger deleteBook" onClick={deleteBookHandler}>Delete Book</button>
+    <div className="book-container">
+      {props.book == null ? <p>Select a book from the Book List to see it's details and notes</p> 
+      :<div>
+      <div className="book-header">
+        <h3>{props.book.title}</h3>
+        <a className="remove" href="#"><img src={iconEditWhite} alt="Edit Icon"/></a>
       </div>
-      }
+      <img className="book-image" src={imageBook} alt="Book Image"/>
+
+      <div className="form-content">
+        <form className="form-new-note" onSubmit={addNoteHandler}>
+          <textarea rows="3" placeholder="Note text..." value={noteText} onChange={handleNoteTextChange} required></textarea>
+          <input className="button" type="submit" value="Add Note"/>
+        </form>
+        <form className="form-delete-book" onSubmit={deleteBookHandler}>
+          <input className="button" type="submit" value="Delete book"/>
+        </form>
+      </div>
+
+      <Notes notes={props.book.notes} bookId={props.book._id} respAction={props.addNoteResp}/>
+
+      </div>}
     </div>
   )
+}
+function toggleMenu(){
+  document.getElementById('title-list').classList.toggle('hide-mobile');
 }
 
 function BookNotes(props){
@@ -182,8 +276,12 @@ function BookNotes(props){
   }
 
   function useModifyBook(book){
+    
     let bookId = book._id;
     let index = bookItems.findIndex(item => item._id == bookId);
+    console.log("bookId", bookId);
+    console.log("index", index);
+
     setBookItems([
       ...bookItems.slice(0,index),
       book,
@@ -192,35 +290,43 @@ function BookNotes(props){
     setCurrentBook(book);
   }
 
+  function useToggleIsFavorited(resp){
+    console.log("does this thing work");
+    console.log("toggleFavResp", resp);
+  }
+
 
   function useSelectBook(book){
     //console.log("selected book:", book);
     setCurrentBook(book);
+    toggleMenu();
   }
 
   useEffect(() => {
-    fetch(
-      '/booknotes/api',
-      {
-        method: "GET"
-      }
-    )
-      .then(res => res.json())
-      .then(response => {
-        console.log(response);
-        setBookItems(response);
-        setIsLoading(false);
-      })
-      .catch(error => console.log(error));
+    dbHelper.getBooks((response)=>{
+      console.log(response);
+      setBookItems(response);
+      setIsLoading(false);
+    });
   }, []); //[] ensures fetch call only runs once
 
   return (
-  <div>
-    <SubmitNewBookForm newBookResp={useAddBookToList}/>
-    {isLoading && <p>Loading Book Items...</p>}
-    <BookItemList bookItems={bookItems} bookSelected={useSelectBook}/>
-    <BookDetails book={currentBook} deleteBookResp={useRemoveBookFromList} addNoteResp={useModifyBook}/>
-  </div>);
+    <div id="app">
+      <a id="a-menu" href="#" className="hide-desktop">
+              <img id="menu" src={iconHam} alt="hamburger" onClick={toggleMenu}/>
+      </a>
+      <div>
+        {isLoading && <p>Loading Book Items...</p>}
+        <BookItemList bookItems={bookItems} bookSelected={useSelectBook}/>
+
+        <div className="main-container">
+        <h2>Welcome Guest!</h2>
+        <SubmitNewBookForm newBookResp={useAddBookToList}/>
+        <BookDetails book={currentBook} deleteBookResp={useRemoveBookFromList} addNoteResp={useModifyBook} toggleFavResp={useToggleIsFavorited}/>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 

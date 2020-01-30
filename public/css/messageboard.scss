@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap');
 @import 'base';
 
+.clickable {
+    color: blue;
+}
 
 input, textarea {
     font-family: 'Montserrat', sans-serif;

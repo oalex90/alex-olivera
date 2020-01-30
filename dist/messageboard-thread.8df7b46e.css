@@ -11,7 +11,7 @@ ul {
   padding: 0;
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p {
   margin: 0;
   font-weight: 400;
 }
@@ -20,9 +20,12 @@ h1, h2, h3, h4, p {
   visibility: hidden;
 }
 
+.remove {
+  display: none;
+}
+
 .clickable {
   cursor: pointer;
-  color: blue;
 }
 
 .container {
@@ -33,6 +36,10 @@ h1, h2, h3, h4, p {
 
 #logo {
   width: 80px;
+}
+
+.clickable {
+  color: blue;
 }
 
 input, textarea {

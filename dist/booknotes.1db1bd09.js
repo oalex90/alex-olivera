@@ -42660,7 +42660,25 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{"process":"../node_modules/process/browser.js"}],"../public/js/booknotes.js":[function(require,module,exports) {
+},{"process":"../node_modules/process/browser.js"}],"../public/img/exit.svg":[function(require,module,exports) {
+module.exports = "/exit.aee368ff.svg";
+},{}],"../public/img/icon-fav-selected.svg":[function(require,module,exports) {
+module.exports = "/icon-fav-selected.1bd6f969.svg";
+},{}],"../public/img/icon-fav-unselected.svg":[function(require,module,exports) {
+module.exports = "/icon-fav-unselected.f1702ae7.svg";
+},{}],"../public/img/icon-edit-black.svg":[function(require,module,exports) {
+module.exports = "/icon-edit-black.ce316aa4.svg";
+},{}],"../public/img/icon-edit-white.svg":[function(require,module,exports) {
+module.exports = "/icon-edit-white.fcc16416.svg";
+},{}],"../public/img/icon-delete.svg":[function(require,module,exports) {
+module.exports = "/icon-delete.b92eec27.svg";
+},{}],"../public/img/icon-sort.svg":[function(require,module,exports) {
+module.exports = "/icon-sort.86139674.svg";
+},{}],"../public/img/ham.svg":[function(require,module,exports) {
+module.exports = "/ham.7907af2b.svg";
+},{}],"../public/img/img-book.png":[function(require,module,exports) {
+module.exports = "/img-book.fea67e52.png";
+},{}],"../public/js/booknotes.js":[function(require,module,exports) {
 "use strict";
 
 require("../css/booknotes.scss");
@@ -42670,6 +42688,24 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _jquery = _interopRequireDefault(require("jquery"));
+
+var _exit = _interopRequireDefault(require("../img/exit.svg"));
+
+var _iconFavSelected = _interopRequireDefault(require("../img/icon-fav-selected.svg"));
+
+var _iconFavUnselected = _interopRequireDefault(require("../img/icon-fav-unselected.svg"));
+
+var _iconEditBlack = _interopRequireDefault(require("../img/icon-edit-black.svg"));
+
+var _iconEditWhite = _interopRequireDefault(require("../img/icon-edit-white.svg"));
+
+var _iconDelete = _interopRequireDefault(require("../img/icon-delete.svg"));
+
+var _iconSort = _interopRequireDefault(require("../img/icon-sort.svg"));
+
+var _ham = _interopRequireDefault(require("../img/ham.svg"));
+
+var _imgBook = _interopRequireDefault(require("../img/img-book.png"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42694,6 +42730,15 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var dbHelper = {
+  getBooks: function getBooks(respAction) {
+    fetch('/booknotes/api', {
+      method: "GET"
+    }).then(function (res) {
+      return res.json();
+    }).then(respAction).catch(function (error) {
+      return console.log(error);
+    });
+  },
   createBook: function createBook(title, respAction) {
     fetch('/booknotes/api', {
       method: "POST",
@@ -42701,7 +42746,8 @@ var dbHelper = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        title: title
+        title: title,
+        user: "guest"
       })
     }).then(function (res) {
       return res.json();
@@ -42727,7 +42773,23 @@ var dbHelper = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        note: text
+        text: text
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(respAction).catch(function (error) {
+      console.log(error);
+    });
+  },
+  toggleIsFavorited: function toggleIsFavorited(bookId, noteId, isFavorited, respAction) {
+    fetch('/booknotes/api/' + bookId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        note_id: noteId,
+        is_favorited: isFavorited
       })
     }).then(function (res) {
       return res.json();
@@ -42754,24 +42816,20 @@ function SubmitNewBookForm(props) {
   }
 
   return _react.default.createElement("form", {
-    id: "newBookForm",
-    className: "border",
+    className: "form-new-book",
     onSubmit: onNewBookSubmit
   }, _react.default.createElement("input", {
     type: "text",
-    id: "bookTitleToAdd",
     name: "title",
-    placeholder: "New Book Title",
-    style: {
-      width: "295px"
-    },
+    placeholder: "Book title...",
     value: newBookName,
-    onChange: handleNewBookNameChange
-  }), _react.default.createElement("button", {
+    onChange: handleNewBookNameChange,
+    required: true
+  }), _react.default.createElement("input", {
+    className: "button",
     type: "submit",
-    value: "Submit",
-    id: "newBook"
-  }, "Submit New Book!"));
+    value: "Add Book"
+  }));
 }
 
 function BookItem(props) {
@@ -42782,9 +42840,8 @@ function BookItem(props) {
   ;
   var numNotes = props.book.notes.length;
   return _react.default.createElement("li", {
-    className: "book-item",
     onClick: onClickHandler
-  }, props.book.title + " - " + numNotes + (numNotes == 1 ? " note" : " notes"));
+  }, _react.default.createElement("h4", null, props.book.title), _react.default.createElement("p", null, "(" + numNotes + (numNotes == 1 ? " note" : " notes") + ")"));
 }
 
 function BookItemList(props) {
@@ -42798,16 +42855,94 @@ function BookItemList(props) {
       onClick: props.bookSelected
     });
   });
-  return _react.default.createElement("ul", {
-    id: "book-item-list"
-  }, bookItems);
+  return _react.default.createElement("div", {
+    id: "title-list",
+    className: "list-container hide-mobile"
+  }, _react.default.createElement("div", null, _react.default.createElement("a", {
+    className: "hidden",
+    id: "logout",
+    href: "#"
+  }, "Log out"), _react.default.createElement("a", {
+    id: "exit",
+    href: "#",
+    className: "exit-btn hide-desktop"
+  }, _react.default.createElement("img", {
+    src: _exit.default,
+    alt: "exit menu",
+    onClick: toggleMenu
+  }))), _react.default.createElement("h3", null, "Book List"), _react.default.createElement("ul", {
+    id: "book-list"
+  }, bookItems));
 }
 
 function Note(props) {
-  return _react.default.createElement("li", null, props.text);
+  function favOnClickHandler(e) {
+    dbHelper.toggleIsFavorited(props.bookId, props.note._id, props.note.is_favorited, props.respAction);
+  }
+
+  return _react.default.createElement("li", {
+    className: "note"
+  }, _react.default.createElement("a", {
+    className: "clickable"
+  }, _react.default.createElement("img", {
+    className: "note-fav note-icon",
+    src: props.note.is_favorited ? _iconFavSelected.default : _iconFavUnselected.default,
+    alt: "Favorite Icon",
+    onClick: favOnClickHandler
+  })), _react.default.createElement("p", {
+    className: "note-date"
+  }, props.note.created_on), _react.default.createElement("a", {
+    className: "hidden",
+    href: "#"
+  }, _react.default.createElement("img", {
+    className: "note-edit note-icon",
+    src: _iconEditBlack.default,
+    alt: "Edit Icon"
+  })), _react.default.createElement("a", {
+    className: "hidden",
+    href: "#"
+  }, _react.default.createElement("img", {
+    className: "note-delete note-icon",
+    src: _iconDelete.default,
+    alt: "Delete Icon"
+  })), _react.default.createElement("p", {
+    className: "note-text"
+  }, props.note.text));
 }
 
 function Notes(props) {
+  var notes;
+  if (props.notes != null) notes = props.notes.map(function (note, i) {
+    return _react.default.createElement(Note, {
+      key: i,
+      note: note,
+      bookId: props.bookId,
+      respAction: props.respAction
+    });
+  });
+  return _react.default.createElement("div", {
+    className: "notes"
+  }, _react.default.createElement("h4", null, "Notes"), _react.default.createElement("div", {
+    className: "notes-container"
+  }, _react.default.createElement("div", {
+    className: "notes-header"
+  }, _react.default.createElement("a", {
+    className: "sort-fav sort",
+    href: "#"
+  }, _react.default.createElement("p", null, "Fav"), _react.default.createElement("img", {
+    src: _iconSort.default,
+    alt: "Sort Icon"
+  })), _react.default.createElement("a", {
+    className: "sort-date sort",
+    href: "#"
+  }, _react.default.createElement("p", null, "Date"), _react.default.createElement("img", {
+    src: _iconSort.default,
+    alt: "Sort Icon"
+  }))), _react.default.createElement("ul", null, notes)));
+}
+
+function BookDetails(props) {
+  //console.log("BookDetails props", props);
   var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       noteText = _useState4[0],
@@ -42815,7 +42950,7 @@ function Notes(props) {
 
   function addNoteHandler(event) {
     event.preventDefault();
-    dbHelper.addNote(props.bookId, noteText, props.addNoteResp);
+    dbHelper.addNote(props.book._id, noteText, props.addNoteResp);
     setNoteText("");
   }
 
@@ -42823,47 +42958,56 @@ function Notes(props) {
     setNoteText(event.target.value);
   }
 
-  var notes;
-  if (props.notes != null) notes = props.notes.map(function (note, i) {
-    return _react.default.createElement(Note, {
-      key: i,
-      text: note
-    });
-  });
-  return _react.default.createElement("div", null, _react.default.createElement("ul", null, notes), _react.default.createElement("form", {
-    onSubmit: addNoteHandler
-  }, _react.default.createElement("input", {
-    style: {
-      width: "300px"
-    },
-    className: "form-control",
-    name: "noteText",
-    placeholder: "New Note",
-    value: noteText,
-    onChange: handleNoteTextChange
-  }), _react.default.createElement("input", {
-    type: "submit",
-    value: "Add Note"
-  })));
-}
-
-function BookDetails(props) {
-  //console.log("BookDetails props", props);
-  function deleteBookHandler() {
+  function deleteBookHandler(event) {
+    event.preventDefault();
     dbHelper.deleteBook(props.book._id, props.deleteBookResp);
   }
 
-  return _react.default.createElement("div", null, props.book == null ? _react.default.createElement("p", null, "Select a book to see it's details and notes") : _react.default.createElement("div", {
-    id: "bookDetail",
-    className: "border"
-  }, _react.default.createElement("p", null, _react.default.createElement("b", null, props.book.title), " ", "(id: " + props.book._id + ")"), _react.default.createElement(Notes, {
+  return _react.default.createElement("div", {
+    className: "book-container"
+  }, props.book == null ? _react.default.createElement("p", null, "Select a book from the Book List to see it's details and notes") : _react.default.createElement("div", null, _react.default.createElement("div", {
+    className: "book-header"
+  }, _react.default.createElement("h3", null, props.book.title), _react.default.createElement("a", {
+    className: "remove",
+    href: "#"
+  }, _react.default.createElement("img", {
+    src: _iconEditWhite.default,
+    alt: "Edit Icon"
+  }))), _react.default.createElement("img", {
+    className: "book-image",
+    src: _imgBook.default,
+    alt: "Book Image"
+  }), _react.default.createElement("div", {
+    className: "form-content"
+  }, _react.default.createElement("form", {
+    className: "form-new-note",
+    onSubmit: addNoteHandler
+  }, _react.default.createElement("textarea", {
+    rows: "3",
+    placeholder: "Note text...",
+    value: noteText,
+    onChange: handleNoteTextChange,
+    required: true
+  }), _react.default.createElement("input", {
+    className: "button",
+    type: "submit",
+    value: "Add Note"
+  })), _react.default.createElement("form", {
+    className: "form-delete-book",
+    onSubmit: deleteBookHandler
+  }, _react.default.createElement("input", {
+    className: "button",
+    type: "submit",
+    value: "Delete book"
+  }))), _react.default.createElement(Notes, {
     notes: props.book.notes,
     bookId: props.book._id,
-    addNoteResp: props.addNoteResp
-  }), _react.default.createElement("button", {
-    className: "btn btn-danger deleteBook",
-    onClick: deleteBookHandler
-  }, "Delete Book")));
+    respAction: props.addNoteResp
+  })));
+}
+
+function toggleMenu() {
+  document.getElementById('title-list').classList.toggle('hide-mobile');
 }
 
 function BookNotes(props) {
@@ -42901,43 +43045,59 @@ function BookNotes(props) {
     var index = bookItems.findIndex(function (item) {
       return item._id == bookId;
     });
+    console.log("bookId", bookId);
+    console.log("index", index);
     setBookItems([].concat(_toConsumableArray(bookItems.slice(0, index)), [book], _toConsumableArray(bookItems.slice(index + 1))));
     setCurrentBook(book);
+  }
+
+  function useToggleIsFavorited(resp) {
+    console.log("does this thing work");
+    console.log("toggleFavResp", resp);
   }
 
   function useSelectBook(book) {
     //console.log("selected book:", book);
     setCurrentBook(book);
+    toggleMenu();
   }
 
   (0, _react.useEffect)(function () {
-    fetch('/booknotes/api', {
-      method: "GET"
-    }).then(function (res) {
-      return res.json();
-    }).then(function (response) {
+    dbHelper.getBooks(function (response) {
       console.log(response);
       setBookItems(response);
       setIsLoading(false);
-    }).catch(function (error) {
-      return console.log(error);
     });
   }, []); //[] ensures fetch call only runs once
 
-  return _react.default.createElement("div", null, _react.default.createElement(SubmitNewBookForm, {
-    newBookResp: useAddBookToList
-  }), isLoading && _react.default.createElement("p", null, "Loading Book Items..."), _react.default.createElement(BookItemList, {
+  return _react.default.createElement("div", {
+    id: "app"
+  }, _react.default.createElement("a", {
+    id: "a-menu",
+    href: "#",
+    className: "hide-desktop"
+  }, _react.default.createElement("img", {
+    id: "menu",
+    src: _ham.default,
+    alt: "hamburger",
+    onClick: toggleMenu
+  })), _react.default.createElement("div", null, isLoading && _react.default.createElement("p", null, "Loading Book Items..."), _react.default.createElement(BookItemList, {
     bookItems: bookItems,
     bookSelected: useSelectBook
+  }), _react.default.createElement("div", {
+    className: "main-container"
+  }, _react.default.createElement("h2", null, "Welcome Guest!"), _react.default.createElement(SubmitNewBookForm, {
+    newBookResp: useAddBookToList
   }), _react.default.createElement(BookDetails, {
     book: currentBook,
     deleteBookResp: useRemoveBookFromList,
-    addNoteResp: useModifyBook
-  }));
+    addNoteResp: useModifyBook,
+    toggleFavResp: useToggleIsFavorited
+  }))));
 }
 
 _reactDom.default.render(_react.default.createElement(BookNotes, null), document.getElementById('react'));
-},{"../css/booknotes.scss":"../public/css/booknotes.scss","react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","jquery":"../node_modules/jquery/dist/jquery.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../css/booknotes.scss":"../public/css/booknotes.scss","react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","jquery":"../node_modules/jquery/dist/jquery.js","../img/exit.svg":"../public/img/exit.svg","../img/icon-fav-selected.svg":"../public/img/icon-fav-selected.svg","../img/icon-fav-unselected.svg":"../public/img/icon-fav-unselected.svg","../img/icon-edit-black.svg":"../public/img/icon-edit-black.svg","../img/icon-edit-white.svg":"../public/img/icon-edit-white.svg","../img/icon-delete.svg":"../public/img/icon-delete.svg","../img/icon-sort.svg":"../public/img/icon-sort.svg","../img/ham.svg":"../public/img/ham.svg","../img/img-book.png":"../public/img/img-book.png"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -42965,7 +43125,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53186" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50228" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
