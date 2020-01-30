@@ -42756,8 +42756,14 @@ var dbHelper = {
     });
   },
   deleteBook: function deleteBook(id, respAction) {
-    fetch('/booknotes/api/' + id, {
-      method: "DELETE"
+    fetch('/booknotes/api/', {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: id
+      })
     }).then(function (res) {
       return res.json();
     }).then(function () {
@@ -42774,6 +42780,21 @@ var dbHelper = {
       },
       body: JSON.stringify({
         text: text
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(respAction).catch(function (error) {
+      console.log(error);
+    });
+  },
+  removeNote: function removeNote(bookId, noteId, respAction) {
+    fetch('/booknotes/api/' + bookId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        note_id: noteId
       })
     }).then(function (res) {
       return res.json();
@@ -42799,7 +42820,11 @@ var dbHelper = {
   }
 };
 
-function SubmitNewBookForm(props) {
+function toggleMenu() {
+  document.getElementById('title-list').classList.toggle('hide-mobile');
+}
+
+function AddBookForm(props) {
   var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       newBookName = _useState2[0],
@@ -42876,8 +42901,14 @@ function BookItemList(props) {
 }
 
 function Note(props) {
+  var note = props.note;
+
   function favOnClickHandler(e) {
-    dbHelper.toggleIsFavorited(props.bookId, props.note._id, props.note.is_favorited, props.respAction);
+    dbHelper.toggleIsFavorited(props.bookId, note._id, note.is_favorited, props.respAction);
+  }
+
+  function deleteOnClickHandler(e) {
+    dbHelper.removeNote(props.bookId, note._id, props.respAction);
   }
 
   return _react.default.createElement("li", {
@@ -42886,12 +42917,12 @@ function Note(props) {
     className: "clickable"
   }, _react.default.createElement("img", {
     className: "note-fav note-icon",
-    src: props.note.is_favorited ? _iconFavSelected.default : _iconFavUnselected.default,
+    src: note.is_favorited ? _iconFavSelected.default : _iconFavUnselected.default,
     alt: "Favorite Icon",
     onClick: favOnClickHandler
   })), _react.default.createElement("p", {
     className: "note-date"
-  }, props.note.created_on), _react.default.createElement("a", {
+  }, note.created_on), _react.default.createElement("a", {
     className: "hidden",
     href: "#"
   }, _react.default.createElement("img", {
@@ -42899,15 +42930,15 @@ function Note(props) {
     src: _iconEditBlack.default,
     alt: "Edit Icon"
   })), _react.default.createElement("a", {
-    className: "hidden",
-    href: "#"
+    className: "clickable"
   }, _react.default.createElement("img", {
     className: "note-delete note-icon",
     src: _iconDelete.default,
+    onClick: deleteOnClickHandler,
     alt: "Delete Icon"
   })), _react.default.createElement("p", {
     className: "note-text"
-  }, props.note.text));
+  }, note.text));
 }
 
 function Notes(props) {
@@ -42941,45 +42972,23 @@ function Notes(props) {
   }))), _react.default.createElement("ul", null, notes)));
 }
 
-function BookDetails(props) {
-  //console.log("BookDetails props", props);
+function AddNoteForm(props) {
   var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       noteText = _useState4[0],
       setNoteText = _useState4[1];
 
-  function addNoteHandler(event) {
-    event.preventDefault();
-    dbHelper.addNote(props.book._id, noteText, props.addNoteResp);
-    setNoteText("");
-  }
-
   function handleNoteTextChange(event) {
     setNoteText(event.target.value);
   }
 
-  function deleteBookHandler(event) {
+  function addNoteHandler(event) {
     event.preventDefault();
-    dbHelper.deleteBook(props.book._id, props.deleteBookResp);
+    dbHelper.addNote(props.bookId, noteText, props.addNoteResp);
+    setNoteText("");
   }
 
-  return _react.default.createElement("div", {
-    className: "book-container"
-  }, props.book == null ? _react.default.createElement("p", null, "Select a book from the Book List to see it's details and notes") : _react.default.createElement("div", null, _react.default.createElement("div", {
-    className: "book-header"
-  }, _react.default.createElement("h3", null, props.book.title), _react.default.createElement("a", {
-    className: "remove",
-    href: "#"
-  }, _react.default.createElement("img", {
-    src: _iconEditWhite.default,
-    alt: "Edit Icon"
-  }))), _react.default.createElement("img", {
-    className: "book-image",
-    src: _imgBook.default,
-    alt: "Book Image"
-  }), _react.default.createElement("div", {
-    className: "form-content"
-  }, _react.default.createElement("form", {
+  return _react.default.createElement("form", {
     className: "form-new-note",
     onSubmit: addNoteHandler
   }, _react.default.createElement("textarea", {
@@ -42992,22 +43001,55 @@ function BookDetails(props) {
     className: "button",
     type: "submit",
     value: "Add Note"
-  })), _react.default.createElement("form", {
+  }));
+}
+
+function DeleteBookForm(props) {
+  function deleteBookHandler(event) {
+    event.preventDefault();
+    dbHelper.deleteBook(props.bookId, props.deleteBookResp);
+  }
+
+  return _react.default.createElement("form", {
     className: "form-delete-book",
     onSubmit: deleteBookHandler
   }, _react.default.createElement("input", {
     className: "button",
     type: "submit",
     value: "Delete book"
-  }))), _react.default.createElement(Notes, {
-    notes: props.book.notes,
-    bookId: props.book._id,
-    respAction: props.addNoteResp
-  })));
+  }));
 }
 
-function toggleMenu() {
-  document.getElementById('title-list').classList.toggle('hide-mobile');
+function BookDetails(props) {
+  //console.log("BookDetails props", props);
+  var book = props.book;
+  return _react.default.createElement("div", {
+    className: "book-container"
+  }, book == null ? _react.default.createElement("p", null, "Select a book from the Book List to see it's details and notes") : _react.default.createElement("div", null, _react.default.createElement("div", {
+    className: "book-header"
+  }, _react.default.createElement("h3", null, book.title), _react.default.createElement("a", {
+    className: "remove",
+    href: "#"
+  }, _react.default.createElement("img", {
+    src: _iconEditWhite.default,
+    alt: "Edit Icon"
+  }))), _react.default.createElement("img", {
+    className: "book-image",
+    src: _imgBook.default,
+    alt: "Book Image"
+  }), _react.default.createElement("div", {
+    className: "form-content"
+  }, _react.default.createElement(AddNoteForm, {
+    bookId: book._id,
+    addNoteResp: props.addNoteResp
+  }), _react.default.createElement(DeleteBookForm, {
+    bookId: book._id,
+    deleteBookResp: props.deleteBookResp
+  })), _react.default.createElement(Notes, {
+    notes: book.notes,
+    bookId: book._id,
+    respAction: props.addNoteResp
+  })));
 }
 
 function BookNotes(props) {
@@ -43027,13 +43069,13 @@ function BookNotes(props) {
       setIsLoading = _useState10[1];
 
   function useAddBookToList(newBook) {
-    console.log("newBook", newBook);
+    //console.log("newBook", newBook);
     setBookItems([].concat(_toConsumableArray(bookItems), [newBook]));
     setCurrentBook(newBook);
   }
 
-  function useRemoveBookFromList(bookId) {
-    console.log("bookId");
+  function useRemoveBook(bookId) {
+    //console.log("bookId");
     setBookItems(bookItems.filter(function (book) {
       return book._id != bookId;
     }));
@@ -43044,20 +43086,14 @@ function BookNotes(props) {
     var bookId = book._id;
     var index = bookItems.findIndex(function (item) {
       return item._id == bookId;
-    });
-    console.log("bookId", bookId);
-    console.log("index", index);
+    }); //console.log("bookId", bookId);
+    //console.log("index", index);
+
     setBookItems([].concat(_toConsumableArray(bookItems.slice(0, index)), [book], _toConsumableArray(bookItems.slice(index + 1))));
     setCurrentBook(book);
   }
 
-  function useToggleIsFavorited(resp) {
-    console.log("does this thing work");
-    console.log("toggleFavResp", resp);
-  }
-
   function useSelectBook(book) {
-    //console.log("selected book:", book);
     setCurrentBook(book);
     toggleMenu();
   }
@@ -43086,13 +43122,12 @@ function BookNotes(props) {
     bookSelected: useSelectBook
   }), _react.default.createElement("div", {
     className: "main-container"
-  }, _react.default.createElement("h2", null, "Welcome Guest!"), _react.default.createElement(SubmitNewBookForm, {
+  }, _react.default.createElement("h2", null, "Welcome Guest!"), _react.default.createElement(AddBookForm, {
     newBookResp: useAddBookToList
   }), _react.default.createElement(BookDetails, {
     book: currentBook,
-    deleteBookResp: useRemoveBookFromList,
-    addNoteResp: useModifyBook,
-    toggleFavResp: useToggleIsFavorited
+    deleteBookResp: useRemoveBook,
+    addNoteResp: useModifyBook
   }))));
 }
 
@@ -43125,7 +43160,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50228" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59536" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

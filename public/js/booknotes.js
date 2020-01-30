@@ -48,9 +48,13 @@ const dbHelper = {
 
   deleteBook: (id, respAction) =>{
     fetch(
-      '/booknotes/api/' + id,
+      '/booknotes/api/',
       {
-        method: "DELETE"
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: id
+        })
       }
     )
       .then(res => res.json())
@@ -68,6 +72,24 @@ const dbHelper = {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text: text
+        })
+      }
+    )
+      .then(res => res.json())
+      .then(respAction)
+      .catch(error => {
+        console.log(error)
+      });
+  },
+
+  removeNote: (bookId, noteId, respAction) => {
+    fetch(
+      '/booknotes/api/' + bookId,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          note_id: noteId
         })
       }
     )
@@ -98,7 +120,11 @@ const dbHelper = {
   }
 };
 
-function SubmitNewBookForm(props){
+function toggleMenu(){
+  document.getElementById('title-list').classList.toggle('hide-mobile');
+}
+
+function AddBookForm(props){
 
   const [newBookName, setNewBookName] = useState("");
 
@@ -158,20 +184,26 @@ function BookItemList(props){
 }
 
 function Note(props){
+  let note = props.note;
+
   function favOnClickHandler(e){
-    dbHelper.toggleIsFavorited(props.bookId, props.note._id, props.note.is_favorited, props.respAction);
+    dbHelper.toggleIsFavorited(props.bookId, note._id, note.is_favorited, props.respAction);
+  }
+
+  function deleteOnClickHandler(e){
+    dbHelper.removeNote(props.bookId, note._id, props.respAction);
   }
 
   return (
     <li className="note">
       <a className="clickable">
-        <img className="note-fav note-icon" src={props.note.is_favorited ? iconFavSelected : iconFavUnselected} 
+        <img className="note-fav note-icon" src={note.is_favorited ? iconFavSelected : iconFavUnselected} 
             alt="Favorite Icon" onClick={favOnClickHandler}/>
       </a>
-      <p className="note-date">{props.note.created_on}</p>
+      <p className="note-date">{note.created_on}</p>
       <a className="hidden" href="#"><img className="note-edit note-icon" src={iconEditBlack} alt="Edit Icon"/></a>
-      <a className="hidden" href="#"><img className="note-delete note-icon" src={iconDelete} alt="Delete Icon"/></a>
-      <p className="note-text">{props.note.text}</p>
+      <a className="clickable"><img className="note-delete note-icon" src={iconDelete} onClick={deleteOnClickHandler} alt="Delete Icon"/></a>
+      <p className="note-text">{note.text}</p>
     </li>
   );
 }
@@ -204,53 +236,67 @@ function Notes(props){
   );
 }
 
-function BookDetails(props){
-  //console.log("BookDetails props", props);
-  const [noteText, setNoteText] = useState("");
+function AddNoteForm(props){
 
-  function addNoteHandler(event){
-    event.preventDefault();
-    dbHelper.addNote(props.book._id, noteText, props.addNoteResp);
-    setNoteText("");
-  }
+  const [noteText, setNoteText] = useState("");
 
   function handleNoteTextChange(event){
     setNoteText(event.target.value);
   }
 
-  function deleteBookHandler(event){
+  function addNoteHandler(event){
     event.preventDefault();
-    dbHelper.deleteBook(props.book._id, props.deleteBookResp);
+    dbHelper.addNote(props.bookId, noteText, props.addNoteResp);
+    setNoteText("");
   }
 
   return (
+    <form className="form-new-note" onSubmit={addNoteHandler}>
+      <textarea rows="3" placeholder="Note text..." value={noteText} onChange={handleNoteTextChange} required></textarea>
+      <input className="button" type="submit" value="Add Note"/>
+    </form>
+  );
+}
+
+function DeleteBookForm(props){
+
+  function deleteBookHandler(event){
+    event.preventDefault();
+    dbHelper.deleteBook(props.bookId, props.deleteBookResp);
+  }
+
+  return (
+    <form className="form-delete-book" onSubmit={deleteBookHandler}>
+      <input className="button" type="submit" value="Delete book"/>
+    </form>
+  );
+}
+
+function BookDetails(props){
+  //console.log("BookDetails props", props);
+
+  let book = props.book;
+  
+  return (
     <div className="book-container">
-      {props.book == null ? <p>Select a book from the Book List to see it's details and notes</p> 
+      {book == null ? <p>Select a book from the Book List to see it's details and notes</p> 
       :<div>
       <div className="book-header">
-        <h3>{props.book.title}</h3>
+        <h3>{book.title}</h3>
         <a className="remove" href="#"><img src={iconEditWhite} alt="Edit Icon"/></a>
       </div>
       <img className="book-image" src={imageBook} alt="Book Image"/>
 
       <div className="form-content">
-        <form className="form-new-note" onSubmit={addNoteHandler}>
-          <textarea rows="3" placeholder="Note text..." value={noteText} onChange={handleNoteTextChange} required></textarea>
-          <input className="button" type="submit" value="Add Note"/>
-        </form>
-        <form className="form-delete-book" onSubmit={deleteBookHandler}>
-          <input className="button" type="submit" value="Delete book"/>
-        </form>
+        <AddNoteForm bookId={book._id} addNoteResp={props.addNoteResp}/>
+        <DeleteBookForm bookId={book._id} deleteBookResp={props.deleteBookResp}/>
       </div>
 
-      <Notes notes={props.book.notes} bookId={props.book._id} respAction={props.addNoteResp}/>
+      <Notes notes={book.notes} bookId={book._id} respAction={props.addNoteResp}/>
 
       </div>}
     </div>
   )
-}
-function toggleMenu(){
-  document.getElementById('title-list').classList.toggle('hide-mobile');
 }
 
 function BookNotes(props){
@@ -259,7 +305,7 @@ function BookNotes(props){
   const [isLoading, setIsLoading] = useState(true);
 
   function useAddBookToList(newBook){
-    console.log("newBook", newBook);
+    //console.log("newBook", newBook);
     setBookItems([
       ...bookItems,
       newBook
@@ -267,8 +313,8 @@ function BookNotes(props){
     setCurrentBook(newBook);
   }
 
-  function useRemoveBookFromList(bookId){
-    console.log("bookId");
+  function useRemoveBook(bookId){
+    //console.log("bookId");
  
     setBookItems(bookItems.filter(book=> book._id != bookId));
     setCurrentBook(null);
@@ -279,8 +325,8 @@ function BookNotes(props){
     
     let bookId = book._id;
     let index = bookItems.findIndex(item => item._id == bookId);
-    console.log("bookId", bookId);
-    console.log("index", index);
+    //console.log("bookId", bookId);
+    //console.log("index", index);
 
     setBookItems([
       ...bookItems.slice(0,index),
@@ -290,14 +336,7 @@ function BookNotes(props){
     setCurrentBook(book);
   }
 
-  function useToggleIsFavorited(resp){
-    console.log("does this thing work");
-    console.log("toggleFavResp", resp);
-  }
-
-
   function useSelectBook(book){
-    //console.log("selected book:", book);
     setCurrentBook(book);
     toggleMenu();
   }
@@ -313,7 +352,7 @@ function BookNotes(props){
   return (
     <div id="app">
       <a id="a-menu" href="#" className="hide-desktop">
-              <img id="menu" src={iconHam} alt="hamburger" onClick={toggleMenu}/>
+        <img id="menu" src={iconHam} alt="hamburger" onClick={toggleMenu}/>
       </a>
       <div>
         {isLoading && <p>Loading Book Items...</p>}
@@ -321,8 +360,8 @@ function BookNotes(props){
 
         <div className="main-container">
         <h2>Welcome Guest!</h2>
-        <SubmitNewBookForm newBookResp={useAddBookToList}/>
-        <BookDetails book={currentBook} deleteBookResp={useRemoveBookFromList} addNoteResp={useModifyBook} toggleFavResp={useToggleIsFavorited}/>
+        <AddBookForm newBookResp={useAddBookToList}/>
+        <BookDetails book={currentBook} deleteBookResp={useRemoveBook} addNoteResp={useModifyBook}/>
         </div>
       </div>
     </div>

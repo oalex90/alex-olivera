@@ -127,7 +127,7 @@ module.exports = function(app, db) {
       });
     })
 
-    //PUT - update the reported value on a given thread respond with message of if update was successful
+    //PUT - update the reported value on a given thread. Respond with message of if update was successful
     .put(function(req, res) {
       var _id = req.body.thread_id;
       //console.log("thread_id", _id);

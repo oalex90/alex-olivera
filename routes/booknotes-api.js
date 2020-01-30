@@ -63,15 +63,25 @@ module.exports = function (app, db) {
     })
     
     .delete(function(req, res){
-      console.log("deleting all");
-      //if successful response will be 'complete delete successful'
-      DB_TABLE.deleteMany({}, (err, result)=>{
-        console.log("delete all result:", result.result);
-        if (err || result.result.n == 0) {
+        var bookid = req.body.id;
+      //if successful response will be {"success": "delete successful"}
+      let criteria;
+
+      try{
+          criteria = {_id: new ObjectId(bookid)};
+      } catch (e){
+          res.send("_id error");
+          return;
+      }
+      if(!criteria) return;//
+
+      DB_TABLE.deleteOne(criteria, (err, result)=>{
+        //console.log("delete one result:", result.deletedCount);
+        if (err || result.deletedCount == 0) {
           res.send("could not delete");
           return;
         };
-        res.json({success: "complete delete successful"});
+        res.json({success: "delete successful"});
       });
     });
 
@@ -191,26 +201,35 @@ module.exports = function (app, db) {
   })
 
   .delete(function(req, res){
-    var bookid = req.params.id;
-    //if successful response will be 'delete successful'
+    var book_id = req.params.id;
+    var note_id = req.body.note_id;
+    //console.log("note_id: ", note_id);
+
     let criteria;
-
-    try{
-        criteria = {_id: new ObjectId(bookid)};
-    } catch (e){
-        res.send("_id error");
-        return;
+    try {
+      criteria = { _id: new ObjectId(book_id) }; //search by book _id field
+    }catch (e){
+      res.send("_id error");
+      return;
     }
-    if(!criteria) return;//
+    if (!criteria) return;
 
-    DB_TABLE.deleteOne(criteria, (err, result)=>{
-      //console.log("delete one result:", result.deletedCount);
-      if (err || result.deletedCount == 0) {
-        res.send("could not delete");
-        return;
-      };
-      res.json({success: "delete successful"});
-    });
+    let update = { $pull: { notes: {_id: note_id}} }; //pull/remove note with matching note_id
+    //console.log("criteria:", criteria);
+
+    DB_TABLE.findOneAndUpdate(
+      criteria,
+      update,
+      {returnOriginal: false},
+      (err, result) => {
+        //console.log("result:", result);
+        if (err || result.lastErrorObject.n == 0) {
+          res.send("could not report");
+          return;
+        }
+        res.json(result.value);
+      }
+    );
   });
   
 }
