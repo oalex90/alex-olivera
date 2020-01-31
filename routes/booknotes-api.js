@@ -2,8 +2,10 @@
 
 var ObjectId = require('mongodb').ObjectId;
 var uniqid = require("uniqid"); //used to generate unique _id field for notes
+var request = require('request');
 
 module.exports = function (app, db) {
+  const DEFAULT_IMG_URL = "https://images.pexels.com/photos/762687/pexels-photo-762687.jpeg";
   const DB_TABLE = db.collection("bookNotes");
   /*DB "bookNotes" collection structure:
       _id : book id (auto generated)
@@ -50,16 +52,63 @@ module.exports = function (app, db) {
       var newBook = {
         user: user,
         title: title,
+        img: DEFAULT_IMG_URL,
         created_on: new Date(),
         notes: []
       };
 
       DB_TABLE.insertOne(newBook, (err, document)=>{
         if (err) throw err;
-        //console.log("document", document);
-        res.json({title: document.ops[0].title, _id: document.ops[0]._id, notes:[]});
+        //console.log("document", document.ops[0]);
+        res.json(document.ops[0]);
       })
       
+    })
+
+    .put(function(req, res){
+      //update property on a book
+      var book_id = req.body.id;
+      var img = req.body.img;
+      var title = req.body.title;
+
+      //console.log("img", img);
+      //console.log("title", title);
+
+      let criteria;
+      try {
+        criteria = { _id: new ObjectId(book_id)}; //search by book _id field
+      } catch (e) {
+        res.send("_id error");
+        return;
+      }
+      if (!criteria) return;
+
+      let update = {};
+
+      if(img != null){
+        if(img.match(/\.(jpeg|jpg|gif|png)$/) == null){
+          res.send("invalid image type");
+          return;
+        }
+        update = { $set: { img: img } }; //toggle is_favorited field in matched note in notes array
+        //console.log("criteria:", criteria);
+      } else if(title != null){
+        update = { $set: { title: title } }; //update book title
+      }
+
+      DB_TABLE.findOneAndUpdate(
+        criteria,
+        update,
+        {returnOriginal: false},
+        (err, result) => {
+          //console.log("result:", result);
+          if (err || result.lastErrorObject.n == 0) {
+            res.send("could not report");
+            return;
+          }
+          res.json(result.value); //return modifiedBook
+        }
+      );
     })
     
     .delete(function(req, res){
@@ -168,9 +217,11 @@ module.exports = function (app, db) {
   })
 
   .put(function(req, res){
+    //update a note in a given book
     var book_id = req.params.id;
     var note_id = req.body.note_id;
     var currentValue = req.body.is_favorited;
+    var note_text = req.body.note_text
 
     let criteria;
     try {
@@ -181,8 +232,12 @@ module.exports = function (app, db) {
     }
     if (!criteria) return;
 
-    let update = { $set: { "notes.$.is_favorited": !currentValue } }; //toggle is_favorited field in matched note in notes array
-    //console.log("criteria:", criteria);
+    let update;
+    if(currentValue != null){
+      update = { $set: { "notes.$.is_favorited": !currentValue } }; //toggle is_favorited field in matched note in notes array
+    }else if (note_text != null){
+      update = {$set: { "notes.$.text": note_text } }; //set note text
+    }
 
     DB_TABLE.findOneAndUpdate(
       criteria,

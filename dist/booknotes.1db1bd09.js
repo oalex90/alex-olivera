@@ -42729,6 +42729,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+var DEFAULT_IMG_URL = "https://images.pexels.com/photos/762687/pexels-photo-762687.jpeg";
 var dbHelper = {
   getBooks: function getBooks(respAction) {
     fetch('/booknotes/api', {
@@ -42748,6 +42749,38 @@ var dbHelper = {
       body: JSON.stringify({
         title: title,
         user: "guest"
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(respAction).catch(function (error) {
+      console.log(error);
+    });
+  },
+  updateImage: function updateImage(bookId, newImg, respAction) {
+    fetch('/booknotes/api/', {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: bookId,
+        img: newImg
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(respAction).catch(function (error) {
+      console.log(error);
+    });
+  },
+  updateBookTitle: function updateBookTitle(bookId, newTitle, respAction) {
+    fetch('/booknotes/api/', {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: bookId,
+        title: newTitle
       })
     }).then(function (res) {
       return res.json();
@@ -42795,6 +42828,22 @@ var dbHelper = {
       },
       body: JSON.stringify({
         note_id: noteId
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(respAction).catch(function (error) {
+      console.log(error);
+    });
+  },
+  updateNoteText: function updateNoteText(bookId, noteId, noteText, respAction) {
+    fetch('/booknotes/api/' + bookId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        note_id: noteId,
+        note_text: noteText
       })
     }).then(function (res) {
       return res.json();
@@ -42900,7 +42949,55 @@ function BookItemList(props) {
   }, bookItems));
 }
 
+function EditNoteForm(props) {
+  var _useState3 = (0, _react.useState)(props.noteText),
+      _useState4 = _slicedToArray(_useState3, 2),
+      noteText = _useState4[0],
+      setNoteText = _useState4[1];
+
+  function spanOnClickHandler() {
+    props.stopEditing();
+  }
+
+  function onSubmitHandler(e) {
+    e.preventDefault();
+    dbHelper.updateNoteText(props.bookId, props.noteId, noteText, props.respAction);
+    props.stopEditing();
+  }
+
+  function handleNoteTextChange(event) {
+    setNoteText(event.target.value);
+  }
+
+  return _react.default.createElement("div", {
+    id: "edit-note-modal",
+    className: "modal"
+  }, _react.default.createElement("form", {
+    className: "modal-content",
+    onSubmit: onSubmitHandler
+  }, _react.default.createElement("span", {
+    className: "close",
+    onClick: spanOnClickHandler
+  }, "\xD7"), _react.default.createElement("h4", null, "Edit Note"), _react.default.createElement("textarea", {
+    rows: "1",
+    type: "text",
+    placeholder: "Note text...",
+    value: noteText,
+    onChange: handleNoteTextChange,
+    required: true
+  }), _react.default.createElement("input", {
+    className: "button",
+    type: "submit",
+    value: "Update Note"
+  })));
+}
+
 function Note(props) {
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      isEditing = _useState6[0],
+      setIsEditing = _useState6[1];
+
   var note = props.note;
 
   function favOnClickHandler(e) {
@@ -42909,6 +43006,14 @@ function Note(props) {
 
   function deleteOnClickHandler(e) {
     dbHelper.removeNote(props.bookId, note._id, props.respAction);
+  }
+
+  function editOnClickHandler() {
+    setIsEditing(true);
+  }
+
+  function stopEditing() {
+    setIsEditing(false);
   }
 
   return _react.default.createElement("li", {
@@ -42923,11 +43028,11 @@ function Note(props) {
   })), _react.default.createElement("p", {
     className: "note-date"
   }, note.created_on), _react.default.createElement("a", {
-    className: "hidden",
-    href: "#"
+    className: "clickable"
   }, _react.default.createElement("img", {
     className: "note-edit note-icon",
     src: _iconEditBlack.default,
+    onClick: editOnClickHandler,
     alt: "Edit Icon"
   })), _react.default.createElement("a", {
     className: "clickable"
@@ -42938,15 +43043,21 @@ function Note(props) {
     alt: "Delete Icon"
   })), _react.default.createElement("p", {
     className: "note-text"
-  }, note.text));
+  }, note.text), isEditing && _react.default.createElement(EditNoteForm, {
+    bookId: props.bookId,
+    noteId: note._id,
+    noteText: note.text,
+    respAction: props.respAction,
+    stopEditing: stopEditing
+  }));
 }
 
 function Notes(props) {
   //sort options [1: date old-to-new, 2: date: new-to-old, 3: fav selected-to-unselect then data old-to-new, 4: fav unselected-to-selected]
-  var _useState3 = (0, _react.useState)(1),
-      _useState4 = _slicedToArray(_useState3, 2),
-      sortOption = _useState4[0],
-      setSortOption = _useState4[1];
+  var _useState7 = (0, _react.useState)(1),
+      _useState8 = _slicedToArray(_useState7, 2),
+      sortOption = _useState8[0],
+      setSortOption = _useState8[1];
 
   function favSortOnClick() {
     if (sortOption == 3) {
@@ -42957,8 +43068,7 @@ function Notes(props) {
   }
 
   function dateSortOnClick() {
-    console.log("date sort clicked");
-
+    //console.log("date sort clicked");
     if (sortOption == 1) {
       setSortOption(2);
     } else {
@@ -42966,22 +43076,22 @@ function Notes(props) {
     }
   }
 
-  function favSort(noteList) {
+  function favSort(noteList, option) {
     noteList.sort(function (a, b) {
       var comparison;
 
       if (a.is_favorited && !b.is_favorited) {
-        comparison = 1;
+        comparison = option ? -1 : 1;
       } else if (!a.is_favorited && b.is_favorited) {
-        comparison = -1;
+        comparison = option ? 1 : -1;
       } else {
         var dateA = new Date(a.created_on);
         var dateB = new Date(b.created_on);
 
         if (dateA.getTime() < dateB.getTime()) {
-          comparison = 1;
-        } else {
           comparison = -1;
+        } else {
+          comparison = 1;
         }
       }
 
@@ -43001,56 +43111,18 @@ function Notes(props) {
         break;
 
       case 3:
-        noteList.sort(function (a, b) {
-          var comparison;
-
-          if (a.is_favorited && !b.is_favorited) {
-            comparison = -1;
-          } else if (!a.is_favorited && b.is_favorited) {
-            comparison = 1;
-          } else {
-            var dateA = new Date(a.created_on);
-            var dateB = new Date(b.created_on);
-
-            if (dateA.getTime() < dateB.getTime()) {
-              comparison = -1;
-            } else {
-              comparison = 1;
-            }
-          }
-
-          return comparison;
-        });
+        favSort(noteList, true);
         break;
 
       case 4:
-        noteList.sort(function (a, b) {
-          var comparison;
-
-          if (a.is_favorited && !b.is_favorited) {
-            comparison = 1;
-          } else if (!a.is_favorited && b.is_favorited) {
-            comparison = -1;
-          } else {
-            var dateA = new Date(a.created_on);
-            var dateB = new Date(b.created_on);
-
-            if (dateA.getTime() < dateB.getTime()) {
-              comparison = -1;
-            } else {
-              comparison = 1;
-            }
-          }
-
-          return comparison;
-        });
+        favSort(noteList, false);
         break;
     }
 
     return noteList;
-  }
+  } //console.log("sort option:", sortOption);
 
-  console.log("sort option:", sortOption);
+
   var notes;
   if (props.notes != null) notes = getSortedNotes().map(function (note, i) {
     return _react.default.createElement(Note, {
@@ -43084,10 +43156,10 @@ function Notes(props) {
 }
 
 function AddNoteForm(props) {
-  var _useState5 = (0, _react.useState)(""),
-      _useState6 = _slicedToArray(_useState5, 2),
-      noteText = _useState6[0],
-      setNoteText = _useState6[1];
+  var _useState9 = (0, _react.useState)(""),
+      _useState10 = _slicedToArray(_useState9, 2),
+      noteText = _useState10[0],
+      setNoteText = _useState10[1];
 
   function handleNoteTextChange(event) {
     setNoteText(event.target.value);
@@ -43131,23 +43203,159 @@ function DeleteBookForm(props) {
   }));
 }
 
+function EditImageForm(props) {
+  var _useState11 = (0, _react.useState)(""),
+      _useState12 = _slicedToArray(_useState11, 2),
+      imgText = _useState12[0],
+      setImgText = _useState12[1];
+
+  var _useState13 = (0, _react.useState)(""),
+      _useState14 = _slicedToArray(_useState13, 2),
+      errorText = _useState14[0],
+      setErrorText = _useState14[1];
+
+  function spanOnClickHandler() {
+    //console.log("stopEditing...: ", props.stopEditingImg);
+    props.stopEditing();
+  }
+
+  function onSubmitHandler(e) {
+    e.preventDefault();
+
+    if (imgText.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+      dbHelper.updateImage(props.bookId, imgText, props.respAction);
+      props.stopEditing();
+    } else {
+      setErrorText("Incorrect file type. Please only input a .jpeg, .jpg, .gif, or .png file");
+    }
+  }
+
+  function handleImgTextChange(event) {
+    setImgText(event.target.value);
+    setErrorText("");
+  }
+
+  return _react.default.createElement("div", {
+    id: "edit-img-modal",
+    className: "modal"
+  }, _react.default.createElement("form", {
+    id: "edit-img-form",
+    className: "modal-content",
+    onSubmit: onSubmitHandler
+  }, _react.default.createElement("span", {
+    className: "close",
+    onClick: spanOnClickHandler
+  }, "\xD7"), _react.default.createElement("h4", null, "Edit Image"), _react.default.createElement("textarea", {
+    rows: "1",
+    type: "text",
+    placeholder: "image url (jpeg, jpg, gif or png only)...",
+    value: imgText,
+    onChange: handleImgTextChange,
+    required: true
+  }), _react.default.createElement("input", {
+    className: "button",
+    type: "submit",
+    value: "Update Image"
+  }), _react.default.createElement("p", null, errorText)));
+}
+
+function EditTitleForm(props) {
+  var _useState15 = (0, _react.useState)(props.title),
+      _useState16 = _slicedToArray(_useState15, 2),
+      titleText = _useState16[0],
+      setTitleText = _useState16[1];
+
+  function spanOnClickHandler() {
+    props.stopEditing();
+  }
+
+  function onSubmitHandler(e) {
+    e.preventDefault();
+    dbHelper.updateBookTitle(props.bookId, titleText, props.respAction);
+    props.stopEditing();
+  }
+
+  function handleTitleTextChange(event) {
+    setTitleText(event.target.value);
+  }
+
+  return _react.default.createElement("div", {
+    id: "edit-title-modal",
+    className: "modal"
+  }, _react.default.createElement("form", {
+    className: "modal-content",
+    onSubmit: onSubmitHandler
+  }, _react.default.createElement("span", {
+    className: "close",
+    onClick: spanOnClickHandler
+  }, "\xD7"), _react.default.createElement("h4", null, "Edit Title"), _react.default.createElement("textarea", {
+    rows: "1",
+    type: "text",
+    placeholder: "Title...",
+    value: titleText,
+    onChange: handleTitleTextChange,
+    required: true
+  }), _react.default.createElement("input", {
+    className: "button",
+    type: "submit",
+    value: "Update Title"
+  })));
+}
+
 function BookDetails(props) {
-  //console.log("BookDetails props", props);
-  var book = props.book;
+  var _useState17 = (0, _react.useState)(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      isEditingImg = _useState18[0],
+      setIsEditingImg = _useState18[1];
+
+  var _useState19 = (0, _react.useState)(false),
+      _useState20 = _slicedToArray(_useState19, 2),
+      isEditingTitle = _useState20[0],
+      setIsEditingTitle = _useState20[1]; //console.log("BookDetails props", props);
+
+
+  function imgOnClickHandler() {
+    setIsEditingImg(true);
+  }
+
+  function stopEditingImg() {
+    setIsEditingImg(false);
+  }
+
+  function editTitleOnClickHandler() {
+    setIsEditingTitle(true);
+  }
+
+  function stopEditingTitle() {
+    setIsEditingTitle(false);
+  }
+
+  var book = props.book; //console.log("current book", book);
+
   return _react.default.createElement("div", {
     className: "book-container"
   }, book == null ? _react.default.createElement("p", null, "Select a book from the Book List to see it's details and notes") : _react.default.createElement("div", null, _react.default.createElement("div", {
     className: "book-header"
   }, _react.default.createElement("h3", null, book.title), _react.default.createElement("a", {
-    className: "remove",
-    href: "#"
+    className: "clickable"
   }, _react.default.createElement("img", {
     src: _iconEditWhite.default,
+    onClick: editTitleOnClickHandler,
     alt: "Edit Icon"
-  }))), _react.default.createElement("img", {
-    className: "book-image",
-    src: _imgBook.default,
-    alt: "Book Image"
+  })), isEditingTitle && _react.default.createElement(EditTitleForm, {
+    bookId: book._id,
+    title: book.title,
+    respAction: props.addNoteResp,
+    stopEditing: stopEditingTitle
+  })), _react.default.createElement("img", {
+    className: "book-image clickable",
+    src: book.img,
+    alt: "Book Image",
+    onClick: imgOnClickHandler
+  }), isEditingImg && _react.default.createElement(EditImageForm, {
+    bookId: book._id,
+    respAction: props.addNoteResp,
+    stopEditing: stopEditingImg
   }), _react.default.createElement("div", {
     className: "form-content"
   }, _react.default.createElement(AddNoteForm, {
@@ -43164,20 +43372,20 @@ function BookDetails(props) {
 }
 
 function BookNotes(props) {
-  var _useState7 = (0, _react.useState)([]),
-      _useState8 = _slicedToArray(_useState7, 2),
-      bookItems = _useState8[0],
-      setBookItems = _useState8[1];
+  var _useState21 = (0, _react.useState)([]),
+      _useState22 = _slicedToArray(_useState21, 2),
+      bookItems = _useState22[0],
+      setBookItems = _useState22[1];
 
-  var _useState9 = (0, _react.useState)(),
-      _useState10 = _slicedToArray(_useState9, 2),
-      currentBook = _useState10[0],
-      setCurrentBook = _useState10[1];
+  var _useState23 = (0, _react.useState)(),
+      _useState24 = _slicedToArray(_useState23, 2),
+      currentBook = _useState24[0],
+      setCurrentBook = _useState24[1];
 
-  var _useState11 = (0, _react.useState)(true),
-      _useState12 = _slicedToArray(_useState11, 2),
-      isLoading = _useState12[0],
-      setIsLoading = _useState12[1];
+  var _useState25 = (0, _react.useState)(true),
+      _useState26 = _slicedToArray(_useState25, 2),
+      isLoading = _useState26[0],
+      setIsLoading = _useState26[1];
 
   function useAddBookToList(newBook) {
     //console.log("newBook", newBook);
@@ -43271,7 +43479,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53439" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56821" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

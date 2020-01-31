@@ -90,7 +90,7 @@ h1 {
   text-align: center;
   background: #7A7597;
   height: 100%;
-  z-index: 7;
+  z-index: 1;
   padding-top: 1em;
   color: white;
   overflow-y: scroll;
@@ -190,9 +190,73 @@ h1 {
   margin-top: 4px;
 }
 .book-container .book-image {
-  width: 250px;
+  max-width: 250px;
+  max-height: 250px;
   border: 2px solid #D1DB47;
   margin-bottom: 1em;
+}
+.book-container .book-image:hover {
+  border: 5px solid #D1DB47;
+}
+
+/* The Modal (background) */
+.modal {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+  /* Modal Content */
+}
+.modal .modal-content {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #DDD8FF;
+  margin: auto;
+  padding: 5px 10px 10px 10px;
+  border-radius: 10px;
+  width: 80%;
+}
+.modal .modal-content h4 {
+  color: black;
+  font-size: 1.1em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.modal .modal-content .close {
+  color: #7a7979;
+  font-size: 28px;
+  font-weight: bold;
+  float: right;
+}
+.modal .modal-content .close:hover, .modal .modal-content .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modal .modal-content textarea {
+  resize: vertical;
+  overflow: auto;
+}
+.modal .modal-content input[type=submit] {
+  background: #6295E2;
+  color: white;
+  margin-top: 10px;
+}
+.modal .modal-content input[type=submit]:hover {
+  background: #4a74b3;
+}
+.modal .modal-content p {
+  color: #960000;
+  font-size: 0.8em;
+  margin-top: 10px;
 }
 
 .form-content {
@@ -323,7 +387,8 @@ h1 {
     padding: 1.5em 5%;
   }
   .book-container .book-image {
-    width: 275px;
+    max-width: 275px;
+    max-height: 275px;
   }
 
   .form-content {
@@ -332,6 +397,10 @@ h1 {
 
   .notes-container ul li .note-date {
     font-size: 0.8em;
+  }
+
+  .modal .modal-content {
+    padding: 10px 20px 20px 20px;
   }
 }
 @media only screen and (min-width: 850px) {
@@ -381,6 +450,14 @@ h1 {
   .book-container {
     width: 80%;
     padding: 1em 5%;
+  }
+
+  .modal .modal-content h4 {
+    font-size: 1.25em;
+  }
+  .modal .modal-content input[type=text] {
+    width: 70%;
+    margin-right: 10px;
   }
 
   #footer-container {
@@ -439,8 +516,22 @@ h1 {
     width: 18px;
   }
   .book-container .book-image {
-    width: 300px;
+    max-width: 300px;
+    max-height: 300px;
     margin-bottom: 2em;
+  }
+
+  .modal .modal-content {
+    width: 1000px;
+  }
+  .modal .modal-content textarea {
+    vertical-align: middle;
+    width: 750px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  .modal .modal-content input[type=submit] {
+    vertical-align: middle;
   }
 
   .form-content {
