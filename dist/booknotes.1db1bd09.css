@@ -28,6 +28,10 @@ h1, h2, h3, h4, h5, p {
   cursor: pointer;
 }
 
+.bold {
+  font-weight: 600;
+}
+
 .container {
   text-align: center;
   padding: 0.8em 1.2em;
@@ -237,6 +241,8 @@ h1 {
 }
 .notes-container .notes-header .sort {
   display: flex;
+  color: black;
+  text-decoration: underline;
 }
 .notes-container .notes-header .sort p {
   margin-right: 7px;

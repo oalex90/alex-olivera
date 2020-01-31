@@ -209,9 +209,99 @@ function Note(props){
 }
 
 function Notes(props){
+  //sort options [1: date old-to-new, 2: date: new-to-old, 3: fav selected-to-unselect then data old-to-new, 4: fav unselected-to-selected]
+  const [sortOption , setSortOption] = useState(1); 
 
+  function favSortOnClick(){ 
+    if(sortOption == 3){
+      setSortOption(4);
+    }else{
+      setSortOption(3);
+    }
+  }
+
+  function dateSortOnClick(){
+    console.log("date sort clicked");
+    if(sortOption == 1){
+      setSortOption(2);
+    }else{
+      setSortOption(1);
+    }
+  }
+
+  function favSort(noteList){
+    noteList.sort((a,b)=>{
+      let comparison;
+      if(a.is_favorited && !b.is_favorited){
+        comparison = 1;
+      }else if(!a.is_favorited && b.is_favorited){
+        comparison = -1;
+      }else {
+        let dateA = new Date(a.created_on);
+        let dateB = new Date(b.created_on);
+        if(dateA.getTime() < dateB.getTime()){
+          comparison = 1;
+        }else{
+          comparison = -1;
+        }
+      }
+      return comparison;
+    });
+  }
+
+  function getSortedNotes(){
+    let noteList = [...props.notes];
+    switch(sortOption){
+      case 1:
+        break;
+      case 2:
+        noteList.reverse();
+        break;
+      case 3:
+        noteList.sort((a,b)=>{
+          let comparison;
+          if(a.is_favorited && !b.is_favorited){
+            comparison = -1;
+          }else if(!a.is_favorited && b.is_favorited){
+            comparison = 1;
+          }else {
+            let dateA = new Date(a.created_on);
+            let dateB = new Date(b.created_on);
+            if(dateA.getTime() < dateB.getTime()){
+              comparison = -1;
+            }else{
+              comparison = 1;
+            }
+          }
+          return comparison;
+        });
+        break;
+      case 4:
+        noteList.sort((a,b)=>{
+          let comparison;
+          if(a.is_favorited && !b.is_favorited){
+            comparison = 1;
+          }else if(!a.is_favorited && b.is_favorited){
+            comparison = -1;
+          }else {
+            let dateA = new Date(a.created_on);
+            let dateB = new Date(b.created_on);
+            if(dateA.getTime() < dateB.getTime()){
+              comparison = -1;
+            }else{
+              comparison = 1;
+            }
+          }
+          return comparison;
+        });
+        break;
+    }
+    return noteList;
+  }
+
+  console.log("sort option:", sortOption);
   let notes;
-  if(props.notes != null) notes = props.notes.map((note, i)=>{
+  if(props.notes != null) notes = getSortedNotes().map((note, i)=>{
     return <Note key={i} note={note} bookId={props.bookId} respAction={props.respAction}/>
   })
   return (
@@ -219,12 +309,12 @@ function Notes(props){
       <h4>Notes</h4>
       <div className="notes-container">
       <div className="notes-header">
-        <a className="sort-fav sort" href="#">
-          <p>Fav</p>
+        <a className="sort-fav sort clickable">
+          <p onClick={favSortOnClick}>Fav</p>
           <img src={iconSort} alt="Sort Icon"/>
         </a>
-        <a className="sort-date sort" href="#">
-          <p>Date</p>
+        <a className="sort-date sort clickable">
+          <p onClick={dateSortOnClick}>Date</p>
           <img src={iconSort} alt="Sort Icon"/>
         </a>
       </div>

@@ -42942,8 +42942,117 @@ function Note(props) {
 }
 
 function Notes(props) {
+  //sort options [1: date old-to-new, 2: date: new-to-old, 3: fav selected-to-unselect then data old-to-new, 4: fav unselected-to-selected]
+  var _useState3 = (0, _react.useState)(1),
+      _useState4 = _slicedToArray(_useState3, 2),
+      sortOption = _useState4[0],
+      setSortOption = _useState4[1];
+
+  function favSortOnClick() {
+    if (sortOption == 3) {
+      setSortOption(4);
+    } else {
+      setSortOption(3);
+    }
+  }
+
+  function dateSortOnClick() {
+    console.log("date sort clicked");
+
+    if (sortOption == 1) {
+      setSortOption(2);
+    } else {
+      setSortOption(1);
+    }
+  }
+
+  function favSort(noteList) {
+    noteList.sort(function (a, b) {
+      var comparison;
+
+      if (a.is_favorited && !b.is_favorited) {
+        comparison = 1;
+      } else if (!a.is_favorited && b.is_favorited) {
+        comparison = -1;
+      } else {
+        var dateA = new Date(a.created_on);
+        var dateB = new Date(b.created_on);
+
+        if (dateA.getTime() < dateB.getTime()) {
+          comparison = 1;
+        } else {
+          comparison = -1;
+        }
+      }
+
+      return comparison;
+    });
+  }
+
+  function getSortedNotes() {
+    var noteList = _toConsumableArray(props.notes);
+
+    switch (sortOption) {
+      case 1:
+        break;
+
+      case 2:
+        noteList.reverse();
+        break;
+
+      case 3:
+        noteList.sort(function (a, b) {
+          var comparison;
+
+          if (a.is_favorited && !b.is_favorited) {
+            comparison = -1;
+          } else if (!a.is_favorited && b.is_favorited) {
+            comparison = 1;
+          } else {
+            var dateA = new Date(a.created_on);
+            var dateB = new Date(b.created_on);
+
+            if (dateA.getTime() < dateB.getTime()) {
+              comparison = -1;
+            } else {
+              comparison = 1;
+            }
+          }
+
+          return comparison;
+        });
+        break;
+
+      case 4:
+        noteList.sort(function (a, b) {
+          var comparison;
+
+          if (a.is_favorited && !b.is_favorited) {
+            comparison = 1;
+          } else if (!a.is_favorited && b.is_favorited) {
+            comparison = -1;
+          } else {
+            var dateA = new Date(a.created_on);
+            var dateB = new Date(b.created_on);
+
+            if (dateA.getTime() < dateB.getTime()) {
+              comparison = -1;
+            } else {
+              comparison = 1;
+            }
+          }
+
+          return comparison;
+        });
+        break;
+    }
+
+    return noteList;
+  }
+
+  console.log("sort option:", sortOption);
   var notes;
-  if (props.notes != null) notes = props.notes.map(function (note, i) {
+  if (props.notes != null) notes = getSortedNotes().map(function (note, i) {
     return _react.default.createElement(Note, {
       key: i,
       note: note,
@@ -42958,25 +43067,27 @@ function Notes(props) {
   }, _react.default.createElement("div", {
     className: "notes-header"
   }, _react.default.createElement("a", {
-    className: "sort-fav sort",
-    href: "#"
-  }, _react.default.createElement("p", null, "Fav"), _react.default.createElement("img", {
+    className: "sort-fav sort clickable"
+  }, _react.default.createElement("p", {
+    onClick: favSortOnClick
+  }, "Fav"), _react.default.createElement("img", {
     src: _iconSort.default,
     alt: "Sort Icon"
   })), _react.default.createElement("a", {
-    className: "sort-date sort",
-    href: "#"
-  }, _react.default.createElement("p", null, "Date"), _react.default.createElement("img", {
+    className: "sort-date sort clickable"
+  }, _react.default.createElement("p", {
+    onClick: dateSortOnClick
+  }, "Date"), _react.default.createElement("img", {
     src: _iconSort.default,
     alt: "Sort Icon"
   }))), _react.default.createElement("ul", null, notes)));
 }
 
 function AddNoteForm(props) {
-  var _useState3 = (0, _react.useState)(""),
-      _useState4 = _slicedToArray(_useState3, 2),
-      noteText = _useState4[0],
-      setNoteText = _useState4[1];
+  var _useState5 = (0, _react.useState)(""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      noteText = _useState6[0],
+      setNoteText = _useState6[1];
 
   function handleNoteTextChange(event) {
     setNoteText(event.target.value);
@@ -43053,20 +43164,20 @@ function BookDetails(props) {
 }
 
 function BookNotes(props) {
-  var _useState5 = (0, _react.useState)([]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      bookItems = _useState6[0],
-      setBookItems = _useState6[1];
-
-  var _useState7 = (0, _react.useState)(),
+  var _useState7 = (0, _react.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      currentBook = _useState8[0],
-      setCurrentBook = _useState8[1];
+      bookItems = _useState8[0],
+      setBookItems = _useState8[1];
 
-  var _useState9 = (0, _react.useState)(true),
+  var _useState9 = (0, _react.useState)(),
       _useState10 = _slicedToArray(_useState9, 2),
-      isLoading = _useState10[0],
-      setIsLoading = _useState10[1];
+      currentBook = _useState10[0],
+      setCurrentBook = _useState10[1];
+
+  var _useState11 = (0, _react.useState)(true),
+      _useState12 = _slicedToArray(_useState11, 2),
+      isLoading = _useState12[0],
+      setIsLoading = _useState12[1];
 
   function useAddBookToList(newBook) {
     //console.log("newBook", newBook);
@@ -43160,7 +43271,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59536" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53439" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
