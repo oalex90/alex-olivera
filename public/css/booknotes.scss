@@ -1,5 +1,83 @@
 @import 'base';
 
+//login screen
+#login-container {
+    background: #DDD8FF;
+    padding: 2em 0;
+    height: 78vh;
+
+    h2 {
+        font-weight: $font-medium;
+        font-size: 1.8em;   
+    }
+
+    ul {
+    width: 250px;
+    margin: 50px auto;
+    background: #6295E2;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 10px #555555;
+    }
+
+    li {
+        margin: 20px 5px;
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    .button-social {
+        padding: 10px 5px;
+        vertical-align: center;
+        border: 1px solid black;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        i {
+            color: white;
+            margin-right: 10px;
+        }
+
+    }
+
+    .github {
+        background: #444444;
+
+        &:hover {
+            background: #333333;
+        }
+    }
+
+    .linkedin {
+        background: #007BB6;
+
+        &:hover {
+            background: rgb(1, 104, 151);
+        }
+    }
+
+    .google {
+        background: #DD4B39;
+
+        &:hover {
+            background: rgb(180, 62, 47);
+        }
+    }
+    
+    .guest{
+        text-decoration: underline;
+    }
+}
+
+
+//end of login screen
 .hide-mobile {
     display: none;
 }

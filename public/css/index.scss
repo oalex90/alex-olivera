@@ -52,6 +52,11 @@ header {
     img {
         width: 70%;
         margin-bottom: 10px;
+        border: 1px solid #FFEA61;
+
+        &:hover {
+            border: 3px solid #FFEA61;
+        }
     }
 
     h4 {

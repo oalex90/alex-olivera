@@ -42747,8 +42747,7 @@ var dbHelper = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        title: title,
-        user: "guest"
+        title: title
       })
     }).then(function (res) {
       return res.json();
@@ -42933,9 +42932,8 @@ function BookItemList(props) {
     id: "title-list",
     className: "list-container hide-mobile"
   }, _react.default.createElement("div", null, _react.default.createElement("a", {
-    className: "hidden",
     id: "logout",
-    href: "#"
+    href: "/booknotes/logout"
   }, "Log out"), _react.default.createElement("a", {
     id: "exit",
     href: "#",
@@ -43379,13 +43377,18 @@ function BookNotes(props) {
 
   var _useState23 = (0, _react.useState)(),
       _useState24 = _slicedToArray(_useState23, 2),
-      currentBook = _useState24[0],
-      setCurrentBook = _useState24[1];
+      name = _useState24[0],
+      setName = _useState24[1];
 
-  var _useState25 = (0, _react.useState)(true),
+  var _useState25 = (0, _react.useState)(),
       _useState26 = _slicedToArray(_useState25, 2),
-      isLoading = _useState26[0],
-      setIsLoading = _useState26[1];
+      currentBook = _useState26[0],
+      setCurrentBook = _useState26[1];
+
+  var _useState27 = (0, _react.useState)(true),
+      _useState28 = _slicedToArray(_useState27, 2),
+      isLoading = _useState28[0],
+      setIsLoading = _useState28[1];
 
   function useAddBookToList(newBook) {
     //console.log("newBook", newBook);
@@ -43420,7 +43423,8 @@ function BookNotes(props) {
   (0, _react.useEffect)(function () {
     dbHelper.getBooks(function (response) {
       console.log(response);
-      setBookItems(response);
+      setBookItems(response.books);
+      setName(response.name);
       setIsLoading(false);
     });
   }, []); //[] ensures fetch call only runs once
@@ -43441,7 +43445,7 @@ function BookNotes(props) {
     bookSelected: useSelectBook
   }), _react.default.createElement("div", {
     className: "main-container"
-  }, _react.default.createElement("h2", null, "Welcome Guest!"), _react.default.createElement(AddBookForm, {
+  }, _react.default.createElement("h2", null, "Welcome ", name, "!"), _react.default.createElement(AddBookForm, {
     newBookResp: useAddBookToList
   }), _react.default.createElement(BookDetails, {
     book: currentBook,
@@ -43479,7 +43483,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56821" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49988" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

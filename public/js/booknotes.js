@@ -36,8 +36,7 @@ const dbHelper = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: title,
-          user: "guest"
+          title: title
         })
       }
     )
@@ -229,7 +228,7 @@ function BookItemList(props){
   return (
     <div id="title-list" className="list-container hide-mobile">
       <div>
-        <a className="hidden" id="logout" href="#">Log out</a>
+        <a id="logout" href="/booknotes/logout">Log out</a>
         <a id="exit" href="#" className="exit-btn hide-desktop">
             <img src={iconExit} alt="exit menu" onClick={toggleMenu}/>
         </a> 
@@ -555,6 +554,7 @@ function BookDetails(props){
 
 function BookNotes(props){
   const [bookItems, setBookItems] = useState([]);
+  const [name, setName] = useState();
   const [currentBook, setCurrentBook] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -598,7 +598,8 @@ function BookNotes(props){
   useEffect(() => {
     dbHelper.getBooks((response)=>{
       console.log(response);
-      setBookItems(response);
+      setBookItems(response.books);
+      setName(response.name);
       setIsLoading(false);
     });
   }, []); //[] ensures fetch call only runs once
@@ -613,7 +614,7 @@ function BookNotes(props){
         <BookItemList bookItems={bookItems} bookSelected={useSelectBook}/>
 
         <div className="main-container">
-        <h2>Welcome Guest!</h2>
+        <h2>Welcome {name}!</h2>
         <AddBookForm newBookResp={useAddBookToList}/>
         <BookDetails book={currentBook} deleteBookResp={useRemoveBook} addNoteResp={useModifyBook}/>
         </div>

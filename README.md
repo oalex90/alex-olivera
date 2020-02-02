@@ -8,7 +8,16 @@ This site makes use of the following environment variables:
 
 DB: url for mongodb
 
+BASE_URL: base url (homepage) for website
+
 SESSION_SECRET: secret used to sign the session ID cookie
+
+GITHUB_CLIENT_ID= Client ID for Google OAuth
+GITHUB_CLIENT_SECRET= Client Secret for Google OAuth
+LINKEDIN_CLIENT_ID= Client ID for LinkedIn OAuth
+LINKEDIN_CLIENT_SECRET= Client Secret for LinkedIn OAuth
+GOOGLE_CLIENT_ID= Client ID for Google OAuth
+GOOGLE_CLIENT_SECRET= Client Secret for Google OAuth
 -------------------
 
 by Alex Olivera

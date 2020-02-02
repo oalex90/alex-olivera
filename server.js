@@ -19,11 +19,12 @@ const cookieParser      = require('cookie-parser');
 const shorturlRoute        = require('./routes/shorturl-api.js');
 const stockpricesRoute     = require('./routes/stockprices-api.js');
 const booknotesRoute       = require('./routes/booknotes-api.js');
+const booknotesAuths       = require('./routes/booknotes-auths.js');
 const issuetrackerRoute    = require('./routes/issuetracker-api.js');
 const messageboardRoute    = require('./routes/messageboard-api.js');
 const chatroomRoute        = require('./routes/chatroom-api.js');
 const chatroomAuths        = require('./routes/chatroom-auths.js');
-const clientsideRoute        = require('./routes/clientside-routes.js');
+const clientsideRoute      = require('./routes/clientside-routes.js');
 
 app.use(helmet());
 
@@ -50,6 +51,7 @@ MongoClient.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology:
   
   shorturlRoute(app, db);
   stockpricesRoute(app, db);
+  booknotesAuths(app);
   booknotesRoute(app, db);
   issuetrackerRoute(app, db);
   messageboardRoute(app, db);

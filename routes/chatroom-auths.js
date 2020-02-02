@@ -17,9 +17,8 @@ module.exports = function (app, db) {
       if (!user) { return done(null, false); }
       if (!bcrypt.compareSync(password, user.password)) { return done(null, false); }
       return done(null, user);
-      });
-    }
-      
+    });
+  }     
   ));
     
   passport.serializeUser((user, done) => { //encrypts user info into a key

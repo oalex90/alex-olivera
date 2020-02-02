@@ -7,7 +7,7 @@ module.exports = function (app, db) {
   const DB_TABLE = db.collection("chatUsers");
   
   function ensureAuthenticated(req, res, next) { //middleware to verify user is logged in
-    if(req.isAuthenticated()){
+    if(req.isAuthenticated() && req.user.hasOwnProperty("username")){
       return next();
     }
     console.log("User not logged in. Redirecting to login screen")

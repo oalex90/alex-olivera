@@ -2,7 +2,6 @@
 
 var ObjectId = require('mongodb').ObjectId;
 var uniqid = require("uniqid"); //used to generate unique _id field for notes
-var request = require('request');
 
 module.exports = function (app, db) {
   const DEFAULT_IMG_URL = "https://images.pexels.com/photos/762687/pexels-photo-762687.jpeg";
@@ -18,11 +17,24 @@ module.exports = function (app, db) {
                   created_on - String(Date)
                   is_favorited - boolean
   */
+
+ function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated() && req.session.passport.user.hasOwnProperty("email")) {return next(); }
+    res.redirect('/booknotes/login')
+  }
  
-  app.route("/booknotes")
-  .get(function(request, response) {
-    response.sendFile(process.cwd() + '/dist/booknotes.html');
-  })
+  app.get("/booknotes", ensureAuthenticated, function(req,res){
+    res.sendFile(process.cwd() + '/dist/booknotes.html');
+  });
+
+  app.get("/booknotes/login", (req, res)=>{
+      res.sendFile(process.cwd() + '/dist/booknotes-login.html');
+  });
+
+  app.get('/booknotes/logout', function(req, res){
+    req.logout();
+    res.redirect('/booknotes/login');
+  });
 
   app.route("/booknotes/api/tutorial")
   .get(function(request, response) {
@@ -31,18 +43,23 @@ module.exports = function (app, db) {
   
   app.route('/booknotes/api')
     .get(function (req, res){
+      //console.log("user", req.session.passport.user);
+      var user = req.session.passport.user.email;
+      var name = req.session.passport.user.name;
+
+      let query = {user: user};
       //response will be array of book objects
       //json res format: [{"_id": String, "user": String, "title": String, "created_on": String(Date), 
       //  "notes": [{"_id": String, "text": String, "created_on": String(Date), "is_favorited" boolean},...]},...]
-      DB_TABLE.find().toArray((err, results)=>{
-        res.json(results);
+      DB_TABLE.find(query).toArray((err, results)=>{
+        res.json({books: results, name: name});
       });
     })
     
     .post(function (req, res){
     //response will contain new book object including atleast _id and title
       var title = req.body.title;
-      var user = req.body.user;
+      var user = req.session.passport.user.email;
       //console.log("req.body.title", req.body.title);
       if(title == null || title == ""){
         res.send("No title provided");
@@ -133,8 +150,6 @@ module.exports = function (app, db) {
         res.json({success: "delete successful"});
       });
     });
-
-
 
   app.route('/booknotes/api/:id')
   .get(function (req, res){

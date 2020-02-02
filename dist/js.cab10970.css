@@ -91,6 +91,10 @@ header {
 .featured-projects img {
   width: 70%;
   margin-bottom: 10px;
+  border: 1px solid #FFEA61;
+}
+.featured-projects img:hover {
+  border: 3px solid #FFEA61;
 }
 .featured-projects h4 {
   font-size: 1.4em;

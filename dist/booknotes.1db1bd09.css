@@ -42,6 +42,67 @@ h1, h2, h3, h4, h5, p {
   width: 80px;
 }
 
+#login-container {
+  background: #DDD8FF;
+  padding: 2em 0;
+  height: 78vh;
+}
+#login-container h2 {
+  font-weight: 500;
+  font-size: 1.8em;
+}
+#login-container ul {
+  width: 250px;
+  margin: 50px auto;
+  background: #6295E2;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px #555555;
+}
+#login-container li {
+  margin: 20px 5px;
+}
+#login-container li a {
+  color: white;
+  text-decoration: none;
+}
+#login-container .button-social {
+  padding: 10px 5px;
+  vertical-align: center;
+  border: 1px solid black;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#login-container .button-social i {
+  color: white;
+  margin-right: 10px;
+}
+#login-container .github {
+  background: #444444;
+}
+#login-container .github:hover {
+  background: #333333;
+}
+#login-container .linkedin {
+  background: #007BB6;
+}
+#login-container .linkedin:hover {
+  background: #016897;
+}
+#login-container .google {
+  background: #DD4B39;
+}
+#login-container .google:hover {
+  background: #b43e2f;
+}
+#login-container .guest {
+  text-decoration: underline;
+}
+
 .hide-mobile {
   display: none;
 }
