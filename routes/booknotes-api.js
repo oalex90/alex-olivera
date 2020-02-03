@@ -1,5 +1,7 @@
 'use strict';
 
+const sampleData = require('./sampleData');
+
 var ObjectId = require('mongodb').ObjectId;
 var uniqid = require("uniqid"); //used to generate unique _id field for notes
 
@@ -20,7 +22,7 @@ module.exports = function (app, db) {
 
  function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated() && req.session.passport.user.hasOwnProperty("email")) {return next(); }
-    res.redirect('/booknotes/login')
+    res.redirect('/booknotes/login');
   }
  
   app.get("/booknotes", ensureAuthenticated, function(req,res){
@@ -300,6 +302,18 @@ module.exports = function (app, db) {
         res.json(result.value);
       }
     );
+  });
+
+  app.get("/booknotes/data/sample", function(req,res){
+    let criteria = {user: 'guest'};
+    let books = sampleData.genSampleBooks();
+
+    DB_TABLE.deleteMany(criteria, (err, result)=>{
+      DB_TABLE.insertMany(books, (err, result) => {
+        console.log(result);
+        res.redirect('/booknotes/auth/guest');
+      });
+    });
   });
   
 }

@@ -1,5 +1,7 @@
 "use strict";
 
+const sampleData = require('./sampleData');
+
 var bcrypt = require("bcrypt"); //used to encrypt delete password field
 var ObjectId = require("mongodb").ObjectId; //used to find item in mongodb by _id
 var uniqid = require("uniqid"); //used to generate unique _id field for replies
@@ -383,6 +385,18 @@ module.exports = function(app, db) {
           //alert("Delete password is incorrect");
           res.send("Incorrect delete password");
         }
+      });
+    });
+
+    app.get("/messageboard/data/sample", function(req,res){
+      let criteria = {board: "test_board"};
+      let threads = sampleData.genSampleThreads();
+
+      DB_TABLE.deleteMany(criteria, (err, result)=>{
+        DB_TABLE.insertMany(threads, (err, result) => {
+          console.log(result);
+          res.redirect('/messageboard/test_board');
+        });
       });
     });
 };
