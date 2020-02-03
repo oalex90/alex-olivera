@@ -4811,7 +4811,7 @@ h1 {
 .notes-container .notes-header {
   display: flex;
   justify-content: space-evenly;
-  padding: 0.8em 0;
+  padding: 0.8em 1em;
   border-bottom: 1px solid #707070;
   font-size: 0.9em;
 }
@@ -4825,6 +4825,7 @@ h1 {
 }
 .notes-container .notes-header .sort img {
   width: 8px;
+  margin-right: 1em;
 }
 .notes-container ul {
   color: black;
@@ -5088,9 +5089,13 @@ h1 {
 
   .notes-container .notes-header {
     justify-content: start;
+    padding: 0.8em 0em;
   }
   .notes-container .notes-header .sort {
     margin-left: 15px;
+  }
+  .notes-container .notes-header .sort img {
+    margin-right: 0;
   }
   .notes-container .notes-header .sort-date {
     margin-left: 68px;

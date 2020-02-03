@@ -371,7 +371,7 @@ h1{
     .notes-header {
         display: flex;
         justify-content: space-evenly;
-        padding: .8em 0;
+        padding: .8em 1em;
         border-bottom: 1px solid #707070;
         font-size: .9em;
         
@@ -386,6 +386,7 @@ h1{
 
             img{
                 width: 8px;
+                margin-right: 1em;
             }
         }
     }
@@ -714,9 +715,14 @@ h1{
     .notes-container {
         .notes-header {
             justify-content: start;
+            padding: .8em 0em;
 
             .sort {
                 margin-left: 15px;
+
+                img{
+                    margin-right: 0;
+                }
             }
 
             .sort-date {
