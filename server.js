@@ -39,7 +39,7 @@ app.use(session({ //set up express-session to encrypt user login info
   saveUninitialized: true,
   key: 'express.sid',
   store: sessionStore,
-  cookie: {secure: true}
+  //cookie: {secure: true}
 }));
 
 app.use(function(req, res, next) {
