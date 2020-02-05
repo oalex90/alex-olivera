@@ -21,7 +21,7 @@ module.exports = function (app, db) {
   */
 
  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated() && req.session.passport.user.hasOwnProperty("email")) {return next(); }
+    if (req.isAuthenticated() && req.user.hasOwnProperty("email")) {return next(); }
     res.redirect('/booknotes/login');
   }
  
@@ -46,7 +46,7 @@ module.exports = function (app, db) {
   app.route('/booknotes/api')
     .get(function (req, res){
       console.log(req);
-      
+
       var user = "guest";
       var name = "Guest";
       if(req.user != null){
