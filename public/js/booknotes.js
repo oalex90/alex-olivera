@@ -21,7 +21,8 @@ const dbHelper = {
     fetch(
       '/booknotes/api',
       {
-        method: "GET"
+        method: "GET",
+        credentials: 'include'
       }
     )
       .then(res => res.json())
@@ -34,6 +35,7 @@ const dbHelper = {
       '/booknotes/api',
       {
         method: "POST",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: title
@@ -52,6 +54,7 @@ const dbHelper = {
       '/booknotes/api/',
       {
         method: "PUT",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: bookId,
@@ -71,6 +74,7 @@ const dbHelper = {
       '/booknotes/api/',
       {
         method: "PUT",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: bookId,
@@ -90,6 +94,7 @@ const dbHelper = {
       '/booknotes/api/',
       {
         method: "DELETE",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: id
@@ -108,6 +113,7 @@ const dbHelper = {
       '/booknotes/api/' + bookId,
       {
         method: "POST",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text: text
@@ -126,6 +132,7 @@ const dbHelper = {
       '/booknotes/api/' + bookId,
       {
         method: "DELETE",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           note_id: noteId
@@ -144,6 +151,7 @@ const dbHelper = {
       '/booknotes/api/' + bookId,
       {
         method: "PUT",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           note_id: noteId,
@@ -163,6 +171,7 @@ const dbHelper = {
       '/booknotes/api/' + bookId,
       {
         method: "PUT",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           note_id: noteId,

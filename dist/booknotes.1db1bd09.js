@@ -42733,7 +42733,8 @@ var DEFAULT_IMG_URL = "https://images.pexels.com/photos/762687/pexels-photo-7626
 var dbHelper = {
   getBooks: function getBooks(respAction) {
     fetch('/booknotes/api', {
-      method: "GET"
+      method: "GET",
+      credentials: 'include'
     }).then(function (res) {
       return res.json();
     }).then(respAction).catch(function (error) {
@@ -42743,6 +42744,7 @@ var dbHelper = {
   createBook: function createBook(title, respAction) {
     fetch('/booknotes/api', {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -42758,6 +42760,7 @@ var dbHelper = {
   updateImage: function updateImage(bookId, newImg, respAction) {
     fetch('/booknotes/api/', {
       method: "PUT",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -42774,6 +42777,7 @@ var dbHelper = {
   updateBookTitle: function updateBookTitle(bookId, newTitle, respAction) {
     fetch('/booknotes/api/', {
       method: "PUT",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -42790,6 +42794,7 @@ var dbHelper = {
   deleteBook: function deleteBook(id, respAction) {
     fetch('/booknotes/api/', {
       method: "DELETE",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -42807,6 +42812,7 @@ var dbHelper = {
   addNote: function addNote(bookId, text, respAction) {
     fetch('/booknotes/api/' + bookId, {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -42822,6 +42828,7 @@ var dbHelper = {
   removeNote: function removeNote(bookId, noteId, respAction) {
     fetch('/booknotes/api/' + bookId, {
       method: "DELETE",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -42837,6 +42844,7 @@ var dbHelper = {
   updateNoteText: function updateNoteText(bookId, noteId, noteText, respAction) {
     fetch('/booknotes/api/' + bookId, {
       method: "PUT",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -42853,6 +42861,7 @@ var dbHelper = {
   toggleIsFavorited: function toggleIsFavorited(bookId, noteId, isFavorited, respAction) {
     fetch('/booknotes/api/' + bookId, {
       method: "PUT",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
