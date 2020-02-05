@@ -45,12 +45,15 @@ module.exports = function (app, db) {
   
   app.route('/booknotes/api')
     .get(function (req, res){
-      console.log("user", req.session.passport.user);
-      console.log("sesson", req.session);
-      console.log("user2?", req.user);
-      var user = req.session.passport.user.email;
-      var name = req.session.passport.user.name;
-
+      console.log(req);
+      
+      var user = "guest";
+      var name = "Guest";
+      if(req.user != null){
+        user = req.user.email;
+        name = req.user.name;
+      }
+      
       let query = {user: user};
       //response will be array of book objects
       //json res format: [{"_id": String, "user": String, "title": String, "created_on": String(Date), 
