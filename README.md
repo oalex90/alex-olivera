@@ -2,6 +2,8 @@ Welcome to my Web Development Portfolio
 =================
 
 This site consists of web developement projects I have worked on recently. These projects make use of the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
+
+I have not had the chance to do much testing in Safari, so it is recommeneded to use Google Chrome when accessing this site.
 ------------
 
 This site makes use of the following environment variables:

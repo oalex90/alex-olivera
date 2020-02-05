@@ -95,6 +95,14 @@ const WEAPON_TYPES = { //global var for weapon names and attacks
   4: {name: 'Long Sword',attack: 70}
 };
 
+const calcSquareLength = ()  => {
+  let squareLength = Math.min((window.innerWidth - 30) / NUM_WIDTH, (window.innerHeight - 100) / NUM_HEIGHT);
+  squareLength = Math.min(squareLength, 12.125);
+  return squareLength
+}
+
+
+
 const getRandomPosition = (numHeight, numWidth) => {//get random col and row 
   return {
     col: Math.floor(Math.random() * numHeight), //random number from 0 to numHeight-1
@@ -413,6 +421,15 @@ const isDarkReducer = (state = true, action) => {
   }
 };
 
+const squareLengthReducer = (state = calcSquareLength(), action) => {
+  switch (action.type) {
+    case "SCREEN_RESIZE":
+      return action.squareLength;
+    default:
+      return state;
+  }
+};
+
 //parent reducer
 const roguelikeGameReducer = Redux.combineReducers({
   board: boardReducer,
@@ -424,7 +441,8 @@ const roguelikeGameReducer = Redux.combineReducers({
   experience: experienceReducer,
   dungeon: dungeonReducer,
   enemies: enemiesReducer,
-  isDark: isDarkReducer
+  isDark: isDarkReducer,
+  squareLength: squareLengthReducer
 });
 
 //--------------------------------------------------------------------------------------------
@@ -559,16 +577,11 @@ class Board extends React.Component {
   }
 
   render() {
-    console.log("screen innerwidth", window.innerWidth);
-    console.log("screen width", window.screen.width);
-    let squareLength = Math.min((window.innerWidth - 30) / NUM_WIDTH, (window.innerHeight - 100) / NUM_HEIGHT);
-    squareLength = Math.min(squareLength, 12.125);
-    console.log("squareLength:", squareLength);
-    let boardWidth = NUM_WIDTH * squareLength;
+    let boardWidth = NUM_WIDTH * this.props.squareLength;
     let boardStyle = {
       width: boardWidth,
-      gridTemplateColumns: "repeat(" + NUM_WIDTH + "," + squareLength + "px)",
-      gridTemplateRows: "repeat(" + NUM_HEIGHT + "," + squareLength + "px)"
+      gridTemplateColumns: "repeat(" + NUM_WIDTH + "," + this.props.squareLength + "px)",
+      gridTemplateRows: "repeat(" + NUM_HEIGHT + "," + this.props.squareLength + "px)"
     }
 
     return (
@@ -583,12 +596,14 @@ const mapStateToBoardProps = state => {
   return {
     board: state.board,
     playerPosition: state.playerPosition,
-    isDark: state.isDark
+    isDark: state.isDark,
+    squareLength: state.squareLength
   };
 };
 
 const matchDispatchToBoardProps = dispatch => {
-  return {};
+  return {
+  };
 }; 
 
 const VisibleBoard = ReactRedux.connect(
@@ -724,6 +739,13 @@ class RoguelikeGame extends React.Component{
       }
       
     }) //run handler after every keydown event
+
+    window.addEventListener('resize', (e)=>{
+      let newSquareLength = calcSquareLength();
+      if(newSquareLength != this.props.state.squareLength){
+        this.props.screenResize(newSquareLength);
+      }
+    })
   }
   
   render() {
@@ -824,6 +846,12 @@ const matchDispatchToRoguelikeGameProps = (dispatch) => {
       dispatch({
         type: 'GAIN_EXPERIENCE',
         gainedXP: gainedXP //experience gained
+      });
+    },
+    screenResize: (squareLength) => { //button click toggles the darkness state value
+      dispatch({
+        type: 'SCREEN_RESIZE',
+        squareLength: squareLength //new square length
       });
     }
   };

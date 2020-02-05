@@ -46208,6 +46208,12 @@ var WEAPON_TYPES = {
   }
 };
 
+var calcSquareLength = function calcSquareLength() {
+  var squareLength = Math.min((window.innerWidth - 30) / NUM_WIDTH, (window.innerHeight - 100) / NUM_HEIGHT);
+  squareLength = Math.min(squareLength, 12.125);
+  return squareLength;
+};
+
 var getRandomPosition = function getRandomPosition(numHeight, numWidth) {
   //get random col and row 
   return {
@@ -46626,6 +46632,19 @@ var isDarkReducer = function isDarkReducer() {
     default:
       return state;
   }
+};
+
+var squareLengthReducer = function squareLengthReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : calcSquareLength();
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case "SCREEN_RESIZE":
+      return action.squareLength;
+
+    default:
+      return state;
+  }
 }; //parent reducer
 
 
@@ -46639,7 +46658,8 @@ var roguelikeGameReducer = Redux.combineReducers({
   experience: experienceReducer,
   dungeon: dungeonReducer,
   enemies: enemiesReducer,
-  isDark: isDarkReducer
+  isDark: isDarkReducer,
+  squareLength: squareLengthReducer
 }); //--------------------------------------------------------------------------------------------
 //--React Components--//
 //header react component with all the game stats
@@ -46800,16 +46820,11 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log("screen innerwidth", window.innerWidth);
-      console.log("screen width", window.screen.width);
-      var squareLength = Math.min((window.innerWidth - 30) / NUM_WIDTH, (window.innerHeight - 100) / NUM_HEIGHT);
-      squareLength = Math.min(squareLength, 12.125);
-      console.log("squareLength:", squareLength);
-      var boardWidth = NUM_WIDTH * squareLength;
+      var boardWidth = NUM_WIDTH * this.props.squareLength;
       var boardStyle = {
         width: boardWidth,
-        gridTemplateColumns: "repeat(" + NUM_WIDTH + "," + squareLength + "px)",
-        gridTemplateRows: "repeat(" + NUM_HEIGHT + "," + squareLength + "px)"
+        gridTemplateColumns: "repeat(" + NUM_WIDTH + "," + this.props.squareLength + "px)",
+        gridTemplateRows: "repeat(" + NUM_HEIGHT + "," + this.props.squareLength + "px)"
       };
       return _react.default.createElement("div", {
         className: "board",
@@ -46825,7 +46840,8 @@ var mapStateToBoardProps = function mapStateToBoardProps(state) {
   return {
     board: state.board,
     playerPosition: state.playerPosition,
-    isDark: state.isDark
+    isDark: state.isDark,
+    squareLength: state.squareLength
   };
 };
 
@@ -47034,6 +47050,14 @@ function (_React$Component2) {
           _this2.onKeyDownHandler(e.keyCode);
         }
       }); //run handler after every keydown event
+
+      window.addEventListener('resize', function (e) {
+        var newSquareLength = calcSquareLength();
+
+        if (newSquareLength != _this2.props.state.squareLength) {
+          _this2.props.screenResize(newSquareLength);
+        }
+      });
     }
   }, {
     key: "render",
@@ -47165,6 +47189,14 @@ var matchDispatchToRoguelikeGameProps = function matchDispatchToRoguelikeGamePro
       dispatch({
         type: 'GAIN_EXPERIENCE',
         gainedXP: gainedXP //experience gained
+
+      });
+    },
+    screenResize: function screenResize(squareLength) {
+      //button click toggles the darkness state value
+      dispatch({
+        type: 'SCREEN_RESIZE',
+        squareLength: squareLength //new square length
 
       });
     }

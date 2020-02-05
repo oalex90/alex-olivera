@@ -45,7 +45,7 @@ module.exports = function (app, db) {
   
   app.route('/booknotes/api')
     .get(function (req, res){
-      console.log(req);
+      //console.log(req);
 
       var user = "guest";
       var name = "Guest";
