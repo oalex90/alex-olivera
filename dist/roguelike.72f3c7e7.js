@@ -46840,25 +46840,16 @@ var RoguelikeGame =
 function (_React$Component2) {
   _inherits(RoguelikeGame, _React$Component2);
 
-  function RoguelikeGame(props) {
-    var _this;
-
+  function RoguelikeGame() {
     _classCallCheck(this, RoguelikeGame);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(RoguelikeGame).call(this, props));
-    _this.onMoveClickHandler = _this.onMoveClickHandler.bind(_assertThisInitialized(_this));
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(RoguelikeGame).apply(this, arguments));
   }
 
   _createClass(RoguelikeGame, [{
-    key: "onMoveClickHandler",
-    value: function onMoveClickHandler(direction) {
-      console.log("moving", direction);
-    }
-  }, {
     key: "onKeyDownHandler",
     value: function onKeyDownHandler(keyCode) {
-      var _this2 = this;
+      var _this = this;
 
       //using keyCode and the target square value, call correct action/dispatch
       var state = this.props.state;
@@ -46903,16 +46894,16 @@ function (_React$Component2) {
 
             if (state.attack >= enemy.health) {
               //player defeats enemy, gain xp and move to the space
-              _this2.props.defeatEnemy(enemyIndex);
+              _this.props.defeatEnemy(enemyIndex);
 
               var gainedXP = (state.dungeon + 1) * 10; //exp gained is based on dungeon level
 
               if (gainedXP >= state.experience) {
                 //level up if gained enough xp
-                _this2.props.levelUp(state.level + 1, gainedXP - state.experience);
+                _this.props.levelUp(state.level + 1, gainedXP - state.experience);
               } else {
                 //gain XP
-                _this2.props.gainExperience(gainedXP);
+                _this.props.gainExperience(gainedXP);
               }
 
               moveFunction(playerPosition);
@@ -46923,36 +46914,36 @@ function (_React$Component2) {
                   //quick wait to allow move action to occur before alert
                   alert("Congratulations! You have won!");
 
-                  _this2.props.newGame(generateBoard(0)); //start new game
+                  _this.props.newGame(generateBoard(0)); //start new game
 
                 }, 200);
               }
             } else if (enemyDamage >= state.health) {
               //player dies -> start new game
-              _this2.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
+              _this.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
 
               setTimeout(function () {
                 alert("You Died. Try again");
 
-                _this2.props.newGame(generateBoard(0));
+                _this.props.newGame(generateBoard(0));
               }, 200);
             } else {
               //exchange damage -> lower player and enemy health
-              _this2.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
+              _this.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
             }
 
             break;
 
           case 3:
             //health -> player gains health, then move to space
-            _this2.props.gainHealth();
+            _this.props.gainHealth();
 
             moveFunction(playerPosition);
             break;
 
           case 5:
             //door -> generate next level dungeon
-            _this2.props.nextDungeon(generateBoard(state.dungeon + 1));
+            _this.props.nextDungeon(generateBoard(state.dungeon + 1));
 
             break;
 
@@ -46968,7 +46959,7 @@ function (_React$Component2) {
 
             var newWeapon = WEAPON_TYPES[state.dungeon];
 
-            _this2.props.changeWeapon(oldWeapon, newWeapon);
+            _this.props.changeWeapon(oldWeapon, newWeapon);
 
             moveFunction(playerPosition);
             break;
@@ -47033,43 +47024,43 @@ function (_React$Component2) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this3 = this;
+      var _this2 = this;
 
       //activate listner right after component is mounted
       window.addEventListener('keydown', function (e) {
         if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
           e.preventDefault();
 
-          _this3.onKeyDownHandler(e.keyCode);
+          _this2.onKeyDownHandler(e.keyCode);
         }
       }); //run handler after every keydown event
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       return _react.default.createElement("div", null, _react.default.createElement(VisibleHeader, null), _react.default.createElement(VisibleBoard, null), _react.default.createElement("div", {
         className: "move-container"
       }, _react.default.createElement("div", {
         className: "move-up",
         onClick: function onClick() {
-          _this4.onKeyDownHandler(38);
+          _this3.onKeyDownHandler(38);
         }
       }, "\u2191"), _react.default.createElement("div", {
         className: "move-left",
         onClick: function onClick() {
-          _this4.onKeyDownHandler(37);
+          _this3.onKeyDownHandler(37);
         }
       }, "\u2190"), _react.default.createElement("div", {
         className: "move-right",
         onClick: function onClick() {
-          _this4.onKeyDownHandler(39);
+          _this3.onKeyDownHandler(39);
         }
       }, "\u2192"), _react.default.createElement("div", {
         className: "move-down",
         onClick: function onClick() {
-          _this4.onKeyDownHandler(40);
+          _this3.onKeyDownHandler(40);
         }
       }, "\u2193")));
     }
@@ -47234,7 +47225,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51131" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49753" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -598,15 +598,6 @@ const VisibleBoard = ReactRedux.connect(
 
 //parent React component
 class RoguelikeGame extends React.Component{
-  constructor(props){
-    super(props);
-    this.onMoveClickHandler = this.onMoveClickHandler.bind(this);
-  }
-
-  onMoveClickHandler(direction) {
-    console.log("moving", direction);
-  }
-  
   
   onKeyDownHandler(keyCode){//using keyCode and the target square value, call correct action/dispatch
     let state = this.props.state;

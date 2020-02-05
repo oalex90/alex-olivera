@@ -45,7 +45,9 @@ module.exports = function (app, db) {
   
   app.route('/booknotes/api')
     .get(function (req, res){
-      //console.log("user", req.session.passport.user);
+      console.log("user", req.session.passport.user);
+      console.log("sesson", req.session);
+      console.log("user2?", req.user);
       var user = req.session.passport.user.email;
       var name = req.session.passport.user.name;
 

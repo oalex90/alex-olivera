@@ -174,10 +174,10 @@ body{
 
 .move-container {
   position: fixed;
-  bottom: 1em;
-  right: 1em;
-  height: 100px;
-  width: 100px;
+  bottom: 3em;
+  right: 2em;
+  height: 120px;
+  width: 120px;
   display: grid;
   grid-template-columns: fr fr fr;
   grid-template-rows: auto;
@@ -187,11 +187,11 @@ body{
     ". d .";
 
   div {
-    font-size: .85em;
+    font-size: 1em;
     background: darkslategrey;
-    height: 30px;
-    width: 30px;
-    line-height: 30px;
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
     border-radius: 5px;
     opacity: .7;
     cursor: pointer;
