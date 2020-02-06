@@ -49,9 +49,13 @@ module.exports = function (app, db) {
 
       var user = "guest";
       var name = "Guest";
+      var error;
+
       if(req.user != null){
         user = req.user.email;
         name = req.user.name;
+      } else {
+        error = "Could not retrieve account info. Please use Google Chrome to view this page if you are not already doing so."
       }
       
       let query = {user: user};
@@ -59,7 +63,7 @@ module.exports = function (app, db) {
       //json res format: [{"_id": String, "user": String, "title": String, "created_on": String(Date), 
       //  "notes": [{"_id": String, "text": String, "created_on": String(Date), "is_favorited" boolean},...]},...]
       DB_TABLE.find(query).toArray((err, results)=>{
-        res.json({books: results, name: name});
+        res.json({books: results, name: name, error: error});
       });
     })
     

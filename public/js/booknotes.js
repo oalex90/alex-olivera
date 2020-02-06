@@ -610,6 +610,9 @@ function BookNotes(props){
       setBookItems(response.books);
       setName(response.name);
       setIsLoading(false);
+      if(response.error != null) {
+        alert(response.error);
+      }
     });
   }, []); //[] ensures fetch call only runs once
 

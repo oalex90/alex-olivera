@@ -21,7 +21,7 @@ const BOOK_SAMPLE_DATA = [
     },
     {
         title: "The Pragmatic Programmer",
-        image: "https://images.pexels.com/photos/2058128/pexels-photo-2058128.jpeg",
+        image: "https://jaxenter.com/wp-content/uploads/2019/09/shutterstock_753972046-350x233.jpg",
         notes: [
         "Don't Repeate Yourself",
         "Make It Easy to Reuse",
@@ -66,7 +66,7 @@ const BOOK_SAMPLE_DATA = [
     },
     {
         title: "How to Win Friends and Influence People",
-        image: "https://images.pexels.com/photos/745045/pexels-photo-745045.jpeg",
+        image: "https://www.rollingstone.com/wp-content/uploads/2019/09/FriendsLead.jpg",
         notes: [
         "Don't criticize, condemn, or complain.",
         "Give honest and sincere appreciation.",
