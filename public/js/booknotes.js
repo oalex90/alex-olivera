@@ -1,8 +1,8 @@
 import '../css/booknotes.scss';
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 
+//images used in react components
 import iconExit from '../img/exit.svg';
 import iconFavSelected from '../img/icon-fav-selected.svg';
 import iconFavUnselected from '../img/icon-fav-unselected.svg';
@@ -12,12 +12,8 @@ import iconDelete from '../img/icon-delete.svg';
 import iconSort from '../img/icon-sort.svg';
 import iconHam from '../img/ham.svg';
 
-import imageBook from '../img/img-book.png';
-
-const DEFAULT_IMG_URL = "https://images.pexels.com/photos/762687/pexels-photo-762687.jpeg";
-
-const dbHelper = {
-  getBooks: (respAction) => {
+const dbHelper = { //contains all db interaction functions
+  getBooks: (respAction) => { //gets all books for the signed-in user, response returns array of books 
     fetch(
       '/booknotes/api',
       {
@@ -30,7 +26,7 @@ const dbHelper = {
       .catch(error => console.log(error));
   },
 
-  createBook: (title, respAction) =>{
+  createBook: (title, respAction) =>{ //creates a book in db for signed-in user, response returns new book
     fetch(
       '/booknotes/api',
       {
@@ -49,7 +45,7 @@ const dbHelper = {
       });
   },
 
-  updateImage: (bookId, newImg, respAction) => {
+  updateImage: (bookId, newImg, respAction) => { //updates image prop for a given book, response returns updated book
     fetch(
       '/booknotes/api/',
       {
@@ -69,7 +65,7 @@ const dbHelper = {
       });
   },
 
-  updateBookTitle: (bookId, newTitle, respAction) => {
+  updateBookTitle: (bookId, newTitle, respAction) => { //updates title prop for a given book, response returns updated book
     fetch(
       '/booknotes/api/',
       {
@@ -89,7 +85,7 @@ const dbHelper = {
       });
   },
 
-  deleteBook: (id, respAction) =>{
+  deleteBook: (id, respAction) =>{ //delete a book, response returns book id
     fetch(
       '/booknotes/api/',
       {
@@ -108,7 +104,7 @@ const dbHelper = {
       });
   },
 
-  addNote: (bookId, text, respAction) => {
+  addNote: (bookId, text, respAction) => { //add note to notes array of a book, response returns updated book
     fetch(
       '/booknotes/api/' + bookId,
       {
@@ -127,7 +123,7 @@ const dbHelper = {
       });
   },
 
-  removeNote: (bookId, noteId, respAction) => {
+  removeNote: (bookId, noteId, respAction) => { //remove note from notes array of a book, response returns updated book
     fetch(
       '/booknotes/api/' + bookId,
       {
@@ -146,7 +142,7 @@ const dbHelper = {
       });
   },
 
-  updateNoteText: (bookId, noteId, noteText, respAction) => {
+  updateNoteText: (bookId, noteId, noteText, respAction) => { //updates note text of given note, response returns updated book
     fetch(
       '/booknotes/api/' + bookId,
       {
@@ -166,7 +162,7 @@ const dbHelper = {
       });
   },
 
-  toggleIsFavorited: (bookId, noteId, isFavorited, respAction) => {
+  toggleIsFavorited: (bookId, noteId, isFavorited, respAction) => { //toogles isFavorited prop of given not, response returns updated book
     fetch(
       '/booknotes/api/' + bookId,
       {
@@ -187,7 +183,7 @@ const dbHelper = {
   }
 };
 
-function toggleMenu(){
+function toggleMenu(){ //shows/hides menu
   document.getElementById('title-list').classList.toggle('hide-mobile');
 }
 

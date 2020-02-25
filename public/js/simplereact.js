@@ -26,17 +26,27 @@ import { SimpleReactComp } from '../js/components/simplereactcomp';
   }
 }*/
 
-class Test extends React.Component {
-  render(){
-    return (
-      <div>
-        <h2>Alex!!</h2>
-        <SimpleReactComp/>
-      </div>
-    );
-  }
+// class Test extends React.Component {
+//   render(){
+//     return (
+//       <div>
+//         <h2>Alex!!</h2>
+//         <SimpleReactComp/>
+//       </div>
+//     );
+//   }
+// }
+
+function Test (props) {
+  return (
+    <div>
+      <h2>Alex!</h2>
+      <SimpleReactComp/>
+    </div>
+  )
 }
 
-$(document).ready(function() {
-  ReactDOM.render(<Test/>, document.getElementById("root"));
-});
+
+
+ReactDOM.render(<Test/>, document.getElementById("root"));
+
