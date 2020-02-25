@@ -660,11 +660,9 @@ class RoguelikeGame extends React.Component{
            }
          
            else if(enemyDamage >= state.health){ //player dies -> start new game
-             this.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
-             setTimeout(()=>{ 
-               alert("You Died. Try again");
-               this.props.newGame(generateBoard(0));
-             }, 200);
+              this.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
+              alert("You Died. Try again");
+              this.props.newGame(generateBoard(0));
              
            }
            else{ //exchange damage -> lower player and enemy health

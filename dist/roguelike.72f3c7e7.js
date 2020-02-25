@@ -46938,11 +46938,9 @@ function (_React$Component2) {
               //player dies -> start new game
               _this.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
 
-              setTimeout(function () {
-                alert("You Died. Try again");
+              alert("You Died. Try again");
 
-                _this.props.newGame(generateBoard(0));
-              }, 200);
+              _this.props.newGame(generateBoard(0));
             } else {
               //exchange damage -> lower player and enemy health
               _this.props.attackEnemy(state.attack, enemyDamage, enemyIndex);
