@@ -1,5 +1,5 @@
 const passport      = require('passport'); // for authenticating user (sign-in)
-const GitHubStrategy = require('passport-github').Strategy;
+const GitHubStrategy = require('passport-github2').Strategy;
 const DummyStrategy = require('passport-dummy').Strategy;
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -31,7 +31,7 @@ module.exports = function (app) {
     },
       function(accessToken, refreshToken, profile, cb) { //cb = callback
           //console.log("email: ", profile);
-          let email = profile.emails.filter(e=>e.primary == true)[0].value;
+          let email = profile.emails[0].value;
           let name = profile._json.name;
           return cb(null, {email, name});
       }
