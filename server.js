@@ -20,6 +20,8 @@ const shorturlRoute        = require('./routes/shorturl-api.js');
 const stockpricesRoute     = require('./routes/stockprices-api.js');
 const booknotesRoute       = require('./routes/booknotes-api.js');
 const booknotesAuths       = require('./routes/booknotes-auths.js');
+const emoterRoute          = require('./routes/emoter-api.js');
+const emoterAuths          = require('./routes/emoter-auths.js');
 const issuetrackerRoute    = require('./routes/issuetracker-api.js');
 const messageboardRoute    = require('./routes/messageboard-api.js');
 const chatroomRoute        = require('./routes/chatroom-api.js');
@@ -63,6 +65,8 @@ MongoClient.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology:
   stockpricesRoute(app, db);
   booknotesAuths(app);
   booknotesRoute(app, db);
+  emoterAuths(app);
+  emoterRoute(app, db);
   issuetrackerRoute(app, db);
   messageboardRoute(app, db);
   chatroomAuths(app, db);

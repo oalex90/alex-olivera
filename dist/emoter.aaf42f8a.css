@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap");
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, p {
+  margin: 0;
+  font-weight: 400;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.remove {
+  display: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.container {
+  text-align: center;
+  padding: 0.8em 1.2em;
+  margin: 0 auto;
+}
+
+#logo {
+  width: 80px;
+}
+
+/*# sourceMappingURL=/emoter.aaf42f8a.css.map */
