@@ -28,7 +28,7 @@
     "passport-local": "^1.0.0",
     "passport.socketio": "^3.7.0",
     "request-promise": "^4.2.4",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "uniqid": "^5.0.3",
     "url-exists-deep": "^1.1.1"
   },
