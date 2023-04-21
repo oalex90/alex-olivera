@@ -15,7 +15,7 @@
     "boo": "^2.0.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "helmet": "^3.21.1",
     "img": "^3.0.3",
