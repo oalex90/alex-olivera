@@ -1,3 +1,71 @@
-<!DOCTYPE html><html><head><title>URL Shortener</title><link rel="icon shortcut" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"><link rel="stylesheet" href="/shorturl.2a0e21e7.css"></head><body> <header> <ul id="nav-bar" class="justify-content-center nav"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> </ul> </header> <div class="container"> <h1>URL Shortener Microservice</h1> <h2>Instructions: </h2> <ul> <li>Enter a valid URL into the box below to receive a shortened URL that can be used to access the original URL.</li> <li>Note: make sure to include http:// or https:// in your URL.</li> </ul> <form id="shorturlForm"> <label for="url_input">URL to be shortened</label> <input id="url_input" type="text" name="url" value="https://www.freecodecamp.org"> <input type="submit" value="Shorten URL"> </form> <div id="resultDisplay"></div> <hr> <h2 id="api-title">API</h2> <h3>/shorturl</h3> <h4> POST </h4> <div>Input: <code>"url": "https://www.freecodecamp.org"</code> </div> <div>Output: <code> { "original_url": "https://www.freecodecamp.org", "short_url": "1", } </code> </div> <hr> <div class="footer"> <p> by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i> </p> </div> </div> <script src="/shorturl.e8b48ab0.js"></script> <script>
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>URL Shortener</title>
+    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/shorturl.afb73442.css"></head>
+  
+   <body>
+    <header>
+      <ul id="nav-bar" class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+      </ul>
+    </header>
+    
+      <div class="container">
+        <h1>URL Shortener Microservice</h1>
+        <h2>Instructions: </h2>
+        <ul>
+          <li>Enter a valid URL into the box below to receive a shortened URL that can be used to access the original URL.</li>
+          <li>Note: make sure to include http:// or https:// in your URL.</li>
+        </ul>
+
+        <form id="shorturlForm">
+          <label for="url_input">URL to be shortened</label>
+          <input id="url_input" type="text" name="url" value="https://www.freecodecamp.org">
+          <input type="submit" value="Shorten URL">
+        </form>
+        <div id="resultDisplay"></div>
+      
+     <hr>
+     
+     <h2 id="api-title">API</h2>
+
+      <h3>/shorturl</h3>
+      
+      <h4>
+        POST
+      </h4>
+      <div>Input:
+        <code>"url": "https://www.freecodecamp.org"</code>
+      </div>
+      <div>Output:
+        <code>
+         { "original_url": "https://www.freecodecamp.org",
+           "short_url": "1",
+         }
+        </code>
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
+        </p>
+      </div>
+      
+    </div>
+     
+    <script src="/shorturl.afb73442.js"></script>
+     <script>
        
-     </script> </body></html>
+     </script>
+     
+   </body>
+
+
+</html>

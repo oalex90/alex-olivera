@@ -1,1 +1,145 @@
-<!DOCTYPE html><html><head><title>Issue Tracker</title><link rel="icon shortcut" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"><link rel="stylesheet" href="/issuetracker.2a0e21e7.css"></head><body> <header> <ul id="nav-bar" class="justify-content-center nav"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> </ul> </header> <div class="container"> <h1>Issue Tracker</h1> <h2>Instructions:</h2> <ul> <li> Enter a project name to navigate to that project. </li> <li> Once you are on the project page, you can create issues, mark them as closed, and delete them. </li> </ul> <form id="issuetrackerForm"> <label for="project_input">Project to Open:</label> <input id="project_input" type="text" name="project" value="test_project"> <input type="submit" value="Open Project"> </form> <hr style="margin:50px"> <h2 id="api-title">API</h2> <h3>/issuetracker/api/:project</h3> <h4>GET</h4> <div>Input: <code>/issuetracker/api/my_project</code> </div> <div>Output: <code> [{ "project": "my_project", "issue_title": "Issue One", "issue_text": "Main document needs formatting.", "created_on": 2019-10-09T16:16:27.617Z, "updated_on": 2019-10-09T16:16:27.617Z, "created_by": "Alex", "assigned_to": "Jim", "open": true, "status_text": "In Progress" }, { "project": "my_project", "issue_title": "Issue Two", "issue_text": "Need to complete routing", "created_on": 2019-10-09T16:16:27.617Z, "updated_on": 2019-10-09T16:16:27.617Z, "created_by": "Alex", "assigned_to": "Alex", "open": false, "status_text": "Completed" } ] </code> </div> <h4> POST </h4> <div>Input: <code> "project": "my_project", "issue_title": "Issue One", "issue_text": "Main document needs formatting.", "created_by": "Alex", "assigned_to": "Jim", "status_text": "In Progress" </code> </div> <div>Output: <code> { "project": "my_project", "issue_title": "Issue One", "issue_text": "Main document needs formatting.", "created_on": 2019-10-09T16:16:27.617Z, "updated_on": 2019-10-09T16:16:27.617Z, "created_by": "Alex", "assigned_to": "Jim", "open": true, "status_text": "In Progress", "_id": 5d9e0fc7a616ec0c309205be } </code> </div> <h4> PUT </h4> <div> marks an issue as closed </div> <div>Input: <code> "_id": "5d9e0fc7a616ec0c309205be" </code> </div> <div>Output: <code> "successfully updated" </code> </div> <h4> DELETE </h4> <div>Input: <code> "_id": "5d9e0fc7a616ec0c309205be" </code> </div> <div>Output: <code> "deleted 5d9e0fc7a616ec0c309205be" </code> </div> <hr> <div class="footer"> <p> by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i> </p> </div> </div> <script src="/issuetracker.7d80626e.js"></script>  </body></html>
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Issue Tracker</title>
+    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/issuetracker.6abc71cb.css"></head>
+
+  <body>
+    <header>
+    <ul id="nav-bar" class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+    </header>
+
+    <div class="container">     
+      <h1>Issue Tracker</h1>
+      <h2>Instructions:</h2>
+      <ul>
+        <li>
+          Enter a project name to navigate to that project.
+        </li>
+        <li>
+          Once you are on the project page, you can create issues, mark them as closed, and delete them.
+        </li>
+      </ul>
+      
+      
+
+      <form id="issuetrackerForm">
+          <label for="project_input">Project to Open:</label>
+          <input id="project_input" type="text" name="project" value="test_project">
+          <input type="submit" value="Open Project">
+      </form>
+      
+      <hr style="margin: 50px">
+      
+      <h2 id="api-title">API</h2>
+      
+      <h3>/issuetracker/api/:project</h3>
+      
+      <h4>GET</h4>
+      <div>Input:
+        <code>/issuetracker/api/my_project</code>
+      </div>
+      <div>Output:
+        <code>
+          [{ "project": "my_project",
+             "issue_title": "Issue One",
+             "issue_text": "Main document needs formatting.",
+             "created_on": 2019-10-09T16:16:27.617Z,
+             "updated_on": 2019-10-09T16:16:27.617Z,
+             "created_by": "Alex",
+             "assigned_to": "Jim",
+             "open": true,
+             "status_text": "In Progress"
+           },
+           { "project": "my_project",
+             "issue_title": "Issue Two",
+             "issue_text": "Need to complete routing",
+             "created_on": 2019-10-09T16:16:27.617Z,
+             "updated_on": 2019-10-09T16:16:27.617Z,
+             "created_by": "Alex",
+             "assigned_to": "Alex",
+             "open": false,
+             "status_text": "Completed"
+           }
+          ]
+        </code>
+      </div>
+      <h4>
+        POST
+      </h4>
+      <div>Input:
+        <code>
+          "project": "my_project",
+          "issue_title": "Issue One",
+          "issue_text": "Main document needs formatting.",
+          "created_by": "Alex",
+          "assigned_to": "Jim",
+          "status_text": "In Progress" 
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         { "project": "my_project",
+           "issue_title": "Issue One",
+           "issue_text": "Main document needs formatting.",
+           "created_on": 2019-10-09T16:16:27.617Z,
+           "updated_on": 2019-10-09T16:16:27.617Z,
+           "created_by": "Alex",
+           "assigned_to": "Jim",
+           "open": true,
+           "status_text": "In Progress",
+           "_id": 5d9e0fc7a616ec0c309205be
+          }
+        </code>
+      </div>
+      
+      <h4>
+        PUT
+      </h4>
+      <div>
+        marks an issue as closed
+      </div>
+      <div>Input:
+        <code>
+          "_id": "5d9e0fc7a616ec0c309205be"
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         "successfully updated"
+        </code>
+      </div>
+      
+      <h4>
+        DELETE
+      </h4>
+      <div>Input:
+        <code>
+          "_id": "5d9e0fc7a616ec0c309205be"
+        </code>
+      </div>
+      <div>Output:
+        <code>
+         "deleted 5d9e0fc7a616ec0c309205be"
+        </code>
+      </div>
+      
+      <hr>
+
+      <div class="footer">
+        <p>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
+        </p>
+      </div>
+      </div>
+      
+      <script src="/issuetracker.6abc71cb.js"></script>
+    
+  </body>
+</html>

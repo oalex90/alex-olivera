@@ -1,1 +1,46 @@
-<!DOCTYPE html><html><head><title>Issue Tracker Project</title><link rel="icon shortcut" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"><link rel="stylesheet" href="/issuetracker-project.9d26b704.css"></head><body> <header> <ul id="nav-bar" class="justify-content-center nav"> <li class="nav-item"> <a class="nav-link" href="/issuetracker">Back</a> </li> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> </ul> </header> <h1 id="projectTitle"></h1> <center> <div id="submitNewIssue"> <br> <h3>Submit a new issue:</h3> <form id="newIssue" method="post" action="/api/"> <input type="text" name="issue_title" placeholder="*Title" style="width:320px;margin-bottom:3px;" required=""><br> <textarea type="text" name="issue_text" placeholder="*Text" style="width:320px;height:100px;" required=""></textarea><br> <input type="text" name="created_by" placeholder="*Created by" style="width:100px" required=""> <input type="text" name="assigned_to" placeholder="(opt)Assigned to" style="width:100px"> <input type="text" name="status_text" placeholder="(opt)Status text" style="width:100px"><br> <button type="submit">Submit Issue</button> </form> </div> <div id="issueDisplay"></div> <hr> <div class="footer"> <p> by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i> </p> </div> </center> <script src="/issuetracker-project.8ec5bdb8.js"></script> </body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Issue Tracker Project</title>
+    <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/issuetracker-project.afd94d08.css"></head>
+  <body>
+    <header>
+    <ul id="nav-bar" class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/issuetracker">Back</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+    </header>
+    <h1 id="projectTitle"></h1>
+    <center>
+      <div id="submitNewIssue">
+        <br>
+        <h3>Submit a new issue:</h3>
+        <form id="newIssue" method="post" action="/api/">
+          <input type="text" name="issue_title" placeholder="*Title" style="width: 320px; margin-bottom: 3px;" required=""><br>
+          <textarea type="text" name="issue_text" placeholder="*Text" style="width: 320px; height: 100px;" required=""></textarea><br>
+          <input type="text" name="created_by" placeholder="*Created by" style="width: 100px" required="">
+          <input type="text" name="assigned_to" placeholder="(opt)Assigned to" style="width: 100px">
+          <input type="text" name="status_text" placeholder="(opt)Status text" style="width: 100px"><br>
+          <button type="submit">Submit Issue</button>
+        </form>
+      </div>
+      
+      <div id="issueDisplay"></div>
+      
+      <hr>
+
+      <div class="footer">
+        <p>
+          by <i>Alex Olivera: (<a href="mailto: oalex90@gmail.com">oalex90@gmail.com</a>)</i>
+        </p>
+      </div>
+    </center>
+    
+    <script src="/issuetracker-project.afd94d08.js"></script>
+  </body>
+</html>
