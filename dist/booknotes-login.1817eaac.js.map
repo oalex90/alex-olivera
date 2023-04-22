@@ -1,0 +1,1 @@
+{"version":3,"sources":["../public/js/booknotes-login.js"],"names":["require"],"mappings":";;;;;AACA,aADAA,QAAA,6CACAA,QAAA","file":"booknotes-login.1817eaac.js","sourceRoot":"..\\views","sourcesContent":["import '@fortawesome/fontawesome-free/css/all.css'\r\nimport '../css/booknotes.scss';\r\n"]}
